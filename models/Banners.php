@@ -44,9 +44,9 @@ class Banners extends \yii\db\ActiveRecord {
     public function attributeLabels() {
         return [
             'banner_id' => 'Banner ID',
-            'name_en' => 'Name En',
+            'name_en' => 'Name',
             'image' => 'Image',
-            'type' => 'Type',
+            'type' => 'Banner Type',
             'url' => 'Url',
             'is_active' => 'Is Active',
             'is_deleted' => 'Is Deleted',

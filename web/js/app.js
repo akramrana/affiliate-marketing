@@ -31,5 +31,19 @@ var app = {
             console.log(textStatus);
         })
     },
+    showHideLink:function(v)
+    {
+        if($.trim(v)!=""){
+            if(v=='L'){
+                $("#link-section").show();
+            }else{
+                $("#link-section").hide();
+                $("#banners-url").val("");
+            }
+        }else{
+            $("#link-section").hide();
+            $("#banners-url").val("");
+        }
+    }
 }
 
