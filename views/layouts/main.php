@@ -48,6 +48,7 @@ AppAsset::register($this);
                     ['label' => 'CMS', 'url' => ['/cms/index']],
                     ['label' => 'FAQS', 'url' => ['/faqs/index']],
                     ['label' => 'Banners', 'url' => ['/banner/index']],
+                    ['label' => 'Deal', 'url' => ['/deal/index']],
                     Yii::$app->user->isGuest ? (
                             ['label' => 'Login', 'url' => ['/site/login']]
                             ) : (
