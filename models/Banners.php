@@ -15,26 +15,24 @@ use Yii;
  * @property int $is_deleted
  * @property string $created_at
  */
-class Banners extends \yii\db\ActiveRecord
-{
+class Banners extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'banners';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['image', 'type', 'created_at'], 'required'],
             [['type'], 'string'],
             [['is_active', 'is_deleted'], 'integer'],
-            [['created_at'], 'safe'],
+            [['created_at', 'url'], 'safe'],
             [['name_en'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 255],
         ];
@@ -43,16 +41,17 @@ class Banners extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'banner_id' => 'Banner ID',
             'name_en' => 'Name En',
             'image' => 'Image',
             'type' => 'Type',
+            'url' => 'Url',
             'is_active' => 'Is Active',
             'is_deleted' => 'Is Deleted',
             'created_at' => 'Created At',
         ];
     }
+
 }
