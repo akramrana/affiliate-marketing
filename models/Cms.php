@@ -28,7 +28,7 @@ class Cms extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title_en', 'content_en', 'is_deleted'], 'required'],
+            [['title_en', 'content_en'], 'required'],
             [['content_en'], 'string'],
             [['is_deleted'], 'integer'],
             [['title_en'], 'string', 'max' => 255],
@@ -42,8 +42,8 @@ class Cms extends \yii\db\ActiveRecord
     {
         return [
             'cms_id' => 'Cms ID',
-            'title_en' => 'Title En',
-            'content_en' => 'Content En',
+            'title_en' => 'Title',
+            'content_en' => 'Content',
             'is_deleted' => 'Is Deleted',
         ];
     }

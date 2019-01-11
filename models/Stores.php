@@ -36,9 +36,9 @@ class Stores extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['api_store_id', 'name', 'network_id', 'is_active', 'is_deleted'], 'integer'],
+            [['network_id', 'is_active', 'is_deleted'], 'integer'],
             [['description'], 'string'],
-            [['network_id', 'is_active', 'is_deleted'], 'required'],
+            [['api_store_id', 'name', 'network_id'], 'required'],
             [['store_url', 'store_logo'], 'string', 'max' => 255],
             [['network_id'], 'exist', 'skipOnError' => true, 'targetClass' => Networks::className(), 'targetAttribute' => ['network_id' => 'network_id']],
         ];
@@ -55,8 +55,8 @@ class Stores extends \yii\db\ActiveRecord
             'name' => 'Name',
             'store_url' => 'Store Url',
             'description' => 'Description',
-            'store_logo' => 'Store Logo',
-            'network_id' => 'Network ID',
+            'store_logo' => 'Store Logo Url',
+            'network_id' => 'Network',
             'is_active' => 'Is Active',
             'is_deleted' => 'Is Deleted',
         ];

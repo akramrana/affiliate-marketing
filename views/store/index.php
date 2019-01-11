@@ -4,40 +4,36 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\NetworkSearch */
+/* @var $searchModel app\models\StoreSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Networks';
+$this->title = 'Stores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="networks-index">
+<div class="stores-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Networks', ['create'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Create Stores', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <?=
-    GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'network_name',
-            'network_customer_id',
-            'network_passphrase',
-            'network_site_id',
-            'network_site_locale',
-            //'cron_daily',
-            //'create_category',
-            //'create_store',
-            //'notify_stores',
-            //'notify_categories',
-            //'auto_publish',
-            //'is_active',
-            //'is_deleted',
+            'api_store_id',
+            'name',
+            'store_url:url',
+            'store_logo',
+            [
+                'attribute' => 'network_id',
+                'value' => function($model) {
+                    return $model->network->network_name;
+                }
+            ],
             [
                 'label' => 'Status',
                 'attribute' => 'is_active',
@@ -46,15 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '<div class="onoffswitch">'
                             . Html::checkbox('onoffswitch', $model->is_active, [
                                 'class' => "onoffswitch-checkbox",
-                                'id' => "myonoffswitch" . $model->network_id,
-                                'onclick' => 'app.changeStatus("network/activate",this,' . $model->network_id . ')',
+                                'id' => "myonoffswitch" . $model->store_id,
+                                'onclick' => 'app.changeStatus("store/activate",this,' . $model->store_id . ')',
                             ])
-                            . '<label class="onoffswitch-label" for="myonoffswitch' . $model->network_id . '"></label></div>';
+                            . '<label class="onoffswitch-label" for="myonoffswitch' . $model->store_id . '"></label></div>';
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'is_active', [1 => 'Active', 0 => 'Inactive'], ['class' => 'form-control select2', 'prompt' => 'Filter']),
             ],
+
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]);
-    ?>
+    ]); ?>
 </div>

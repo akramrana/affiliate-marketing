@@ -38,7 +38,7 @@ class Categories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['api_category_id', 'name', 'created_at', 'updated_at', 'parent_id', 'network_id', 'is_active', 'is_deleted'], 'required'],
+            [['api_category_id', 'name','network_id'], 'required'],
             [['api_category_id', 'no_of_programs', 'parent_id', 'network_id', 'is_active', 'is_deleted'], 'integer'],
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
@@ -60,8 +60,8 @@ class Categories extends \yii\db\ActiveRecord
             'no_of_programs' => 'No Of Programs',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'parent_id' => 'Parent ID',
-            'network_id' => 'Network ID',
+            'parent_id' => 'Parent',
+            'network_id' => 'Network',
             'is_active' => 'Is Active',
             'is_deleted' => 'Is Deleted',
         ];
