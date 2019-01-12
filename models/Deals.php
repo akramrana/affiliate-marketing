@@ -57,7 +57,7 @@ class Deals extends \yii\db\ActiveRecord
             [['title', 'content', 'is_active', 'is_deleted', 'coupon_id', 'program_id', 'voucher_types', 'network_id'], 'required'],
             [['content', 'voucher_types', 'integration_code'], 'string'],
             [['is_active', 'is_deleted', 'coupon_id', 'program_id', 'featured', 'network_id'], 'integer'],
-            [['start_date', 'end_date', 'expire_date', 'last_change_date'], 'safe'],
+            [['start_date', 'end_date', 'expire_date', 'last_change_date', 'extras'], 'safe'],
             [['minimum_order_value'], 'number'],
             [['title', 'partnership_status', 'destination_url'], 'string', 'max' => 255],
             [['coupon_code', 'customer_restriction', 'sys_user_ip', 'discount_fixed', 'discount_variable', 'discount_code'], 'string', 'max' => 50],
@@ -76,8 +76,8 @@ class Deals extends \yii\db\ActiveRecord
             'content' => 'Content',
             'is_active' => 'Is Active',
             'is_deleted' => 'Is Deleted',
-            'coupon_id' => 'Coupon ID',
-            'program_id' => 'Program ID',
+            'coupon_id' => 'Coupon',
+            'program_id' => 'Program',
             'coupon_code' => 'Coupon Code',
             'voucher_types' => 'Voucher Types',
             'start_date' => 'Start Date',
@@ -94,7 +94,8 @@ class Deals extends \yii\db\ActiveRecord
             'discount_fixed' => 'Discount Fixed',
             'discount_variable' => 'Discount Variable',
             'discount_code' => 'Discount Code',
-            'network_id' => 'Network ID',
+            'extras' => 'Extras',
+            'network_id' => 'Network',
         ];
     }
 
@@ -136,5 +137,13 @@ class Deals extends \yii\db\ActiveRecord
     public function getVotesTotals()
     {
         return $this->hasMany(VotesTotal::className(), ['deal_id' => 'deal_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProgram()
+    {
+        return $this->hasOne(Stores::className(), ['api_store_id' => 'program_id']);
     }
 }

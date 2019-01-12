@@ -16,17 +16,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'is_active')->textInput() ?>
+    <?= $form->field($model, 'coupon_id')->textInput(['readonly' => 'readonly']) ?>
 
-    <?= $form->field($model, 'is_deleted')->textInput() ?>
-
-    <?= $form->field($model, 'coupon_id')->textInput() ?>
-
-    <?= $form->field($model, 'program_id')->textInput() ?>
+    <?= $form->field($model, 'program_id')->dropDownList(app\helpers\AppHelper::getStoresAsProgram(), [
+        'prompt' => 'Please Select',
+    ]) ?>
 
     <?= $form->field($model, 'coupon_code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'voucher_types')->dropDownList([ 'V' => 'V', 'P' => 'P', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'voucher_types')->dropDownList([ 'V' => 'Voucher', 'P' => 'Promotion', ], ['prompt' => 'Please Select']) ?>
 
     <?= $form->field($model, 'start_date')->textInput() ?>
 
@@ -40,7 +38,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'integration_code')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'featured')->textInput() ?>
+    <?= $form->field($model, 'featured')->checkbox() ?>
 
     <?= $form->field($model, 'minimum_order_value')->textInput() ?>
 
@@ -56,7 +54,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'discount_code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'network_id')->textInput() ?>
+    
+    <?= $form->field($model, 'network_id')->dropDownList(app\helpers\AppHelper::getAllNetwork(), [
+        'prompt' => 'Please Select',
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

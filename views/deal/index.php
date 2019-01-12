@@ -20,18 +20,38 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Import Awin', ['awin/import'], ['class' => 'btn btn-info']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'network_id',
+            [
+                'attribute' => 'network_id',
+                'value' => function($model) {
+                    return $model->network->network_name;
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'network_id', app\helpers\AppHelper::getAllNetwork(), ['class' => 'form-control select2', 'prompt' => 'Filter']),
+            ],
             'title',
             //'content:ntext',
-            'coupon_id',
-            'program_id',
+            //'coupon_id',
+            [
+                'attribute' => 'program_id',
+                'value' => function($model) {
+                    return $model->program->name;
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'program_id', app\helpers\AppHelper::getStoresAsProgram(), ['class' => 'form-control select2', 'prompt' => 'Filter']),
+            ],
             'coupon_code',
-            'voucher_types',
+            //'voucher_types',
+            [
+                'attribute' => 'voucher_types',
+                'value' => function($model) {
+                    return ($model->voucher_types == 'P') ? "Promotion" : "Coupon";
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'voucher_types', ['P' => 'Promotion', 'V' => 'Coupon'], ['class' => 'form-control select2', 'prompt' => 'Filter']),
+            ],
             'start_date',
             //'end_date',
             'expire_date',
@@ -40,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'integration_code:ntext',
             //'featured',
             //'minimum_order_value',
-            'customer_restriction',
+            //'customer_restriction',
             [
                 'label' => 'Status',
                 'attribute' => 'is_active',
@@ -61,8 +81,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'discount_fixed',
             //'discount_variable',
             //'discount_code',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 </div>

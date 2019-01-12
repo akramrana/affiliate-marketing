@@ -18,7 +18,7 @@ class DealSearch extends Deals
     {
         return [
             [['deal_id', 'is_active', 'is_deleted', 'coupon_id', 'program_id', 'featured', 'network_id'], 'integer'],
-            [['title', 'content', 'coupon_code', 'voucher_types', 'start_date', 'end_date', 'expire_date', 'last_change_date', 'partnership_status', 'integration_code', 'customer_restriction', 'sys_user_ip', 'destination_url', 'discount_fixed', 'discount_variable', 'discount_code'], 'safe'],
+            [['title', 'content', 'coupon_code', 'voucher_types', 'start_date', 'end_date', 'expire_date', 'last_change_date', 'partnership_status', 'integration_code', 'customer_restriction', 'sys_user_ip', 'destination_url', 'discount_fixed', 'discount_variable', 'discount_code', 'network_id'], 'safe'],
             [['minimum_order_value'], 'number'],
         ];
     }
@@ -86,6 +86,8 @@ class DealSearch extends Deals
             ->andFilterWhere(['like', 'discount_variable', $this->discount_variable])
             ->andFilterWhere(['like', 'discount_code', $this->discount_code]);
 
+        //echo $query->createCommand()->rawSql;
+        
         return $dataProvider;
     }
 }

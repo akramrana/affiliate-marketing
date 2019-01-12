@@ -29,22 +29,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'deal_id',
             'title',
             'content:ntext',
-            'is_active',
-            'is_deleted',
-            'coupon_id',
-            'program_id',
+            [
+                'attribute' => 'is_active',
+                'value' => $model->is_active==1?"Yes":"No",
+            ],
+            //'coupon_id',
+            [
+                'attribute' => 'program_id',
+                'value' => $model->program->name,
+            ],
             'coupon_code',
-            'voucher_types',
+            [
+                'attribute' => 'voucher_types',
+                'value' => ($model->voucher_types == 'P') ? "Promotion" : "Coupon",
+            ],
             'start_date',
             'end_date',
             'expire_date',
             'last_change_date',
             'partnership_status',
             'integration_code:ntext',
-            'featured',
+            [
+                'attribute' => 'featured',
+                'value' => $model->featured==1?"Yes":"No",
+            ],
             'minimum_order_value',
             'customer_restriction',
             'sys_user_ip',
@@ -52,7 +62,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'discount_fixed',
             'discount_variable',
             'discount_code',
-            'network_id',
+            [
+                'attribute' => 'network_id',
+                'value' => $model->network->network_name,
+            ],
         ],
     ]) ?>
 

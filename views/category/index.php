@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'parent_id',
                 'value' => function($model) {
                     $parent = app\models\Categories::findOne($model->parent_id);
-                    return !empty($parent)?$parent->name:"";
+                    return !empty($parent) ? $parent->name : "";
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'parent_id', app\helpers\AppHelper ::getAllCategories(), ['class' => 'form-control', 'prompt' => 'Filter']),
             ],
@@ -41,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'network_id',
                 'value' => function($model) {
                     return $model->network->network_name;
-                }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'network_id', app\helpers\AppHelper::getAllNetwork(), ['class' => 'form-control select2', 'prompt' => 'Filter']),
             ],
             [
                 'label' => 'Status',

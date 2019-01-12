@@ -19,7 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Stores', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -27,12 +28,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'api_store_id',
             'name',
             'store_url:url',
-            'store_logo',
+            [
+                'attribute' => 'store_logo',
+                'value' => function($model) {
+                    return $model->store_logo;
+                },
+                'format' => ['image'],
+                'filter' => false,
+            ],
             [
                 'attribute' => 'network_id',
                 'value' => function($model) {
                     return $model->network->network_name;
-                }
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'network_id', app\helpers\AppHelper::getAllNetwork(), ['class' => 'form-control select2', 'prompt' => 'Filter']),
             ],
             [
                 'label' => 'Status',
@@ -49,8 +58,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'is_active', [1 => 'Active', 0 => 'Inactive'], ['class' => 'form-control select2', 'prompt' => 'Filter']),
             ],
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 </div>

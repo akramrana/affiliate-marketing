@@ -33,7 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'store_url:url',
             'description:ntext',
-            'store_logo',
+            [
+                'attribute' => 'store_logo',
+                'value' => $model->store_logo,
+                'format' => ['image'],
+            ],
             [
                 'attribute' => 'network_id',
                 'value' => $model->network->network_name,

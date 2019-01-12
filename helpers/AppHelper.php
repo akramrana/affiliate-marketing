@@ -95,4 +95,11 @@ class AppHelper {
         $list = \yii\helpers\ArrayHelper::map($model, 'network_id', 'network_name');
         return $list;
     }
+    
+    static function getStoresAsProgram()
+    {
+        $model = \app\models\Stores::find()->where(['is_deleted' => 0])->all();
+        $list = \yii\helpers\ArrayHelper::map($model, 'api_store_id', 'name');
+        return $list;
+    }
 }
