@@ -36,6 +36,7 @@ class AffilinetController extends \yii\web\Controller {
             //$maxPage = 2;
             $coupon_status = 0;
             if (!empty($coupons)) {
+                //debugPrint($coupons);
                 $programIds = [];
                 $loadedCategories = new \stdClass();
                 $loadedStores = new \stdClass();
@@ -61,7 +62,7 @@ class AffilinetController extends \yii\web\Controller {
                             );
 
                             $getProgramsQuery = array(
-                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting', 'Refused', 'NoPartnership'),
+                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting', 'NoPartnership'),
                                 'ProgramIds' => [$coupon->ProgramId]
                             );
 
@@ -93,7 +94,7 @@ class AffilinetController extends \yii\web\Controller {
                             $dealStore = \app\models\Stores::find()
                                     ->where(['api_store_id' => $coupon->ProgramId, 'network_id' => $netWorkModel->network_id])
                                     ->one();
-                            $store_id = !empty($dealStore) ? $dealStore->api_store_id : null;
+                            $store_id = !empty($dealStore) ? $dealStore->store_id : null;
                             //debugPrint($response->ProgramCollection);
                             // create new store if not found
                             if ((empty($store_id))) {
@@ -117,10 +118,10 @@ class AffilinetController extends \yii\web\Controller {
                                         $dealStore->is_active = 0;
                                         $dealStore->is_deleted = 0;
                                         if ($dealStore->save()) {
-                                            $store_id = $dealStore->api_store_id;
+                                            $store_id = $dealStore->store_id;
                                         }
                                     } else {
-                                        $store_id = $dealStore->api_store_id;
+                                        $store_id = $dealStore->store_id;
                                     }
 
                                     $destination_url = str_replace('_0_', '_' . $coupon->Id . '_', $programURL);
@@ -143,12 +144,8 @@ class AffilinetController extends \yii\web\Controller {
                                     continue;
                                 }
                             }
-                            //if imported total is as defined in setting stop execution
-                            if ($i >= 5) {
-                                break 2;
-                            }
                             //get coupon categories
-                            $couponCategories = $response->ProgramCollection->Program->ProgramCategoryIds->int;
+                            $couponCategories = !empty($response->ProgramCollection->Program->ProgramCategoryIds->int)?$response->ProgramCollection->Program->ProgramCategoryIds->int:[];
                             //load all store categories recursively
                             $allCategories = [];
                             if (!empty($categories->RootCategories->ProgramCategory)) {
@@ -180,12 +177,10 @@ class AffilinetController extends \yii\web\Controller {
                                             ->where(['api_category_id' => $key, 'network_id' => $netWorkModel->network_id])
                                             ->one();
                                     if (!empty($category)) {
-                                        $category_id = $category->api_category_id;
-                                    } else {
+                                        $category_id = $category->category_id;
+                                    }else{
                                         $category_id = null;
                                     }
-                                } else {
-                                    $category_id = null;
                                 }
                                 if (empty($category_id)) {
                                     if (in_array($key, $couponCategories)) {
@@ -200,13 +195,15 @@ class AffilinetController extends \yii\web\Controller {
                                             $category->updated_at = date('Y-m-d H:i:s');
                                             $category->network_id = $netWorkModel->network_id;
                                             if ($category->save()) {
-                                                $category_id = $category->api_category_id;
+                                                $category_id = $category->category_id;
                                                 $termsArray[] = $val;
                                             }
                                         } else {
-                                            $category_id = $category->api_category_id;
+                                            $category_id = $category->category_id;
                                             $termsArray[] = $val;
                                         }
+                                    } else {
+                                        $category_id = null;
                                     }
                                 }
                                 if (!empty($category_id)) {
@@ -252,9 +249,9 @@ class AffilinetController extends \yii\web\Controller {
                             $deal->minimum_order_value = $minOrderValue;
                             $deal->customer_restriction = $coupon->CustomerRestriction;
                             $deal->sys_user_ip = $_SERVER['REMOTE_ADDR'];
-                            $deal->destination_url = !empty($destination_url)?$destination_url:"";
+                            $deal->destination_url = !empty($destination_url) ? $destination_url : "";
                             $deal->network_id = $netWorkModel->network_id;
-                            $deal->extras = json_encode($coupon->VoucherTypes->VoucherType);
+                            $deal->extras = !empty($coupon->VoucherTypes->VoucherType)?json_encode($coupon->VoucherTypes->VoucherType):"";
                             $deal->save(false);
                             //
                             foreach ($categoriesArray as $key => $val) {
@@ -262,24 +259,32 @@ class AffilinetController extends \yii\web\Controller {
                                 $dealCategory->deal_id = $deal->deal_id;
                                 $dealCategory->category_id = $val;
                                 $dealCategory->created_at = date('Y-m-d H:i:s');
-                                $dealCategory->save();
+                                if (!$dealCategory->save()) {
+                                    die(json_encode($dealCategory->errors));
+                                }
                             }
                             //
                             $dealStoreModel = new \app\models\DealStores();
                             $dealStoreModel->deal_id = $deal->deal_id;
                             $dealStoreModel->store_id = $store_id;
                             $dealStoreModel->created_at = date('Y-m-d H:i:s');
-                            $dealStoreModel->save();
+                            if (!$dealStoreModel->save()) {
+                                die(json_encode($dealStoreModel->errors));
+                            }
                             //
                             array_push($programIds, $coupon->ProgramId);
                             $i++;
+                            //if imported total is as defined in setting stop execution
+                            if ($i >= 5) {
+                                break 2;
+                            }
                         }
                     }
                 }
             }
         } while ($page < $maxPage);
 
-        Yii::$app->session->setFlash('success', 'Affili: '.$i.' coupons have been imported.');
+        Yii::$app->session->setFlash('success', 'Affili: ' . $i . ' coupons have been imported.');
         return $this->redirect(['deal/index']);
     }
 

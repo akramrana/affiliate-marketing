@@ -47,6 +47,7 @@ class DealSearch extends Deals
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['deal_id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -61,7 +62,7 @@ class DealSearch extends Deals
         $query->andFilterWhere([
             'deal_id' => $this->deal_id,
             'is_active' => $this->is_active,
-            'is_deleted' => $this->is_deleted,
+            'is_deleted' => 0,
             'coupon_id' => $this->coupon_id,
             'program_id' => $this->program_id,
             'start_date' => $this->start_date,
