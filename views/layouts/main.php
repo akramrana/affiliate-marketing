@@ -33,7 +33,7 @@ AppAsset::register($this);
             <?php
             NavBar::begin([
                 'brandLabel' => Yii::$app->name,
-                'brandUrl' => Yii::$app->homeUrl,
+                'brandUrl' => yii\helpers\Url::to(['deal/index']),
                 'options' => [
                     'class' => 'navbar-default navbar-fixed-top',
                 ],
@@ -41,14 +41,14 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Admins', 'url' => ['/admin/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Networks', 'url' => ['/network/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Categories', 'url' => ['/category/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Stores', 'url' => ['/store/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'CMS', 'url' => ['/cms/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'FAQS', 'url' => ['/faqs/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Banners', 'url' => ['/banner/index'],'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Deal', 'url' => ['/deal/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Admins', 'url' => ['/admin/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Networks', 'url' => ['/network/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Categories', 'url' => ['/category/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Stores', 'url' => ['/store/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'CMS', 'url' => ['/cms/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'FAQS', 'url' => ['/faqs/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Banners', 'url' => ['/banner/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Deal', 'url' => ['/deal/index'], 'visible' => !Yii::$app->user->isGuest],
                     Yii::$app->user->isGuest ? (
                             ['label' => 'Login', 'url' => ['/site/login']]
                             ) : (
@@ -68,6 +68,10 @@ AppAsset::register($this);
             <div class="container">
                 <?=
                 Breadcrumbs::widget([
+                    'homeLink' => [
+                        'label' => 'Home',
+                        'url' => yii\helpers\Url::to(['deal/index']),
+                    ],
                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                 ])
                 ?>
