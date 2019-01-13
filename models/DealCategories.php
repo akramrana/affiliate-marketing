@@ -47,7 +47,7 @@ class DealCategories extends \yii\db\ActiveRecord
         return [
             'deal_category_id' => 'Deal Category ID',
             'deal_id' => 'Deal ID',
-            'category_id' => 'Category ID',
+            'category_id' => 'Category',
             'created_at' => 'Created At',
         ];
     }

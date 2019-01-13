@@ -47,7 +47,7 @@ class DealStores extends \yii\db\ActiveRecord
         return [
             'deal_store_id' => 'Deal Store ID',
             'deal_id' => 'Deal ID',
-            'store_id' => 'Store ID',
+            'store_id' => 'Store',
             'created_at' => 'Created At',
         ];
     }

@@ -17,23 +17,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->deal_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->deal_id], [
+        <?=
+        Html::a('Delete', ['delete', 'id' => $model->deal_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])
+        ?>
     </p>
 
-    <?= DetailView::widget([
+    <?=
+    DetailView::widget([
         'model' => $model,
         'attributes' => [
             'title',
             'content:ntext',
             [
                 'attribute' => 'is_active',
-                'value' => $model->is_active==1?"Yes":"No",
+                'value' => $model->is_active == 1 ? "Yes" : "No",
             ],
             //'coupon_id',
             [
@@ -53,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'integration_code:ntext',
             [
                 'attribute' => 'featured',
-                'value' => $model->featured==1?"Yes":"No",
+                'value' => $model->featured == 1 ? "Yes" : "No",
             ],
             'minimum_order_value',
             'customer_restriction',
@@ -67,6 +70,55 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->network->network_name,
             ],
         ],
-    ]) ?>
+    ])
+    ?>
+
+    <?php
+    $dataProvider = new yii\data\ActiveDataProvider([
+        'query' => $model->getDealCategories(),
+        'pagination' => [
+            'pageSize' => 20,
+        ],
+        'sort' => ['defaultOrder' => ['deal_category_id' => SORT_ASC]],
+    ]);
+
+    echo yii\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'summary' => '',
+        'columns' => [
+            //['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'category_id',
+                'value' => function($data) {
+                    return $data->category->name;
+                },
+            ],
+        ],
+    ]);
+    ?>
+    
+    <?php
+    $dataProvider = new yii\data\ActiveDataProvider([
+        'query' => $model->getDealStores(),
+        'pagination' => [
+            'pageSize' => 20,
+        ],
+        'sort' => ['defaultOrder' => ['deal_store_id' => SORT_ASC]],
+    ]);
+
+    echo yii\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+        'summary' => '',
+        'columns' => [
+            //['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'store_id',
+                'value' => function($data) {
+                    return $data->store->name;
+                },
+            ],
+        ],
+    ]);
+    ?>
 
 </div>
