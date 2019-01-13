@@ -41,21 +41,21 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Admins', 'url' => ['/admin/index']],
-                    ['label' => 'Networks', 'url' => ['/network/index']],
-                    ['label' => 'Categories', 'url' => ['/category/index']],
-                    ['label' => 'Stores', 'url' => ['/store/index']],
-                    ['label' => 'CMS', 'url' => ['/cms/index']],
-                    ['label' => 'FAQS', 'url' => ['/faqs/index']],
-                    ['label' => 'Banners', 'url' => ['/banner/index']],
-                    ['label' => 'Deal', 'url' => ['/deal/index']],
+                    ['label' => 'Admins', 'url' => ['/admin/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Networks', 'url' => ['/network/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Categories', 'url' => ['/category/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Stores', 'url' => ['/store/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'CMS', 'url' => ['/cms/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'FAQS', 'url' => ['/faqs/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Banners', 'url' => ['/banner/index'],'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Deal', 'url' => ['/deal/index'],'visible' => !Yii::$app->user->isGuest],
                     Yii::$app->user->isGuest ? (
                             ['label' => 'Login', 'url' => ['/site/login']]
                             ) : (
                             '<li>'
                             . Html::beginForm(['/site/logout'], 'post')
                             . Html::submitButton(
-                                    'Logout (' . Yii::$app->user->identity->username . ')', ['class' => 'btn btn-link logout']
+                                    'Logout (' . Yii::$app->user->identity->name . ')', ['class' => 'btn btn-link logout']
                             )
                             . Html::endForm()
                             . '</li>'

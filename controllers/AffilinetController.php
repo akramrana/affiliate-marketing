@@ -3,6 +3,9 @@
 namespace app\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
+use app\components\UserIdentity;
+use app\components\AccessRule;
 
 define("WSDL_WS", "https://api.affili.net/V2.0/PublisherInbox.svc?wsdl");
 define("WSDL_LOGON", "https://api.affili.net/V2.0/Logon.svc?wsdl");
@@ -12,6 +15,30 @@ class AffilinetController extends \yii\web\Controller {
 
     private $api_customer_id = '854690';
     private $api_passphrase = '1J31vp0ZPo3ZplTfdAvg';
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['import'],
+                'rules' => [
+                    [
+                        'actions' => ['import'],
+                        'allow' => true,
+                        'roles' => [
+                            UserIdentity::ROLE_ADMIN
+                        ]
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionImport() {
         $username = $this->api_customer_id;

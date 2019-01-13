@@ -60,6 +60,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
+            \Yii::$app->session->set('_affliMarketingAuth', 1);
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
         return false;
@@ -73,9 +74,12 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $user = User::findByUsername($this->username);
+            if (!empty($user)) {
+                \Yii::$app->session->set('__affliMarketingUserRole', 1);
+                $this->_user = $user;
+            }
         }
-
         return $this->_user;
     }
 }
