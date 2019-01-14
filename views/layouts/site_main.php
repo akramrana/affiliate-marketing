@@ -1,5 +1,7 @@
 <?php
+
 use yii\helpers\Html;
+
 app\assets\WebsiteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -20,16 +22,16 @@ app\assets\WebsiteAsset::register($this);
     </head>
     <body id="top">
         <?php $this->beginBody() ?>
-        
+
         <section class="header-top-bar hidden-xs">
             <div class="container">
                 <div class="logo">
                     <a href="index.html"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt=""></a>
                 </div>
-<!--                <div class="header-top-bar-content">
-                    <span class="text-uppercase">latest post</span>
-                    <h2><a href="blog-single-sidebar-right.html" target="blank">7 Ways To Advertise Your Business For Free</a></h2>
-                </div>-->
+                <!--                <div class="header-top-bar-content">
+                                    <span class="text-uppercase">latest post</span>
+                                    <h2><a href="blog-single-sidebar-right.html" target="blank">7 Ways To Advertise Your Business For Free</a></h2>
+                                </div>-->
             </div>
         </section>
 
@@ -44,12 +46,20 @@ app\assets\WebsiteAsset::register($this);
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
+                                        <?php
+                                        $stores = app\helpers\AppHelper::getStores(8);
+                                        $categories = app\helpers\AppHelper::getCategories(8);
+                                        ?>
                                         <ul class="list-unstyled">
-                                            <li><h2>Smart Devices</h2></li>
-                                            <li><a href="#">Smart Phones</a></li>
-                                            <li><a href="#">Smart Tablates</a></li>
-                                            <li><a href="#">Smart Watchs</a></li>
-                                            <li><a href="#">Digital Paper</a></li>
+                                            <li><h2>Top Categories</h2></li>
+                                            <?php
+                                            foreach ($categories as $str) {
+                                                ?>
+                                                <li><a href="#"><?= $str->name; ?></a></li>
+                                                <?php
+                                            }
+                                            ?>
+                                            <li><a href="#">View All</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -61,11 +71,15 @@ app\assets\WebsiteAsset::register($this);
                                 <div class="megamenu-row">
                                     <div class="col12">
                                         <ul class="list-unstyled">
-                                            <li><h2>Standard Pages</h2></li>
-                                            <li><a href="about.html">About Page</a></li>
-                                            <li><a href="creare.html">Career Page</a></li>
-                                            <li><a href="team.html">Team</a></li>
-                                            <li><a href="product-review.html">Product Review</a></li>
+                                            <li><h2>Top Stores</h2></li>
+                                            <?php
+                                            foreach ($stores as $str) {
+                                                ?>
+                                                <li><a href="#"><?= $str->name; ?></a></li>
+                                                <?php
+                                            }
+                                            ?>
+                                                <li><a href="#">View All</a></li>
                                         </ul>
                                     </div>
                                 </div>

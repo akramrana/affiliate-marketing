@@ -102,4 +102,22 @@ class AppHelper {
         $list = \yii\helpers\ArrayHelper::map($model, 'api_store_id', 'name');
         return $list;
     }
+    
+    static function getStores($limit){
+        $model = \app\models\Stores::find()
+                ->where(['is_active' => 1,'is_deleted' => 0])
+                ->limit($limit)
+                ->orderBy(['store_id' => SORT_DESC])
+                ->all();
+        return $model;
+    }
+    
+    static function getCategories($limit){
+        $model = \app\models\Categories::find()
+                ->where(['is_active' => 1,'is_deleted' => 0])
+                ->limit($limit)
+                ->orderBy(['category_id' => SORT_DESC])
+                ->all();
+        return $model;
+    }
 }

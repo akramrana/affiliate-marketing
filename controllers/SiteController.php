@@ -62,7 +62,32 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->layout = 'site_main';
-        return $this->render('index');
+        $banners = \app\models\Banners::find()
+                ->where(['is_active' => 1,'is_deleted' => 0])
+                ->all();
+        $top8 = \app\models\Deals::find()
+                ->where(['is_active' => 1,'is_deleted' => 0])
+                ->offset(0)
+                ->limit(8)
+                ->orderBy(['deal_id' => SORT_DESC])
+                ->all();
+        $top2 = \app\models\Deals::find()
+                ->where(['is_active' => 1,'is_deleted' => 0])
+                ->offset(8)
+                ->limit(2)
+                ->orderBy(['deal_id' => SORT_DESC])
+                ->all();
+        $stores = \app\models\Stores::find()
+                ->where(['is_active' => 1,'is_deleted' => 0])
+                ->limit(8)
+                ->orderBy(['store_id' => SORT_DESC])
+                ->all();
+        return $this->render('index',[
+            'banners' => $banners,
+            'top8' => $top8,
+            'top2' => $top2,
+            'stores' => $stores,
+        ]);
     }
 
     /**
