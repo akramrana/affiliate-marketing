@@ -11,3 +11,11 @@ function debugPrint($data)
     print_r($data);
     echo '</pre>';
 }
+
+function clean($string)
+{
+    $string = str_replace(' ', '-', trim($string)); // Replaces all spaces with hyphens.
+    $string = str_replace('&', 'and', trim($string)); // Replaces all &nbsp with string and
+
+    return preg_replace('/[^A-Za-z0-9\-&]/', '', strtolower($string)); // Removes special chars.
+}
