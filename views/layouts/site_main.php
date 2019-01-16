@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-
+$controller = $this->context->action->controller->id;
+$method = $this->context->action->id;
 app\assets\WebsiteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -39,10 +40,12 @@ app\assets\WebsiteAsset::register($this);
         <header class="main-navigation">
             <div class="container">
                 <div class="menuzord">
-                    <a href="index.html" class="menuzord-brand visible-xs"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt=""></a>
+                    <a href="<?= yii\helpers\Url::to(['site/index']); ?>" class="menuzord-brand visible-xs">
+                        <img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt="logo">
+                    </a>
                     <ul class="menuzord-menu">
-                        <li class="active"><a href="index.html">Home</a></li>
-                        <li><a href="javascript:void(0)">Categories</a>
+                        <li <?php echo ($method=='index')?'class="active"':"";?>><a href="<?= yii\helpers\Url::to(['site/index']); ?>">Home</a></li>
+                        <li <?php echo ($method=='categories')?'class="active"':"";?>><a href="javascript:void(0)">Categories</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
@@ -55,18 +58,18 @@ app\assets\WebsiteAsset::register($this);
                                             <?php
                                             foreach ($categories as $str) {
                                                 ?>
-                                                <li><a href="#"><?= $str->name; ?></a></li>
+                                                <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals','id' => $str->category_id,'type' => 'c','name' => clean($str->name)]); ?>"><?= $str->name; ?></a></li>
                                                 <?php
                                             }
                                             ?>
-                                            <li><a href="#">View All</a></li>
+                                            <li><a href="<?= yii\helpers\Url::to(['site/categories']); ?>">View All</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li><a href="coupon.html">Coupons & Deals</a></li>
-                        <li><a href="javascript:void(0)">Stores</a>
+                        <li <?php echo ($method=='coupons-deals')?'class="active"':"";?>><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Coupons & Deals</a></li>
+                        <li <?php echo ($method=='stores')?'class="active"':"";?>><a href="javascript:void(0)">Stores</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
@@ -75,17 +78,17 @@ app\assets\WebsiteAsset::register($this);
                                             <?php
                                             foreach ($stores as $str) {
                                                 ?>
-                                                <li><a href="#"><?= $str->name; ?></a></li>
+                                                <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals','id' => $str->store_id,'type' => 's','name' => clean($str->name)]); ?>"><?= $str->name; ?></a></li>
                                                 <?php
                                             }
                                             ?>
-                                                <li><a href="#">View All</a></li>
+                                            <li><a href="<?= yii\helpers\Url::to(['site/stores']); ?>">View All</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact</a></li>
                     </ul>
                 </div>
             </div> 
