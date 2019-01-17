@@ -27,7 +27,7 @@ app\assets\WebsiteAsset::register($this);
         <section class="header-top-bar hidden-xs">
             <div class="container">
                 <div class="logo">
-                    <a href="index.html"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt=""></a>
+                    <a href="<?= yii\helpers\Url::to(['site/index']); ?>"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt=""></a>
                 </div>
                 <!--                <div class="header-top-bar-content">
                                     <span class="text-uppercase">latest post</span>
@@ -88,7 +88,7 @@ app\assets\WebsiteAsset::register($this);
                                 </div>
                             </div>
                         </li>
-                        <li><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact</a></li>
+                        <li <?php echo ($method=='contact')?'class="active"':"";?>><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact</a></li>
                     </ul>
                 </div>
             </div> 
@@ -118,9 +118,8 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget quick-links">
                                 <h3 class="mb-20">Quick Links</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="about.html" target="_blank">About Us</a></li>
-                                    <li><a href="#">Support center</a></li>
-                                    <li><a href="#">Subscribe</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/cms']); ?>">About Us</a></li>
+                                    <li><a href="terms-condition.html">Terms & Conditions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -128,9 +127,8 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget adverties-links">
                                 <h3 class="mb-20">Adverties</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="product-review.html" target="_blank">Add Your Product</a></li>
+                                    <li><a href="product-review.html">Add Your Product</a></li>
                                     <li><a href="#">How To Advertise</a></li>
-                                    <li><a href="terms-condition.html" target="_blank">Terms & Conditions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -138,8 +136,8 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget products-links">
                                 <h3 class="mb-20">Products</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="cupon.html" target="_blank">Discounts & Deals</a></li>
-                                    <li><a href="#">Monthly Best</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Coupon & Deals</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Monthly Best</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -147,8 +145,8 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget more-links">
                                 <h3 class="mb-20">More</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="privacy-policy.html" target="_blank">Privacy & Policy</a></li>
-                                    <li><a href="contact.html" target="_blank">Contact Us</a></li>
+                                    <li><a href="privacy-policy.html">Privacy & Policy</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -156,7 +154,7 @@ app\assets\WebsiteAsset::register($this);
                 </div>
             </div> 
             <div class="footer-copyright text-center">
-                <p>All Rights Reserved 2016 Affiliate - +88 1234 567 890 / 446 New Lack, New York. USA</p>
+                <p>All Rights Reserved 2016 Affiliate - +88 01531 184 270 / 1207 Dhaka. BD</p>
                 <p>Made with <i class="fa fa-heart"></i> in <a href="http://www.codxplore.com/">Developed By Akram Hossain</a></p>
             </div> 
         </footer>

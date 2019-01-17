@@ -43,16 +43,16 @@ $this->title = 'Home';
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
-                            <a href="#">
+                            <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>">
                                 <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
                             </a>
                         </div>
                         <div class="product-entry">
-                            <div class="product-title" itemprop="name">
-                                <h5><a href="#"><?= $deal->title; ?></a></h5>
+                            <div class="product-title" itemprop="name" style="height: 80px;">
+                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="product-view-btn">
-                                <a href="product-details-right-sidebar.html" target="blank">view details</a>
+                                <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>" target="blank">view details</a>
                             </div>
                         </div> 
                     </div> 
@@ -89,16 +89,16 @@ $this->title = 'Home';
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
-                            <a href="#">
+                            <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>">
                                 <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
                             </a>
                         </div>
                         <div class="product-entry">
-                            <div class="product-title" itemprop="name">
-                                <h5><a href="#"><?= $deal->title; ?></a></h5>
+                            <div class="product-title" itemprop="name" style="height: 80px;">
+                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="product-view-btn">
-                                <a href="product-details-right-sidebar.html" target="blank">view details</a>
+                                <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>" target="blank">view details</a>
                             </div>
                         </div> 
                     </div> 

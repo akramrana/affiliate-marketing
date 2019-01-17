@@ -139,6 +139,29 @@ class SiteController extends Controller {
         ]);
     }
 
+    public function actionCouponDetails()
+    {
+        $get = Yii::$app->request->queryParams;
+        $this->layout = 'site_main';
+        $model = \app\models\Deals::find()
+                ->where(['is_active' => 1,'is_deleted' => 0,'deal_id' => $get['id']])
+                ->one();
+        if(empty($model)){
+            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+        }
+        $store = \app\models\Stores::find()->where(['api_store_id' => $model->program_id])->one();
+        $related = \app\models\Deals::find()
+                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['!=','deal_id',$model->deal_id])
+                ->limit(3)
+                ->orderBy(['deal_id' => SORT_DESC])
+                ->all();
+        return $this->render('coupon-details', [
+            'model' => $model,
+            'store' => $store,
+            'related' => $related,
+        ]);
+    }
     /**
      * Login action.
      *
