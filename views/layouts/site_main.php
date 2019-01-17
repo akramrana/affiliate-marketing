@@ -119,7 +119,7 @@ app\assets\WebsiteAsset::register($this);
                                 <h3 class="mb-20">Quick Links</h3>
                                 <ul class="list-unstyled">
                                     <li><a href="<?= yii\helpers\Url::to(['site/cms']); ?>">About Us</a></li>
-                                    <li><a href="terms-condition.html">Terms & Conditions</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -127,7 +127,7 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget adverties-links">
                                 <h3 class="mb-20">Adverties</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="product-review.html">Add Your Product</a></li>
+                                    <li><a href="#">Add Your Product</a></li>
                                     <li><a href="#">How To Advertise</a></li>
                                 </ul>
                             </div>
@@ -145,7 +145,7 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget more-links">
                                 <h3 class="mb-20">More</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="privacy-policy.html">Privacy & Policy</a></li>
+                                    <li><a href="#">Privacy & Policy</a></li>
                                     <li><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact Us</a></li>
                                 </ul>
                             </div>
