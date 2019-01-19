@@ -35,17 +35,32 @@ if (!empty($model->dealCategories)) {
                             <span>SUBSCRIBE US</span>
                             <h2>Get Amazing Cupons Code & Offers Everyday</h2>
                         </div> 
-                        <form class="subscribe-form mailchimp subscribe-input" method="post">
-                            <div class="clearfix">
-                                <div class="input-field mb-20">
-                                    <label class="sr-only" for="email">Email</label>
-                                    <input id="subscribeEmail" type="email" name="subscribeEmail" class="validate form-control" placeholder="jon@example.com">
-                                </div>
-                                <button type="submit" class="btn btn-block btn-primary submit-btn">Yes! let’s so this</button>
+                        <?php
+                        $nsSodel = new app\models\NewsletterSubscriber();
+                        $form = \yii\bootstrap\ActiveForm::begin([
+                                    'id' => 'subscription-form',
+                                    'enableClientScript' => false,
+                                    'action' => \yii\helpers\Url::to(['site/subscribe']),
+                                    'options' => [
+                                        'method' => 'post',
+                                        'class' => 'subscribe-form  subscribe-input'
+                                    ]
+                        ]);
+                        ?>
+                        <div class="clearfix">
+                            <div class="input-field mb-20">
+                                <label class="sr-only" for="email">Email</label>
+                                <?= $form->field($nsSodel, 'email')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'YOUR EMAIL'), 'class' => 'form-control'])->label(false); ?>
                             </div>
+                            <?= \yii\helpers\Html::submitButton(Yii::t('app', 'Yes! let’s so this'), ['class' => 'btn btn-block btn-primary submit-btn']) ?>
+                            <span class="clearfix"></span>
+                            <div class="input-field mb-20">
+                                <br class="clearfix"/>
+                                <p id="response" class="subscription-success"></p>
+                            </div>
+                        </div>
+                        <?php yii\bootstrap\ActiveForm::end(); ?>
 
-                            <p class="subscription-success"></p>
-                        </form>
                     </div>
                 </div> 
             </div> 
@@ -64,9 +79,69 @@ if (!empty($model->dealCategories)) {
                             <p><span>Compatibility</span><?= $model->customer_restriction; ?></p>
                             <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p>
                         </div>
-                    </div>  
+                    </div>
+                    <div class="widget populer-product-widget mt-30">
+                        <h5>Popular Shops</h5>
+                        <?php
+                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(3);
+                        foreach ($creativeAds as $ca) {
+                            ?>
+                            <div class="populer-product-details" itemscope="" itemtype="http://schema.org/Product">
+                                <div class="product-image">
+                                    <?php
+                                    echo $ca->content;
+                                    ?>
+                                </div>
+                            </div> 
+                            <?php
+                        }
+                        ?>
+                    </div>
                 </div> 
             </div> 
         </div> 
     </div>
 </section>
+<?php
+$this->registerJs("$('body').on('submit', 'form#subscription-form', function (e) {
+             var form = $(this);
+             var userEmail = $('#newslettersubscriber-email').val();
+             var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+             if($.trim(pattern) && pattern.test(userEmail)){
+                $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-info\">" . Yii::t('app', 'Sending....') . "</div></div></div>');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'post',
+                    data: form.serialize(),
+                    //async: false,
+                    success: function (response) {
+                       if(response.success==1){
+                          $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-success\">'+response.msg+'</div></div></div>');
+                          $(\"#subscription-form\")[0].reset();
+                          setTimeout(function(){
+                             $('#response').html('');
+                          },4000)
+                       }
+                       else if(response.success==2){
+                          $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-warning\">'+response.msg+'</div></div></div>');
+                          $(\"#subscription-form\")[0].reset();
+                          setTimeout(function(){
+                             $('#response').html('');
+                          },4000)
+                       }
+                       else{
+                          $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-warning\">'+response.msg+'</div></div></div>');
+                          $(\"#subscription-form\")[0].reset();
+                          setTimeout(function(){
+                             $('#response').html('');
+                          },4000)
+                       }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+             }
+             return false;   
+        });", \yii\web\View::POS_END);

@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+
 $controller = $this->context->action->controller->id;
 $method = $this->context->action->id;
 app\assets\WebsiteAsset::register($this);
@@ -44,8 +45,8 @@ app\assets\WebsiteAsset::register($this);
                         <img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt="logo">
                     </a>
                     <ul class="menuzord-menu">
-                        <li <?php echo ($method=='index')?'class="active"':"";?>><a href="<?= yii\helpers\Url::to(['site/index']); ?>">Home</a></li>
-                        <li <?php echo ($method=='categories')?'class="active"':"";?>><a href="javascript:void(0)">Categories</a>
+                        <li <?php echo ($method == 'index') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/index']); ?>">Home</a></li>
+                        <li <?php echo ($method == 'categories') ? 'class="active"' : ""; ?>><a href="javascript:void(0)">Categories</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
@@ -58,7 +59,7 @@ app\assets\WebsiteAsset::register($this);
                                             <?php
                                             foreach ($categories as $str) {
                                                 ?>
-                                                <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals','id' => $str->category_id,'type' => 'c','name' => clean($str->name)]); ?>"><?= $str->name; ?></a></li>
+                                                <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->category_id, 'type' => 'c', 'name' => clean($str->name)]); ?>"><?= $str->name; ?></a></li>
                                                 <?php
                                             }
                                             ?>
@@ -68,8 +69,8 @@ app\assets\WebsiteAsset::register($this);
                                 </div>
                             </div>
                         </li>
-                        <li <?php echo ($method=='coupons-deals')?'class="active"':"";?>><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Coupons & Deals</a></li>
-                        <li <?php echo ($method=='stores')?'class="active"':"";?>><a href="javascript:void(0)">Stores</a>
+                        <li <?php echo ($method == 'coupons-deals') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Coupons & Deals</a></li>
+                        <li <?php echo ($method == 'stores') ? 'class="active"' : ""; ?>><a href="javascript:void(0)">Stores</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
@@ -78,7 +79,7 @@ app\assets\WebsiteAsset::register($this);
                                             <?php
                                             foreach ($stores as $str) {
                                                 ?>
-                                                <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals','id' => $str->store_id,'type' => 's','name' => clean($str->name)]); ?>"><?= $str->name; ?></a></li>
+                                                <li><a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>"><?= $str->name; ?></a></li>
                                                 <?php
                                             }
                                             ?>
@@ -88,7 +89,7 @@ app\assets\WebsiteAsset::register($this);
                                 </div>
                             </div>
                         </li>
-                        <li <?php echo ($method=='contact')?'class="active"':"";?>><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact</a></li>
+                        <li <?php echo ($method == 'contact') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact</a></li>
                     </ul>
                 </div>
             </div> 
@@ -96,6 +97,32 @@ app\assets\WebsiteAsset::register($this);
         <?php
         echo $content;
         ?>
+        <section class="pdt-100 pdb-70 product-reviews solitude-bg">
+            <div class="container">
+                <div class="next-section-link white-bg text-center">
+                    <span data-target=".product-reviews" class="scroll-to-target"><i class="fa fa-arrow-down"></i></span>
+                </div>
+                <div class="page-title text-center mb-40">
+                    <h2>Popular Shops</h2>
+                </div> 
+                <div class="row">
+                    <?php
+                    $creativeAds = app\helpers\AppHelper::getCreativeAds(12);
+                    foreach ($creativeAds as $ca) {
+                        ?>
+                        <div class="col-lg-4 col-sm-6 mb-30">
+                            <div class="product-wrapper text-center" itemscope="" itemtype="http://schema.org/Product">
+                                <?php
+                                echo $ca->content;
+                                ?>
+                            </div> 
+                        </div>  
+                        <?php
+                    }
+                    ?>
+                </div> 
+            </div>
+        </section>
         <footer class="footer-bar">
             <div class="footer-social-section text-center">
                 <div class="container">
@@ -118,8 +145,8 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget quick-links">
                                 <h3 class="mb-20">Quick Links</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="<?= yii\helpers\Url::to(['site/cms']); ?>">About Us</a></li>
-                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 1, 'title' => 'about-us']); ?>">About Us</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 2, 'title' => 'terms-conditions']); ?>">Terms & Conditions</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -127,8 +154,8 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget adverties-links">
                                 <h3 class="mb-20">Adverties</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Add Your Product</a></li>
-                                    <li><a href="#">How To Advertise</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 3, 'title' => 'add-your-product']); ?>">Add Your Product</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 4, 'title' => 'how-to-advertise']); ?>">How To Advertise</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -145,7 +172,7 @@ app\assets\WebsiteAsset::register($this);
                             <div class="footer-widget more-links">
                                 <h3 class="mb-20">More</h3>
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Privacy & Policy</a></li>
+                                    <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 5, 'title' => 'privacy-policy']); ?>">Privacy & Policy</a></li>
                                     <li><a href="<?= yii\helpers\Url::to(['site/contact']); ?>">Contact Us</a></li>
                                 </ul>
                             </div>

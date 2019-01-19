@@ -43,16 +43,16 @@ $this->title = 'Home';
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
-                            <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>">
+                            <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
                                 <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
                             </a>
                         </div>
                         <div class="product-entry">
                             <div class="product-title" itemprop="name" style="height: 80px;">
-                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="product-view-btn">
-                                <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>" target="blank">view details</a>
+                                <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>" target="blank">view details</a>
                             </div>
                         </div> 
                     </div> 
@@ -68,17 +68,27 @@ $this->title = 'Home';
                         <h2>Get Amazing Cupons Code & Offers Everyday</h2>
                     </div>
                     <div class="subscribe-input">
-                        <form class="subscribe-form mailchimp" method="post">
-                            <div class="clearfix">
-                                <div class="input-field mb-20">
-                                    <label class="sr-only" for="email">Email</label>
-                                    <input id="subscribeEmail" type="email" name="subscribeEmail" class="validate form-control" placeholder="jon@example.com">
-                                </div>
-                                <button type="submit" class="btn btn-block btn-primary submit-btn">Yes! let’s so this</button>
+                        <?php
+                        $model = new app\models\NewsletterSubscriber();
+                        $form = \yii\bootstrap\ActiveForm::begin([
+                                    'id' => 'subscription-form',
+                                    'enableClientScript' => false,
+                                    'action' => \yii\helpers\Url::to(['site/subscribe']),
+                                    'options' => [
+                                        'method' => 'post',
+                                        'class' => 'subscribe-form'
+                                    ]
+                        ]);
+                        ?>
+                        <div class="clearfix">
+                            <div class="input-field mb-20">
+                                <label class="sr-only" for="email">Email</label>
+                                <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'YOUR EMAIL'), 'class' => 'form-control'])->label(false); ?>
                             </div>
-
-                            <p class="subscription-success"></p>
-                        </form>
+                            <?= \yii\helpers\Html::submitButton(Yii::t('app', 'Yes! let’s so this'), ['class' => 'btn btn-block btn-primary submit-btn']) ?>
+                        </div>
+                        <?php yii\bootstrap\ActiveForm::end(); ?>
+                        <p id="response" class="subscription-success"></p>
                     </div>
                 </div> 
             </div> 
@@ -89,16 +99,16 @@ $this->title = 'Home';
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
-                            <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>">
+                            <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
                                 <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
                             </a>
                         </div>
                         <div class="product-entry">
                             <div class="product-title" itemprop="name" style="height: 80px;">
-                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="product-view-btn">
-                                <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>" target="blank">view details</a>
+                                <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>" target="blank">view details</a>
                             </div>
                         </div> 
                     </div> 
@@ -125,7 +135,7 @@ $this->title = 'Home';
                 ?>
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="category-wrapper">
-                        <a href="<?= yii\helpers\Url::to(['site/coupons-deals','id' => $str->store_id,'type' => 's','name' => clean($str->name)]); ?>" class="category-name"><?=$str->name?></a>
+                        <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name"><?= $str->name ?></a>
                     </div>
                 </div>
                 <?php
@@ -186,3 +196,46 @@ $js = "$(document).on('ready',function() {
 	        	});
 	    	});";
 $this->registerJs($js, yii\web\View::POS_END);
+
+$this->registerJs("$('body').on('submit', 'form#subscription-form', function (e) {
+             var form = $(this);
+             var userEmail = $('#newslettersubscriber-email').val();
+             var pattern = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+             if($.trim(pattern) && pattern.test(userEmail)){
+                $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-info\">" . Yii::t('app', 'Sending....') . "</div></div></div>');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'post',
+                    data: form.serialize(),
+                    //async: false,
+                    success: function (response) {
+                       if(response.success==1){
+                          $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-success\">'+response.msg+'</div></div></div>');
+                          $(\"#subscription-form\")[0].reset();
+                          setTimeout(function(){
+                             $('#response').html('');
+                          },4000)
+                       }
+                       else if(response.success==2){
+                          $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-warning\">'+response.msg+'</div></div></div>');
+                          $(\"#subscription-form\")[0].reset();
+                          setTimeout(function(){
+                             $('#response').html('');
+                          },4000)
+                       }
+                       else{
+                          $('#response').html('<div class=\"row\"><div class=\"col-md-12\"><div class=\"alert alert-warning\">'+response.msg+'</div></div></div>');
+                          $(\"#subscription-form\")[0].reset();
+                          setTimeout(function(){
+                             $('#response').html('');
+                          },4000)
+                       }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        console.log(jqXHR.responseText);
+                    }
+                });
+             }
+             return false;   
+        });", \yii\web\View::POS_END);
