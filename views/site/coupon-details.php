@@ -68,7 +68,7 @@ if (!empty($model->dealCategories)) {
                 <div class="tt-sidebar">
                     <div class="widget item-price-widget text-center">
                         <div class="item-from-buy">
-                            <a href="<?= $model->destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i>Redeem Offer</a>
+                            <a target="_new" href="<?= $model->destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i>Redeem Offer</a>
                         </div>
                     </div> 
                     <div class="widget product-overview mt-30">
