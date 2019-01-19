@@ -13,6 +13,10 @@ app\assets\WebsiteAsset::register($this);
         <meta charset="<?= Yii::$app->charset ?>">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="index,follow"/>
+        <meta name="googlebot" content="index,follow,snippet"/>
+        <meta name="keywords" content="Offersndeal.codxplore.com! Free promotions,coupons and voucher!" />
+        <meta name="description" content="Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals."/>
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <link rel="shortcut icon" href="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/ico/favicon.png">

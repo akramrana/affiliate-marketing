@@ -10,7 +10,7 @@ $this->title = 'Home';
             foreach ($banners as $banner) {
                 ?>
                 <li data-transition="fade">
-                    <img src="<?php echo \yii\helpers\BaseUrl::home(); ?>uploads/<?php echo $banner->image ?>" alt="" class="rev-slidebg">
+                    <img src="<?php echo \yii\helpers\BaseUrl::home(); ?>uploads/<?php echo $banner->image ?>" alt="banner" class="rev-slidebg">
 
                     <div class="tp-caption Creative-Title tp-resizeme" data-x="['left','left','center','left']" data-hoffset="['30','110','0','55']" data-y="['top','top','top','top']" data-voffset="['160','160','160','160']" data-fontsize="['45','45','45',35']" data-lineheight="['45','45','45','40']" data-width="['none','none','none','400']" data-height="['none','none','none','100']" data-whitespace="['nowrap','nowrap','nowrap','normal']" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeOut;" data-transform_out="opacity:0;s:1000;" data-start="700" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 6; text-align: left; white-space: nowrap; font-weight: 400; font-family: 'Vidaloka', serif; visibility: hidden; transition: none; border-width: 0px; margin: 0px; padding: 0px;"><?php echo $banner->name_en ?>
                     </div>
