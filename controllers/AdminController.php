@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\components\UserIdentity;
 use app\components\AccessRule;
+
 /**
  * AdminController implements the CRUD actions for Admins model.
  */
@@ -111,11 +112,11 @@ class AdminController extends Controller {
     public function actionUpdate($id) {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->bodyParams;
+            if (isset($request['Admins']['password_hash']) && $request['Admins']['password_hash'] != "") {
+                $model->password = Yii::$app->getSecurity()->generatePasswordHash($request['Admins']['password_hash']);
+            }
             if ($model->save()) {
-                $request = Yii::$app->request->bodyParams;
-                if (isset($request['Admins']['password_hash']) && $request['Admins']['password_hash'] != "") {
-                    $model->password = Yii::$app->getSecurity()->generatePasswordHash($request['Admins']['password_hash']);
-                }
                 Yii::$app->session->setFlash('success', 'Admin successfully updated');
                 return $this->redirect(['index']);
             } else {
@@ -160,7 +161,7 @@ class AdminController extends Controller {
             return json_encode($model->errors);
         }
     }
-    
+
     /**
      * Finds the Admins model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

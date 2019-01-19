@@ -112,15 +112,14 @@ class SiteController extends Controller {
         $get = Yii::$app->request->queryParams;
         $this->layout = 'site_main';
         $query = \app\models\Deals::find()
-                ->join('LEFT JOIN','deal_categories','deals.deal_id = deal_categories.deal_id')
-                ->join('LEFT JOIN','deal_stores','deals.deal_id = deal_stores.deal_id')
+                ->join('LEFT JOIN', 'deal_categories', 'deals.deal_id = deal_categories.deal_id')
+                ->join('LEFT JOIN', 'deal_stores', 'deals.deal_id = deal_stores.deal_id')
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->orderBy(['deal_id' => SORT_DESC]);
-        if(isset($get['type']) && !empty($get['id'])){
-            if($get['type']=='c'){
+        if (isset($get['type']) && !empty($get['id'])) {
+            if ($get['type'] == 'c') {
                 $query->andWhere(['deal_categories.category_id' => $get['id']]);
-            }
-            else{
+            } else {
                 $query->andWhere(['deal_stores.store_id' => $get['id']]);
             }
         }
@@ -139,29 +138,66 @@ class SiteController extends Controller {
         ]);
     }
 
-    public function actionCouponDetails()
-    {
+    public function actionCouponDetails() {
         $get = Yii::$app->request->queryParams;
         $this->layout = 'site_main';
         $model = \app\models\Deals::find()
-                ->where(['is_active' => 1,'is_deleted' => 0,'deal_id' => $get['id']])
+                ->where(['is_active' => 1, 'is_deleted' => 0, 'deal_id' => $get['id']])
                 ->one();
-        if(empty($model)){
+        if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
         }
         $store = \app\models\Stores::find()->where(['api_store_id' => $model->program_id])->one();
         $related = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['!=','deal_id',$model->deal_id])
+                ->andWhere(['!=', 'deal_id', $model->deal_id])
                 ->limit(3)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         return $this->render('coupon-details', [
-            'model' => $model,
-            'store' => $store,
-            'related' => $related,
+                    'model' => $model,
+                    'store' => $store,
+                    'related' => $related,
         ]);
     }
+
+    public function actionCms() {
+        $get = Yii::$app->request->queryParams;
+        $this->layout = 'site_main';
+        $model = \app\models\Cms::findOne($get['id']);
+        return $this->render('page', [
+                    'model' => $model,
+        ]);
+    }
+
+    public function actionSubscribe() {
+        if (Yii::$app->request->isAjax) {
+            $request = Yii::$app->request->bodyParams;
+            if (!empty($request['NewsletterSubscriber']['email'])) {
+                $model = \app\models\NewsletterSubscriber::find()
+                        ->where(['email' => $request['NewsletterSubscriber']['email']])
+                        ->one();
+                if (empty($model)) {
+                    $model = new \app\models\NewsletterSubscriber();
+                }
+                $model->created_at = date('Y-m-d H:i:s');
+                if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                    $model->is_active = 1;
+                    $model->save();
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => 1, 'msg' => Yii::t('app', 'Thank you for subscribing to our newsletter!')];
+                } else {
+                    $error = \yii\widgets\ActiveForm::validate($model);
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => 3, 'msg' => $error];
+                }
+            } else {
+                Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                return ['success' => 2, 'msg' => Yii::t('app', 'There was error processing your request.Please try again')];
+            }
+        }
+    }
+
     /**
      * Login action.
      *
@@ -191,7 +227,7 @@ class SiteController extends Controller {
     public function actionLogout() {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect(['site/login']);
     }
 
     /**
