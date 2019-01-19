@@ -142,14 +142,9 @@ app\assets\WebsiteAsset::register($this);
             <div class="footer-social-section text-center">
                 <div class="container">
                     <ul class="list-inline tt-animate ltr">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
-                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        <li><a target="_new" href="https://www.facebook.com/Offersndeal-233757060846568/"><i class="fa fa-facebook"></i></a></li>
+                        <li><a target="_new" href="https://twitter.com/Offersanddeals5"><i class="fa fa-twitter"></i></a></li>
+                        <li><a target="_new" href="https://www.tumblr.com/blog/offerndeal"><i class="fa fa-tumblr"></i></a></li>
                     </ul>
                 </div>
             </div> 
