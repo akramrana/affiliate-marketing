@@ -56,6 +56,7 @@ $config = [
             'rules' => [
                 'coupons-deals/<id:[-a-zA-Z-0-9-.]+>/<type:[-a-zA-Z-0-9-.]+>/<name:[-a-zA-Z-0-9-.]+>' => 'site/coupons-deals',
                 'details/<id:[-a-zA-Z-0-9-.]+>/<name:[-a-zA-Z-0-9-.]+>' => 'site/coupon-details',
+                'page/<id:[-a-zA-Z-0-9-.]+>/<title:[-a-zA-Z-0-9-.]+>' => 'site/cms',
             ],
         ],
     ],
