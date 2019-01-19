@@ -89,7 +89,7 @@ class AffilinetController extends \yii\web\Controller {
                             );
 
                             $getProgramsQuery = array(
-                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting', 'NoPartnership'),
+                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting'),
                                 'ProgramIds' => [$coupon->ProgramId]
                             );
 
