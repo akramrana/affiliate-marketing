@@ -163,7 +163,7 @@ app\assets\WebsiteAsset::register($this);
                         </div>
                         <div class="col-lg-3 col-sm-6">
                             <div class="footer-widget adverties-links">
-                                <h3 class="mb-20">Adverties</h3>
+                                <h3 class="mb-20">Advertise</h3>
                                 <ul class="list-unstyled">
                                     <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 3, 'title' => 'add-your-product']); ?>">Add Your Product</a></li>
                                     <li><a href="<?= yii\helpers\Url::to(['site/cms', 'id' => 4, 'title' => 'how-to-advertise']); ?>">How To Advertise</a></li>
