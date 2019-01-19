@@ -257,5 +257,11 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         return $this->render('about');
     }
+    
+    public function actionError() {
+        $this->layout = 'site_main';
+        $exception = Yii::$app->errorHandler->exception;
+        return $this->render('error', ['exception' => $exception]);
+    }
 
 }
