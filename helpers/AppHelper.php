@@ -120,4 +120,24 @@ class AppHelper {
                 ->all();
         return $model;
     }
+    
+    static function getCreativeAds($limit)
+    {
+        $model = \app\models\CreativeAds::find()
+                ->where(['is_deleted' => 0])
+                ->limit($limit)
+                ->orderBy(['creative_ad_id' => SORT_DESC])
+                ->all();
+        return $model;
+    }
+    
+    static function getRandomCreativeAds($limit)
+    {
+        $model = \app\models\CreativeAds::find()
+                ->where(['is_deleted' => 0])
+                ->limit($limit)
+                ->orderBy("RAND()")
+                ->all();
+        return $model;
+    }
 }
