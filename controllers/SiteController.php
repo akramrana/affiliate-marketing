@@ -151,7 +151,7 @@ class SiteController extends Controller {
         $related = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['!=', 'deal_id', $model->deal_id])
-                ->limit(3)
+                ->limit(6)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         return $this->render('coupon-details', [
