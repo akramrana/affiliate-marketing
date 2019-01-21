@@ -94,7 +94,16 @@ if (!empty($model->dealCategories)) {
                 <div class="tt-sidebar">
                     <div class="widget item-price-widget text-center">
                         <div class="item-from-buy">
-                            <a target="_new" href="<?= $model->destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i>Redeem Offer</a>
+                            <?php
+                            if ($model->integration_code != "") {
+                                $arr = explode('>', $model->integration_code);
+                                $arr1 = explode('"', $arr[0]);
+                                $destination_url = $arr1[1];
+                            }else{
+                                $destination_url = $model->destination_url;
+                            }
+                            ?>
+                            <a target="_new" href="<?= $destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i>Redeem Offer</a>
                         </div>
                     </div> 
                     <div class="widget product-overview mt-30">
