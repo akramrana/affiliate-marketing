@@ -19,7 +19,7 @@ app\assets\WebsiteAsset::register($this);
         <meta name="391ecd4fc836d7f" content="98fd186c82a66386e4f8bef18c881a90" />
         <meta name="description" content="Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals."/>
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
+        <title><?= Html::encode($this->title) ?>|Offersndeal Free promotions,coupons and voucher!</title>
         <link rel="shortcut icon" href="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/ico/favicon.png">
         <?php $this->head() ?>
         <script type="application/javascript">
