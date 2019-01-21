@@ -66,13 +66,13 @@ if (!empty($model->dealCategories)) {
                 <div class="row mt-30">
                     <?php
                     foreach ($related as $deal) {
-                        $store = \app\models\Stores::find()->where(['api_store_id' => $deal->program_id])->one();
+                        $rstore = \app\models\Stores::find()->where(['api_store_id' => $deal->program_id])->one();
                         ?>
                         <div class="col-md-4 col-sm-6 mb-30">
                             <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                                 <div class="product-image">
                                     <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                        <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
+                                        <img itemprop="image" src="<?= $rstore->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
                                     </a>
                                 </div>
                                 <div class="product-entry">
