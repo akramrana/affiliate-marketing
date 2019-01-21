@@ -65,12 +65,14 @@ class SiteController extends Controller {
                 ->all();
         $top8 = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->offset(0)
                 ->limit(8)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         $top2 = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->offset(8)
                 ->limit(2)
                 ->orderBy(['deal_id' => SORT_DESC])
@@ -115,6 +117,7 @@ class SiteController extends Controller {
                 ->join('LEFT JOIN', 'deal_categories', 'deals.deal_id = deal_categories.deal_id')
                 ->join('LEFT JOIN', 'deal_stores', 'deals.deal_id = deal_stores.deal_id')
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->orderBy(['deal_id' => SORT_DESC]);
         if (isset($get['type']) && !empty($get['id'])) {
             if ($get['type'] == 'c') {
@@ -143,6 +146,7 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         $model = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0, 'deal_id' => $get['id']])
+                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->one();
         if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
@@ -151,6 +155,7 @@ class SiteController extends Controller {
         $related = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['!=', 'deal_id', $model->deal_id])
+                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->limit(6)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
