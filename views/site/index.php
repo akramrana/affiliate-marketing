@@ -127,7 +127,7 @@ $this->title = 'Home';
             <span data-target=".category-section" class="scroll-to-target"><i class="fa fa-arrow-down"></i></span>
         </div>
         <div class="page-title text-center mb-40">
-            <h2 class="section-title section-title-width">We Have Hundreds of Stores To Choose. You Ready?</h2>
+            <h1 class="section-title section-title-width">We Have Hundreds of Stores To Choose. You Ready?</h1>
         </div>
         <div class="row">
             <?php
