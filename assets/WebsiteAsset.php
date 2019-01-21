@@ -29,6 +29,7 @@ class WebsiteAsset extends AssetBundle{
         'assets/bootstrap/css/bootstrap.min.css',
         'style.css',
         'assets/css/colors/color1.css',
+        'custom.css',
     ];
 
     public $js = [
