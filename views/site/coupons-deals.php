@@ -18,11 +18,11 @@ $this->title = 'Coupons&Deals';
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
                             <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>">
-                                <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo" style="width: 270px;height: 200px;"/>
+                                <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo"/>
                             </a>
                         </div>
                         <div class="product-entry">
-                            <div class="product-title" itemprop="name" style="height: 80px;">
+                            <div class="product-title" itemprop="name">
                                 <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="product-view-btn">
