@@ -15,7 +15,7 @@ class AffilinetController extends \yii\web\Controller {
 
     private $api_customer_id = '854690';
     private $api_passphrase = '1J31vp0ZPo3ZplTfdAvg';
-    
+
     /**
      * {@inheritdoc}
      */
@@ -69,9 +69,11 @@ class AffilinetController extends \yii\web\Controller {
                 $loadedStores = new \stdClass();
                 if (!empty($coupons->VoucherCodeCollection)) {
                     foreach ($coupons->VoucherCodeCollection->VoucherCodeItem as $coupon) {
-                        $checkDeal = \app\models\Deals::find()
-                                ->where(['LIKE', 'title', $coupon->Title])
-                                ->one();
+                        if ($coupon->Title != "") {
+                            $checkDeal = \app\models\Deals::find()
+                                    ->where(['LIKE', 'title', $coupon->Title])
+                                    ->one();
+                        }
                         if (!empty($checkDeal)) {
                             
                         } else {
@@ -89,7 +91,7 @@ class AffilinetController extends \yii\web\Controller {
                             );
 
                             $getProgramsQuery = array(
-                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting', 'NoPartnership', 'Refused'),
+                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting'),
                                 'ProgramIds' => [$coupon->ProgramId]
                             );
 
@@ -172,7 +174,7 @@ class AffilinetController extends \yii\web\Controller {
                                 }
                             }
                             //get coupon categories
-                            $couponCategories = !empty($response->ProgramCollection->Program->ProgramCategoryIds->int)?$response->ProgramCollection->Program->ProgramCategoryIds->int:[];
+                            $couponCategories = !empty($response->ProgramCollection->Program->ProgramCategoryIds->int) ? $response->ProgramCollection->Program->ProgramCategoryIds->int : [];
                             //load all store categories recursively
                             $allCategories = [];
                             if (!empty($categories->RootCategories->ProgramCategory)) {
@@ -205,7 +207,7 @@ class AffilinetController extends \yii\web\Controller {
                                             ->one();
                                     if (!empty($category)) {
                                         $category_id = $category->category_id;
-                                    }else{
+                                    } else {
                                         $category_id = null;
                                     }
                                 }
@@ -278,7 +280,7 @@ class AffilinetController extends \yii\web\Controller {
                             $deal->sys_user_ip = $_SERVER['REMOTE_ADDR'];
                             $deal->destination_url = !empty($destination_url) ? $destination_url : "";
                             $deal->network_id = $netWorkModel->network_id;
-                            $deal->extras = !empty($coupon->VoucherTypes->VoucherType)?json_encode($coupon->VoucherTypes->VoucherType):"";
+                            $deal->extras = !empty($coupon->VoucherTypes->VoucherType) ? json_encode($coupon->VoucherTypes->VoucherType) : "";
                             $deal->save(false);
                             //
                             foreach ($categoriesArray as $key => $val) {
@@ -338,7 +340,7 @@ class AffilinetController extends \yii\web\Controller {
             'StartDate' => strtotime("now"),
             'EndDate' => strtotime("now"),
             'VoucherCodeContent' => 'Any',
-                //'ProgramPartnershipStatus' => 'Accepted'
+            //'ProgramPartnershipStatus' => 'Accepted'
         );
         $soapRequest = new \SoapClient(WSDL_WS);
         $response = $soapRequest->SearchVoucherCodes(array(
