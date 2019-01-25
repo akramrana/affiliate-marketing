@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Import Affilinet', ['affilinet/import'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Import Awin', ['awin/import'], ['class' => 'btn btn-info']) ?>
-        <?= Html::a('Import Trade Tracker', ['trade-tracker/import'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('Import Trade Tracker', ['trade-tracker/index'], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Import CJ Affiliation', ['cj-affiliation/index'], ['class' => 'btn btn-primary']) ?>
     </p>
 

@@ -32,7 +32,7 @@ $this->title = 'Coupons&Deals';
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
                             <a href="<?= yii\helpers\Url::to(['site/coupon-details','id' => $deal->deal_id,'name' => clean($deal->title)]); ?>">
-                                <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive" alt="logo"/>
+                                <img itemprop="image" src="<?= isset($store->store_logo)?$store->store_logo:""; ?>" class="img-responsive img-max" alt="logo"/>
                             </a>
                         </div>
                         <div class="product-entry">

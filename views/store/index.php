@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) {
                     return $model->store_logo;
                 },
-                'format' => ['image'],
+                'format' => ['image',['width' => '150']],
                 'filter' => false,
             ],
             [
