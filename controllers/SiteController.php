@@ -67,7 +67,7 @@ class SiteController extends Controller {
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->offset(0)
-                ->limit(8)
+                ->limit(12)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->groupBy(['program_id'])
                 ->all();
@@ -81,7 +81,7 @@ class SiteController extends Controller {
                 ->all();
         $stores = \app\models\Stores::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->limit(8)
+                ->limit(12)
                 ->orderBy(['store_id' => SORT_DESC])
                 ->all();
         return $this->render('index', [
@@ -134,7 +134,7 @@ class SiteController extends Controller {
         $countQuery = clone $query;
         $pages = new Pagination([
             'totalCount' => $countQuery->count(),
-            'pageSize' => 12
+            'pageSize' => 24
         ]);
         $models = $query->offset($pages->offset)
                 ->limit($pages->limit)

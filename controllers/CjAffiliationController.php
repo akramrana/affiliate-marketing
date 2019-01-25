@@ -4,10 +4,37 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
+use app\components\UserIdentity;
+use app\components\AccessRule;
 
 class CjAffiliationController extends \yii\web\Controller {
 
     private $api_customer_id = '5209964';
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'only' => ['index'],
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => [
+                            UserIdentity::ROLE_ADMIN
+                        ]
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex() {
         $model = new \app\models\ExcelUpload();
