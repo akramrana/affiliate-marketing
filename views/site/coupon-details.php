@@ -135,11 +135,11 @@ if (!empty($model->dealCategories)) {
                     <div class="widget product-overview mt-30">
                         <h5>Overview</h5>
                         <div class="product-over-view-details">
-                            <p><span>Store</span><img src="<?= $store->store_logo ?>" alt="<?= $store->name ?>"/></p>
-                            <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p>
-                            <p><span>Compatibility</span><?= $model->customer_restriction; ?></p>
-                            <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p>
-                            <p><span>Coupon Code</span><?= ($model->coupon_code!="")?$model->coupon_code:""; ?></p>
+                            <p><span>Store</span><img src="<?= $store->store_logo ?>" alt="<?= $store->name ?>"/></p><span class="clearfix">&nbsp;</span>
+                            <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p><span class="clearfix">&nbsp;</span>
+                            <p><span>Compatibility</span><?= $model->customer_restriction; ?></p><span class="clearfix">&nbsp;</span>
+                            <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p><span class="clearfix">&nbsp;</span>
+                            <p><span>Coupon Code</span><?= ($model->coupon_code!="")?$model->coupon_code:""; ?></p><span class="clearfix">&nbsp;</span>
                         </div>
                     </div>
                     <div class="widget populer-product-widget mt-30">
