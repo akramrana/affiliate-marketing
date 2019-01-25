@@ -67,6 +67,20 @@ if (!empty($model->dealCategories)) {
                     <?php
                     foreach ($related as $deal) {
                         $rstore = \app\models\Stores::find()->where(['api_store_id' => $deal->program_id])->one();
+                        if ($deal->integration_code != "") {
+                            $arr = explode('>', $deal->integration_code);
+                            $arr1 = explode('"', $arr[0]);
+                            $destination_url = $arr1[1];
+                        } else {
+                            $destination_url = $deal->destination_url;
+                        }
+                        if ($deal->coupon_code != "") {
+                            $coupon = $deal->coupon_code;
+                            $str = 'click & open site to redeem offer';
+                        } else {
+                            $coupon = "Redeem";
+                            $str = 'click & open site to redeem offer';
+                        }
                         ?>
                         <div class="col-md-4 col-sm-6 mb-30">
                             <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
@@ -78,6 +92,12 @@ if (!empty($model->dealCategories)) {
                                 <div class="product-entry">
                                     <div class="product-title" itemprop="name">
                                         <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                    </div>
+                                    <div class="cupon-num">
+                                        <a href="<?php echo $destination_url; ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
+                                    </div>
+                                    <div class="cupon-info-text text-center">
+                                        <span><?= $str; ?></span>
                                     </div>
                                     <div class="product-view-btn">
                                         <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
@@ -99,11 +119,17 @@ if (!empty($model->dealCategories)) {
                                 $arr = explode('>', $model->integration_code);
                                 $arr1 = explode('"', $arr[0]);
                                 $destination_url = $arr1[1];
-                            }else{
+                            } else {
                                 $destination_url = $model->destination_url;
                             }
+                            if ($model->coupon_code != "") {
+                                $str = 'Redeem Offer';
+                            } else {
+                                $str = 'Redeem Offer';
+                            }
                             ?>
-                            <a target="_new" href="<?= $destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i>Redeem Offer</a>
+                            <a target="_new" href="<?= $destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i><?= $str; ?></a>
+                            
                         </div>
                     </div> 
                     <div class="widget product-overview mt-30">
@@ -113,6 +139,7 @@ if (!empty($model->dealCategories)) {
                             <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p>
                             <p><span>Compatibility</span><?= $model->customer_restriction; ?></p>
                             <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p>
+                            <p><span>Coupon Code</span><?= ($model->coupon_code!="")?$model->coupon_code:""; ?></p>
                         </div>
                     </div>
                     <div class="widget populer-product-widget mt-30">
