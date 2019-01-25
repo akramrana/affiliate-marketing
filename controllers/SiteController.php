@@ -69,6 +69,7 @@ class SiteController extends Controller {
                 ->offset(0)
                 ->limit(8)
                 ->orderBy(['deal_id' => SORT_DESC])
+                ->groupBy(['program_id'])
                 ->all();
         $top2 = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
@@ -76,6 +77,7 @@ class SiteController extends Controller {
                 ->offset(8)
                 ->limit(2)
                 ->orderBy(['deal_id' => SORT_DESC])
+                ->groupBy(['program_id'])
                 ->all();
         $stores = \app\models\Stores::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
