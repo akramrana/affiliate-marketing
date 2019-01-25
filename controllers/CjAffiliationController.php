@@ -59,7 +59,7 @@ class CjAffiliationController extends \yii\web\Controller {
                     if ($RELATIONSHIP_STATUS != "Active") {
                         continue;
                     }
-                    if ($LINK_TYPE != "Text Link") {
+                    if ($LINK_TYPE == "Banner") {
                         continue;
                     }
                     $checkDeal = \app\models\Deals::find()
@@ -72,7 +72,7 @@ class CjAffiliationController extends \yii\web\Controller {
                         if (!empty($checkDeal)) {
                             continue;
                         }
-                        $expire_date = date('Y-m-d H:i:s', strtotime($PROMOTIONAL_END_DATE));
+                        $expire_date = empty($PROMOTIONAL_END_DATE)?date('Y-m-d H:i:s',strtotime('+1 year')):date('Y-m-d H:i:s', strtotime($PROMOTIONAL_END_DATE));
                         /**
                          * start store_id checking
                          */
@@ -153,8 +153,8 @@ class CjAffiliationController extends \yii\web\Controller {
                             $type = 'P';
                         }
                         $deal->voucher_types = $type;
-                        $deal->start_date = date('Y-m-d H:i:s', strtotime($PROMOTIONAL_DATE));
-                        $deal->end_date = date('Y-m-d H:i:s', strtotime($PROMOTIONAL_END_DATE));
+                        $deal->start_date = empty($PROMOTIONAL_DATE)?date('Y-m-d H:i:s'):date('Y-m-d H:i:s', strtotime($PROMOTIONAL_DATE));
+                        $deal->end_date = empty($PROMOTIONAL_END_DATE)?date('Y-m-d H:i:s',strtotime('+1 year')):date('Y-m-d H:i:s', strtotime($PROMOTIONAL_END_DATE));
                         $deal->expire_date = $expire_date;
                         $deal->last_change_date = date('Y-m-d H:i:s', strtotime($LAST_UDPATED));
                         $deal->partnership_status = $RELATIONSHIP_STATUS;
