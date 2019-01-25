@@ -10,3 +10,9 @@ and open the template in the editor.
 .product-entry .product-title{
     min-height: 150px;
 }
+.max-img-width{
+    max-width: 120px;
+}
+.img-max{
+    max-height: 120px;
+}
