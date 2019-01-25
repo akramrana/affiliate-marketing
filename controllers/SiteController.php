@@ -94,6 +94,7 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         $categories = \app\models\Categories::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->orderBy(['category_id' => SORT_DESC])
                 ->all();
         return $this->render('categories', [
                     'categories' => $categories
@@ -104,6 +105,7 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         $stores = \app\models\Stores::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->orderBy(['store_id' => SORT_DESC])
                 ->all();
         return $this->render('stores', [
                     'stores' => $stores
