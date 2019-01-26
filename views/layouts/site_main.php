@@ -124,6 +124,7 @@ app\assets\WebsiteAsset::register($this);
                 <div class="row">
                     <?php
                     $creativeAds = app\helpers\AppHelper::getCreativeAds(12);
+                    $creativeDeals = app\helpers\AppHelper::getDealsBenner(6);
                     ?>
                     <div class="owl-carousel owl-theme">
                         <?php
@@ -131,12 +132,35 @@ app\assets\WebsiteAsset::register($this);
                             ?>
                             <div class="item">
                                 <div class="col-lg-12 col-sm-12 mb-30">
-                                    <div class="product-wrapper text-center" itemscope="" itemtype="http://schema.org/Product">
-                                        <?php
-                                        echo $ca->content;
-                                        ?>
-                                    </div>
+                                    <?php
+                                    echo $ca->content;
+                                    ?>
                                 </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container">
+                <div class="page-title text-center">
+                    <h2 class="section-title">Explore More</h2>
+                    <p class="section-sub">
+                        Browse Our Various Deals.Buy Now And Save, 
+                        Discover Brands At Great Prices.Shop Your Style.
+                    </p>
+                </div>
+                <div class="job-menu">
+                    <div class="row">
+                        <?php
+                        foreach ($creativeDeals as $db) {
+                            ?>
+                            <div class="col-md-6 mt-30">
+                                <?php
+                                echo $db->content;
+                                ?>
                             </div>
                             <?php
                         }
@@ -219,17 +243,6 @@ app\assets\WebsiteAsset::register($this);
                 margin:10,
                 nav:true,
                 autoplay:true,
-                responsive:{
-                    0:{
-                        items:1
-                    },
-                    600:{
-                        items:3
-                    },
-                    1000:{
-                        items:5
-                    }
-                }
             })';
         $this->registerJs($js, \yii\web\View::POS_END);
         ?>
