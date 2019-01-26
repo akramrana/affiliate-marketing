@@ -144,7 +144,7 @@ class AppHelper {
     static function getDealsBenner($limit)
     {
         $model = \app\models\DealBanners::find()
-                ->where(['is_deleted' => 0])
+                ->where(['is_deleted' => 0,'is_active' => 1])
                 ->limit($limit)
                 ->orderBy("RAND()")
                 ->all();
