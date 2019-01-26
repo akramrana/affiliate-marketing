@@ -119,23 +119,29 @@ app\assets\WebsiteAsset::register($this);
                     <span data-target=".product-reviews" class="scroll-to-target"><i class="fa fa-arrow-down"></i></span>
                 </div>
                 <div class="page-title text-center mb-40">
-                    <h1 class="section-title section-title-width">Popular Shops</h1>
+                    <h1 class="section-title section-title-width">Popular Deals</h1>
                 </div> 
                 <div class="row">
                     <?php
                     $creativeAds = app\helpers\AppHelper::getCreativeAds(12);
-                    foreach ($creativeAds as $ca) {
-                        ?>
-                        <div class="col-lg-4 col-sm-6 mb-30">
-                            <div class="product-wrapper text-center" itemscope="" itemtype="http://schema.org/Product">
-                                <?php
-                                echo $ca->content;
-                                ?>
-                            </div> 
-                        </div>  
-                        <?php
-                    }
                     ?>
+                    <div class="owl-carousel owl-theme">
+                        <?php
+                        foreach ($creativeAds as $ca) {
+                            ?>
+                            <div class="item">
+                                <div class="col-lg-12 col-sm-12 mb-30">
+                                    <div class="product-wrapper text-center" itemscope="" itemtype="http://schema.org/Product">
+                                        <?php
+                                        echo $ca->content;
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
                 </div> 
             </div>
         </section>
@@ -207,6 +213,26 @@ app\assets\WebsiteAsset::register($this);
                 <div class="text">Loading ...</div>
             </div>
         </div>
+        <?php
+        $js = '$(\'.owl-carousel\').owlCarousel({
+                loop:true,
+                margin:10,
+                nav:true,
+                autoplay:true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:3
+                    },
+                    1000:{
+                        items:5
+                    }
+                }
+            })';
+        $this->registerJs($js, \yii\web\View::POS_END);
+        ?>
         <?php $this->endBody() ?>
     </body>
 </html>

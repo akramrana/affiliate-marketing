@@ -51,6 +51,7 @@ AppAsset::register($this);
                     ['label' => 'Deal', 'url' => ['/deal/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Creative Ads', 'url' => ['/creative-ad/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Subscriber', 'url' => ['/newsletter-subscriber/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Banner Deal', 'url' => ['/deal-banner/index'], 'visible' => !Yii::$app->user->isGuest],
                     Yii::$app->user->isGuest ? (
                             ['label' => 'Login', 'url' => ['/site/login']]
                             ) : (
