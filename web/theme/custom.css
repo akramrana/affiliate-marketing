@@ -16,3 +16,6 @@ and open the template in the editor.
 .img-max{
     max-height: 120px;
 }
+.job-menu img{
+    max-width: 560px;
+}
