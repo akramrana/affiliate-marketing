@@ -36,13 +36,24 @@ var app = {
         if($.trim(v)!=""){
             if(v=='L'){
                 $("#link-section").show();
-            }else{
+                $("#html-section").hide();
+                $("#banners-html_code").val("");
+            }
+            else if(v=='H'){
+                $("#html-section").show();
+                $("#link-section").show();
+            }
+            else{
                 $("#link-section").hide();
+                $("#html-section").hide();
                 $("#banners-url").val("");
+                $("#banners-html_code").val("");
             }
         }else{
             $("#link-section").hide();
+            $("#html-section").hide();
             $("#banners-url").val("");
+            $("#banners-html_code").val("");
         }
     }
 }
