@@ -8,8 +8,13 @@ use dosamigos\fileupload\FileUpload;
 /* @var $model app\models\Banners */
 /* @var $form yii\widgets\ActiveForm */
 $linkStyle = 'display:none;';
+$htmlStyle = 'display:none;';
 if (!$model->isNewRecord) {
     if ($model->type == 'L') {
+        $linkStyle = '';
+    }
+    else if($model->type == 'H'){
+        $htmlStyle = '';
         $linkStyle = '';
     }
 }
@@ -88,7 +93,7 @@ if (!$model->isNewRecord) {
     <?php echo $form->field($model, 'image')->hiddenInput()->label(false); ?>
 
     <?=
-    $form->field($model, 'type')->dropDownList(['L' => 'Link', 'I' => 'Image Only',], [
+    $form->field($model, 'type')->dropDownList(['L' => 'Link', 'I' => 'Image Only','H' => 'HTML'], [
         'prompt' => 'Please Select',
         'onclick' => 'app.showHideLink(this.value)',
     ])
@@ -96,6 +101,10 @@ if (!$model->isNewRecord) {
 
     <div id="link-section" style="<?= $linkStyle ?>">
         <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+    </div>
+    
+    <div id="html-section" style="<?= $htmlStyle ?>">
+        <?= $form->field($model, 'html_code')->textarea() ?>
     </div>
 
     <div class="form-group">

@@ -40,9 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'type',
-                'value' => ($model->type == 'L') ? "Link" : "Image Only"
+                'value' => ($model->type == 'L') ? (($model->type == 'H'))?"HTML":"Link" : "Image Only"
             ],
             'url:url',
+            [
+                'label' => 'html_code',
+                'value' => $model->html_code,
+                'format' => ['image', ['width' => '150']],
+            ],
             [
                 'attribute' => 'is_active',
                 'value' => ($model->is_active == '1') ? "Yes" : "No"

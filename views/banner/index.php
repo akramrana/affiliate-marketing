@@ -39,9 +39,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($model) {
                     return ($model->type == 'L') ? "Link" : "Image Only";
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'type', ['L' => 'Link', 'I' => 'Image Only'], ['class' => 'form-control select2', 'prompt' => 'Filter']),
+                'filter' => Html::activeDropDownList($searchModel, 'type', ['L' => 'Link', 'I' => 'Image Only', 'H' => 'Html'], ['class' => 'form-control select2', 'prompt' => 'Filter']),
             ],
             'url:url',
+            [
+                'label' => 'html_code',
+                'value' => function($model) {
+                    return $model->html_code;
+                },
+                'format' => ['image', ['width' => '240']],
+                'filter' => false,
+            ],
             [
                 'label' => 'Status',
                 'attribute' => 'is_active',
