@@ -23,9 +23,11 @@ class WebsiteAsset extends AssetBundle{
         'assets/font-awesome/css/font-awesome.min.css',
         'assets/menuzord/css/menuzord.css',
         'assets/menuzord/css/skins/menuzord-strip.css',
-        'assets/revolution/css/settings.css',
+        /*'assets/revolution/css/settings.css',
         'assets/revolution/css/layers.css',
-        'assets/revolution/css/navigation.css',
+        'assets/revolution/css/navigation.css',*/
+        'assets/owl-carousel/assets/owl.carousel.min.css',
+        'assets/owl-carousel/assets/owl.theme.default.min.css',
         'assets/bootstrap/css/bootstrap.min.css',
         'style.css',
         'assets/css/colors/color1.css',
@@ -42,7 +44,8 @@ class WebsiteAsset extends AssetBundle{
         'assets/js/ajaxchimp.js',
         'assets/js/ajaxchimp-config.js',
         'assets/js/script.js',
-        'assets/revolution/js/jquery.themepunch.tools.min.js',
+        'assets/owl-carousel/owl.carousel.min.js',
+        /*'assets/revolution/js/jquery.themepunch.tools.min.js',
         'assets/revolution/js/jquery.themepunch.revolution.min.js',
         'assets/revolution/js/extensions/revolution.extension.video.min.js',
         'assets/revolution/js/extensions/revolution.extension.slideanims.min.js',
@@ -52,7 +55,7 @@ class WebsiteAsset extends AssetBundle{
         'assets/revolution/js/extensions/revolution.extension.kenburn.min.js',
         'assets/revolution/js/extensions/revolution.extension.navigation.min.js',
         'assets/revolution/js/extensions/revolution.extension.migration.min.js',
-        'assets/revolution/js/extensions/revolution.extension.parallax.min.js',
+        'assets/revolution/js/extensions/revolution.extension.parallax.min.js',*/
     ];
 
     public $depends = [

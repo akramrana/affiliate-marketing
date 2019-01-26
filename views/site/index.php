@@ -3,38 +3,72 @@
 
 $this->title = 'Home';
 ?>
-<section class="rev_slider_wrapper fullwidthbanner-container">
-    <div class="gadgetfloor_slider rev_slider fullwidthabanner" style="display:none">
-        <ul>
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
             <?php
+            $i = 0;
             foreach ($banners as $banner) {
                 ?>
-                <li data-transition="fade">
-                    <img src="<?php echo \yii\helpers\BaseUrl::home(); ?>uploads/<?php echo $banner->image ?>" alt="banner" class="rev-slidebg">
+                <li data-target="#myCarousel" data-slide-to="<?= $i ?>" class="<?= ($i == 0) ? 'active' : '' ?>"></li>
+                <?php
+                $i++;
+            }
+            ?>
+        </ol>
 
-                    <div class="tp-caption Creative-Title tp-resizeme" data-x="['left','left','center','left']" data-hoffset="['30','110','0','55']" data-y="['top','top','top','top']" data-voffset="['160','160','160','160']" data-fontsize="['45','45','45',35']" data-lineheight="['45','45','45','40']" data-width="['none','none','none','400']" data-height="['none','none','none','100']" data-whitespace="['nowrap','nowrap','nowrap','normal']" data-transform_idle="o:1;" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeOut;" data-transform_out="opacity:0;s:1000;" data-start="700" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 6; text-align: left; white-space: nowrap; font-weight: 400; font-family: 'Vidaloka', serif; visibility: hidden; transition: none; border-width: 0px; margin: 0px; padding: 0px;"><?php echo $banner->name_en ?>
-                    </div>
-
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <?php
+            $i = 0;
+            foreach ($banners as $banner) {
+                $url = \yii\helpers\BaseUrl::home() . 'uploads/' . $banner->image;
+                if ($banner->type == 'H') {
+                    $url = $banner->html_code;
+                }
+                ?>
+                <div class="item <?= ($i == 0) ? 'active' : '' ?>">
                     <?php
-                    if ($banner->type == 'L') {
+                    if ($banner->type == "H") {
                         ?>
-                        <div class="tp-caption Creative-Button rev-btn" data-x="['left','left','center','left']" data-hoffset="['30','110','0','55']" data-y="['top','top','top','top']" data-voffset="['250','250','240','280']" data-fontsize="['12','12','12','12']" data-fontweight="['400','400','400','400']" data-width="['188','none','none','none']" data-height="none" data-whitespace="['normal','nowrap','nowrap','nowrap']" data-transform_idle="o:1;" data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Power1.easeInOut;" data-style_hover="c:rgba(35, 35, 35, 1.00);bg:rgba(255, 255, 255, 1.00);" data-transform_in="y:50px;opacity:0;s:1500;e:Power3.easeOut;" data-transform_out="opacity:0;s:1000;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" data-responsive="off" style="z-index: 7;  font-size: 12px; color: #fff; border: 1px solid #fff; cursor: pointer; transition: none; border-radius: 4px; margin: 0px; padding: 15px 30px; letter-spacing: 3px; text-transform: uppercase; opacity: 1;">
-                            <a href="<?= $banner->url ?>">Let's explore</a>
-                        </div>
+                        <a href="<?= $banner->url; ?>" target="_new">
+                            <img style="width: 970px;" src="<?php echo $url; ?>" alt="banner">
+                        </a>
+                        <?php
+                    } else if ($banner->type == 'L') {
+                        ?>
+                        <a href="<?= $banner->url; ?>" target="_new">
+                            <img style="width: 970px;" src="<?php echo $url; ?>" alt="banner">
+                        </a>
+                        <?php
+                    } else {
+                        ?>
+                        <img src="<?php echo $url; ?>" alt="banner">
                         <?php
                     }
                     ?>
-                </li>
+                </div>
                 <?php
+                $i++;
             }
             ?>
-        </ul>
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-</section>
+</div>
 
 
 <section class="pdb-40 solitude-bg">
-    <div class="container product-section-content">
+    <div class="container">
         <div class="row">
             <?php
             foreach ($top8 as $deal) {
@@ -46,10 +80,10 @@ $this->title = 'Home';
                 } else {
                     $destination_url = $deal->destination_url;
                 }
-                if($deal->coupon_code!=""){
+                if ($deal->coupon_code != "") {
                     $coupon = $deal->coupon_code;
                     $str = 'click & open site to redeem offer';
-                }else{
+                } else {
                     $coupon = "Redeem";
                     $str = 'click & open site to redeem offer';
                 }
@@ -66,10 +100,10 @@ $this->title = 'Home';
                                 <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="cupon-num">
-                                <a href="<?php echo $destination_url;?>" class="btn" data-clipboard-text="<?=$coupon;?>" target="_new"><?=$coupon;?></a>
+                                <a href="<?php echo $destination_url; ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
                             </div>
                             <div class="cupon-info-text text-center">
-                                <span><?=$str;?></span>
+                                <span><?= $str; ?></span>
                             </div>
                             <div class="product-view-btn">
                                 <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
@@ -122,10 +156,10 @@ $this->title = 'Home';
                 } else {
                     $destination_url = $deal->destination_url;
                 }
-                if($deal->coupon_code!=""){
+                if ($deal->coupon_code != "") {
                     $coupon = $deal->coupon_code;
                     $str = 'click & open site to redeem offer';
-                }else{
+                } else {
                     $coupon = "Redeem";
                     $str = 'click & open site to redeem offer';
                 }
@@ -142,10 +176,10 @@ $this->title = 'Home';
                                 <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="cupon-num">
-                                <a href="<?php echo $destination_url;?>" class="btn" data-clipboard-text="<?=$coupon;?>" target="_new"><?=$coupon;?></a>
+                                <a href="<?php echo $destination_url; ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
                             </div>
                             <div class="cupon-info-text text-center">
-                                <span><?=$str;?></span>
+                                <span><?= $str; ?></span>
                             </div>
                             <div class="product-view-btn">
                                 <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
@@ -174,8 +208,12 @@ $this->title = 'Home';
             foreach ($stores as $str) {
                 ?>
                 <div class="col-md-3 col-sm-6 mb-30">
+
                     <div class="category-wrapper">
-                        <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name"><?= $str->name ?></a>
+                        <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name">
+
+                            <img itemprop="image" src="<?= $str->store_logo; ?>" class="img-responsive" alt="logo"/>
+                        </a>
                     </div>
                 </div>
                 <?php
@@ -188,54 +226,6 @@ $this->title = 'Home';
 
 
 <?php
-$js = "$(document).on('ready',function() {
-	 
-	       		/* initialize the slider based on the Slider's ID or class attribute */
-	        	jQuery('.gadgetfloor_slider').show().revolution({
-
-	        		/* sets the Slider's default timeline */
-    				delay: 9000,
-	 
-	            	/* options are 'auto', 'fullwidth' or 'fullscreen' */
-	            	sliderLayout: 'auto',
-    				disableProgressBar: 'on',
-	 
-	           		/* basic navigation arrows and bullets */
-	            	navigation: {
-	            		touch: {
-								touchenabled: \"on\",
-								swipe_threshold: 75,
-								swipe_min_touches: 50,
-								swipe_direction: \"horizontal\",
-								drag_block_vertical: false
-							},
-	               		arrows: {
-								style:\"hesperiden\",
-								enable:true,
-								hide_onmobile:false,
-								hide_onleave:true,
-								left: {
-									h_align:\"left\",
-									v_align:\"center\",
-									h_offset:20,
-									v_offset:0
-								},
-								right: {
-									h_align:\"right\",
-									v_align:\"center\",
-									h_offset:20,
-									v_offset:0
-								}
-							}
-	            	},
-	            	responsiveLevels: [1240, 1024, 778, 480],
-					visibilityLevels: [1240, 1024, 778, 480],
-					gridwidth: [1200, 1024, 778, 480],
-					gridheight: [550, 550, 450, 450],
-					lazyType: \"single\"
-	        	});
-	    	});";
-$this->registerJs($js, yii\web\View::POS_END);
 
 $this->registerJs("$('body').on('submit', 'form#subscription-form', function (e) {
              var form = $(this);
