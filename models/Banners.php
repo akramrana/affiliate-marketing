@@ -29,10 +29,10 @@ class Banners extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['image', 'type', 'created_at'], 'required'],
+            [['type', 'created_at'], 'required'],
             [['type'], 'string'],
             [['is_active', 'is_deleted'], 'integer'],
-            [['created_at', 'url'], 'safe'],
+            [['created_at', 'url','html_code'], 'safe'],
             [['name_en'], 'string', 'max' => 50],
             [['image'], 'string', 'max' => 255],
         ];
@@ -48,6 +48,7 @@ class Banners extends \yii\db\ActiveRecord {
             'image' => 'Image',
             'type' => 'Banner Type',
             'url' => 'Url',
+            'html_code' => 'html_code',
             'is_active' => 'Is Active',
             'is_deleted' => 'Is Deleted',
             'created_at' => 'Created At',

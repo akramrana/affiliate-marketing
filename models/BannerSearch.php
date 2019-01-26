@@ -18,7 +18,7 @@ class BannerSearch extends Banners
     {
         return [
             [['banner_id', 'is_active', 'is_deleted'], 'integer'],
-            [['name_en', 'image', 'type', 'url', 'created_at'], 'safe'],
+            [['name_en', 'image', 'type', 'url', 'created_at','html_code'], 'safe'],
         ];
     }
 
