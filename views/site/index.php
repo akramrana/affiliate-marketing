@@ -87,12 +87,16 @@ $this->title = 'Home';
                     $coupon = "Redeem";
                     $str = 'click & open site to redeem offer';
                 }
+                $dealImg = isset($store->store_logo)?$store->store_logo:"";
+                if($deal->image_url!=null){
+                    $dealImg = $deal->image_url;
+                }
                 ?>
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
                             <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive img-max" alt="logo"/>
+                                <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
                             </a>
                         </div>
                         <div class="product-entry">
@@ -163,12 +167,16 @@ $this->title = 'Home';
                     $coupon = "Redeem";
                     $str = 'click & open site to redeem offer';
                 }
+                $dealImg = isset($store->store_logo)?$store->store_logo:"";
+                if($deal->image_url!=null){
+                    $dealImg = $deal->image_url;
+                }
                 ?>
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                         <div class="product-image">
                             <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                <img itemprop="image" src="<?= $store->store_logo; ?>" class="img-responsive img-max" alt="logo"/>
+                                <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
                             </a>
                         </div>
                         <div class="product-entry">

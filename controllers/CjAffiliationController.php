@@ -82,6 +82,10 @@ class CjAffiliationController extends \yii\web\Controller {
                     $CATEGORY = isset($sheetData[$i][17]) ? trim($sheetData[$i][17]) : "";
                     $ADV_CID = isset($sheetData[$i][18]) ? trim($sheetData[$i][18]) : "";
                     $RELATIONSHIP_STATUS = isset($sheetData[$i][19]) ? trim($sheetData[$i][19]) : "";
+                    $imgUrl = '';
+                    $srcArr = explode('<img src="', $HTML_LINKS);
+                    $urlArr = !empty($srcArr[1])?explode('"', $srcArr[1]):"";
+                    $imgUrl = !empty($urlArr)?$urlArr[0]:"";
                     //
                     if ($RELATIONSHIP_STATUS != "Active") {
                         continue;
@@ -169,6 +173,7 @@ class CjAffiliationController extends \yii\web\Controller {
                         $deal = new \app\models\Deals();
                         $deal->title = $NAME;
                         $deal->content = $DESCRIPTION;
+                        //$deal->image_url = $imgUrl;
                         $deal->is_active = $netWorkModel->auto_publish;
                         $deal->is_deleted = 0;
                         $deal->coupon_id = $LINK_ID;

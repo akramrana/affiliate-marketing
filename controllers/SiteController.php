@@ -74,7 +74,7 @@ class SiteController extends Controller {
         $top2 = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
-                ->offset(8)
+                ->offset(12)
                 ->limit(2)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->groupBy(['program_id'])

@@ -81,12 +81,16 @@ if (!empty($model->dealCategories)) {
                             $coupon = "Redeem";
                             $str = 'click & open site to redeem offer';
                         }
+                        $dealImg = isset($rstore->store_logo) ? $rstore->store_logo : "";
+                        if ($deal->image_url != null) {
+                            $dealImg = $deal->image_url;
+                        }
                         ?>
                         <div class="col-md-4 col-sm-6 mb-30">
                             <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                                 <div class="product-image">
                                     <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                        <img itemprop="image" src="<?= isset($rstore->store_logo)?$rstore->store_logo:""; ?>" class="img-responsive img-max" alt="logo"/>
+                                        <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
                                     </a>
                                 </div>
                                 <div class="product-entry">
@@ -135,7 +139,7 @@ if (!empty($model->dealCategories)) {
                     <div class="widget product-overview mt-30">
                         <h5>Overview</h5>
                         <div class="product-over-view-details">
-                            <p><span>Store</span><img src="<?= isset($store->store_logo)?$store->store_logo:"" ?>" alt="<?= isset($store)?$store->name:"" ?>" class="max-img-width"/></p><span class="clearfix">&nbsp;</span>
+                            <p><span>Store</span><img src="<?= isset($store->store_logo) ? $store->store_logo : "" ?>" alt="<?= isset($store) ? $store->name : "" ?>" class="max-img-width"/></p><span class="clearfix">&nbsp;</span>
                             <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p><span class="clearfix">&nbsp;</span>
                             <?php
                             if ($model->customer_restriction != "") {
