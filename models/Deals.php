@@ -60,7 +60,7 @@ class Deals extends \yii\db\ActiveRecord
             [['start_date', 'end_date', 'expire_date', 'last_change_date', 'extras'], 'safe'],
             [['minimum_order_value'], 'number'],
             [['title', 'partnership_status'], 'string', 'max' => 255],
-            [['coupon_code', 'customer_restriction', 'sys_user_ip', 'discount_fixed', 'discount_variable', 'discount_code'], 'string', 'max' => 50],
+            [['coupon_code', 'sys_user_ip', 'discount_fixed', 'discount_variable', 'discount_code'], 'string', 'max' => 50],
             [['network_id'], 'exist', 'skipOnError' => true, 'targetClass' => Networks::className(), 'targetAttribute' => ['network_id' => 'network_id']],
         ];
     }
