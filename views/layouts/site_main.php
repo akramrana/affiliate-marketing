@@ -124,7 +124,7 @@ app\assets\WebsiteAsset::register($this);
                 <div class="row">
                     <?php
                     $creativeAds = app\helpers\AppHelper::getCreativeAds(12);
-                    $creativeDeals = app\helpers\AppHelper::getDealsBenner(6);
+                    $creativeDeals = app\helpers\AppHelper::getDealsBenner(12);
                     ?>
                     <div class="owl-carousel owl-theme">
                         <?php
