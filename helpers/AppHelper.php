@@ -150,4 +150,21 @@ class AppHelper {
                 ->all();
         return $model;
     }
+    
+    static function getPartnershipStatus()
+    {
+        $model = \app\models\Deals::find()
+                ->select(['DISTINCT(partnership_status) as partnership_status'])
+                ->orderBy(['partnership_status' => SORT_ASC])
+                ->all();
+        $list = \yii\helpers\ArrayHelper::map($model, 'partnership_status', 'partnership_status');
+        return $list;
+    }
+    
+    static function getAllStores()
+    {
+        $model = \app\models\Stores::find()->where(['is_deleted' => 0])->all();
+        $list = \yii\helpers\ArrayHelper::map($model, 'store_id', 'name');
+        return $list;
+    }
 }

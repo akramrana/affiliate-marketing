@@ -16,12 +16,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
+    	<span class="pull pull-left">
+    		<?= Html::a('Create New Deal', ['deal/create'], ['class' => 'btn btn-success']) ?>
+    	</span>
+        <span class="pull pull-right">
         <?= Html::a('Import Affilinet', ['affilinet/import'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Import Awin', ['awin/import'], ['class' => 'btn btn-info']) ?>
         <?= Html::a('Import Trade Tracker', ['trade-tracker/index'], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Import CJ Affiliation', ['cj-affiliation/index'], ['class' => 'btn btn-primary']) ?>
+        </span>
     </p>
 
+    <br clear="all"/>
+    
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
