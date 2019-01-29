@@ -213,7 +213,7 @@ class TradeTrackerController extends \yii\web\Controller {
                             $k++;
                         }
                     }
-                    Yii::$app->session->setFlash('success', 'CJ: ' . $k . ' coupons have been imported.');
+                    Yii::$app->session->setFlash('success', 'Trade Tracker: ' . $k . ' coupons have been imported.');
                     return $this->redirect(['deal/index']);
                 }
             }
