@@ -58,7 +58,7 @@ class Deals extends \yii\db\ActiveRecord
             [['title', 'content', 'is_active', 'is_deleted', 'coupon_id', 'program_id', 'voucher_types', 'network_id'], 'required'],
             [['content', 'voucher_types', 'integration_code'], 'string'],
             [['is_active', 'is_deleted', 'coupon_id', 'program_id', 'featured', 'network_id'], 'integer'],
-            [['start_date', 'end_date', 'expire_date', 'last_change_date', 'extras', 'categories_id','stores_id'], 'safe'],
+            [['start_date', 'end_date', 'expire_date', 'last_change_date', 'extras', 'categories_id','stores_id','image_url'], 'safe'],
             [['minimum_order_value'], 'number'],
             [['title', 'partnership_status'], 'string', 'max' => 255],
             [['coupon_code', 'sys_user_ip', 'discount_fixed', 'discount_variable', 'discount_code'], 'string', 'max' => 50],
