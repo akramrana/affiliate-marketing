@@ -194,6 +194,22 @@ class DealController extends Controller {
             return json_encode($model->errors);
         }
     }
+    
+    public function actionFeatured($id) {
+        $model = $this->findModel($id);
+
+        if ($model->featured == 0)
+            $model->featured = 1;
+        else
+            $model->featured = 0;
+
+        if ($model->validate() && $model->save()) {
+            return '1';
+        } else {
+
+            return json_encode($model->errors);
+        }
+    }
 
     /**
      * Finds the Deals model based on its primary key value.
