@@ -240,9 +240,10 @@ app\assets\WebsiteAsset::register($this);
         <?php
         $js = '$(\'.owl-carousel\').owlCarousel({
                 loop:true,
-                margin:10,
+                margin:5,
                 nav:true,
                 autoplay:true,
+                items:5
             })';
         $this->registerJs($js, \yii\web\View::POS_END);
         ?>
