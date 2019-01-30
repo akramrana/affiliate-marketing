@@ -79,7 +79,7 @@ class SiteController extends Controller {
                 ->all();
         $stores = \app\models\Stores::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->limit(12)
+                ->limit(18)
                 ->orderBy(['store_id' => SORT_DESC])
                 ->all();
         return $this->render('index', [
