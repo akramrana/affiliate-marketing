@@ -68,6 +68,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'partnership_status',
             //'integration_code:ntext',
             //'featured',
+            [
+                'attribute' => 'featured',
+                'format' => 'raw',
+                'value' => function ($model, $url) {
+                    return '<div class="onoffswitch">'
+                            . Html::checkbox('onoffswitch', $model->featured, [
+                                'class' => "onoffswitch-checkbox",
+                                'id' => "fmyonoffswitch" . $model->deal_id,
+                                'onclick' => 'app.changeStatus("deal/featured",this,' . $model->deal_id . ')',
+                            ])
+                            . '<label class="onoffswitch-label" for="fmyonoffswitch' . $model->deal_id . '"></label></div>';
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'featured', [1 => 'Yes', 0 => 'No'], ['class' => 'form-control select2', 'prompt' => 'Filter']),
+            ],
             //'minimum_order_value',
             //'customer_restriction',
             [
