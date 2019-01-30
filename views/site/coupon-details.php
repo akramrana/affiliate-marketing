@@ -153,7 +153,7 @@ if (!empty($model->dealCategories)) {
                         </div>
                     </div>
                     <div class="widget populer-product-widget mt-30">
-                        <h5>Popular Shops</h5>
+                        <h5>Popular Deals</h5>
                         <?php
                         $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(3);
                         foreach ($creativeAds as $ca) {
@@ -165,6 +165,7 @@ if (!empty($model->dealCategories)) {
                                     ?>
                                 </div>
                             </div> 
+                            <span class="clearfix">&nbsp;</span>
                             <?php
                         }
                         ?>
