@@ -215,7 +215,7 @@ $this->title = 'Home';
             <?php
             foreach ($stores as $str) {
                 ?>
-                <div class="col-md-3 col-sm-6 mb-30">
+                <div class="col-md-2 col-sm-6 mb-30">
 
                     <div class="category-wrapper">
                         <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name">
