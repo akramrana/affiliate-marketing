@@ -62,3 +62,23 @@ $("#hide, #show").click(function (e) {
         $("#show").show().animate({"margin-right": "0"}, 300);
     }
 });
+var site = {
+    openRemoteUrl:function(url,coupon,did){
+        //console.log(url);
+        //console.log(coupon);
+        window.open(url, '_blank'); 
+        if(coupon==""){
+            coupon = "Redeem";
+        }
+        $("#d"+did).html(coupon);
+    },
+    openRemoteUrlSingle:function(url,coupon,did){
+        //console.log(url);
+        //console.log(coupon);
+        window.open(url, '_blank'); 
+        if(coupon==""){
+            coupon = "Redeem";
+        }
+        $("#s"+did).html(coupon);
+    }
+}
