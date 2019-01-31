@@ -123,7 +123,7 @@ $this->title = 'Home';
                 <div class="widget-subscribe product-subscribe">
                     <div class="subscribe-header text-center mb-50">
                         <span>subscribe us</span>
-                        <h2>Get Amazing Cupons Code & Offers Everyday</h2>
+                        <h2>Get Amazing Coupons Code & Offers Everyday</h2>
                     </div>
                     <div class="subscribe-input">
                         <?php
