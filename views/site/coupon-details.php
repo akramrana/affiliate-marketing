@@ -33,7 +33,7 @@ if (!empty($model->dealCategories)) {
                     <div class="subscribe-section-bg">
                         <div class="subscribe-header text-center">
                             <span>SUBSCRIBE US</span>
-                            <h2>Get Amazing Cupons Code & Offers Everyday</h2>
+                            <h2>Get Amazing Coupons Code & Offers Everyday</h2>
                         </div> 
                         <?php
                         $nsSodel = new app\models\NewsletterSubscriber();
