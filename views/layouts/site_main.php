@@ -27,7 +27,7 @@ app\assets\WebsiteAsset::register($this);
             var _csrf = '<?php echo Yii::$app->request->getCsrfToken() ?>';
         </script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132803749-1"></script>
+<!--        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132803749-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
@@ -36,7 +36,7 @@ app\assets\WebsiteAsset::register($this);
             gtag('js', new Date());
 
             gtag('config', 'UA-132803749-1');
-        </script>
+        </script>-->
     </head>
     <body id="top">
         <?php $this->beginBody() ?>
