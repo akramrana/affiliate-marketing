@@ -75,7 +75,7 @@ if (!empty($model->dealCategories)) {
                             $destination_url = $deal->destination_url;
                         }
                         if ($deal->coupon_code != "") {
-                            $coupon = $deal->coupon_code;
+                            $coupon = "View Coupon";
                             $str = 'click & open site to redeem offer';
                         } else {
                             $coupon = "Redeem";
@@ -98,7 +98,7 @@ if (!empty($model->dealCategories)) {
                                         <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                                     </div>
                                     <div class="cupon-num">
-                                        <a href="<?php echo $destination_url; ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
+                                        <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
                                     </div>
                                     <div class="cupon-info-text text-center">
                                         <span><?= $str; ?></span>
@@ -149,7 +149,14 @@ if (!empty($model->dealCategories)) {
                             }
                             ?>
                             <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p><span class="clearfix">&nbsp;</span>
-                            <p><span>Coupon Code</span><?= ($model->coupon_code != "") ? $model->coupon_code : ""; ?></p><span class="clearfix">&nbsp;</span>
+                            <p>
+                                <span>Coupon Code</span>
+                                <a id="s<?= $model->deal_id; ?>" onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="color-red">
+                                    <?= ($model->coupon_code != "") ? "View Coupon" : ""; ?>
+                                </a>
+                                
+                            </p>
+                            <span class="clearfix">&nbsp;</span>
                         </div>
                     </div>
                     <div class="widget populer-product-widget mt-30">

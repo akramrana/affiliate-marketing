@@ -81,14 +81,14 @@ $this->title = 'Home';
                     $destination_url = $deal->destination_url;
                 }
                 if ($deal->coupon_code != "") {
-                    $coupon = $deal->coupon_code;
+                    $coupon = "View Coupon";
                     $str = 'click & open site to redeem offer';
                 } else {
                     $coupon = "Redeem";
                     $str = 'click & open site to redeem offer';
                 }
-                $dealImg = isset($store->store_logo)?$store->store_logo:"";
-                if($deal->image_url!=null){
+                $dealImg = isset($store->store_logo) ? $store->store_logo : "";
+                if ($deal->image_url != null) {
                     $dealImg = $deal->image_url;
                 }
                 ?>
@@ -104,7 +104,9 @@ $this->title = 'Home';
                                 <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="cupon-num">
-                                <a href="<?php echo $destination_url; ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
+                                <a id="d<?=$deal->deal_id;?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>','<?= $deal->coupon_code; ?>',<?=$deal->deal_id;?>)" href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>" class="btn" data-clipboard-text="<?= $deal->coupon_code; ?>" target="_new">
+                                    <?= $coupon; ?>
+                                </a>
                             </div>
                             <div class="cupon-info-text text-center">
                                 <span><?= $str; ?></span>
@@ -161,14 +163,14 @@ $this->title = 'Home';
                     $destination_url = $deal->destination_url;
                 }
                 if ($deal->coupon_code != "") {
-                    $coupon = $deal->coupon_code;
+                    $coupon = "View Coupon";
                     $str = 'click & open site to redeem offer';
                 } else {
                     $coupon = "Redeem";
                     $str = 'click & open site to redeem offer';
                 }
-                $dealImg = isset($store->store_logo)?$store->store_logo:"";
-                if($deal->image_url!=null){
+                $dealImg = isset($store->store_logo) ? $store->store_logo : "";
+                if ($deal->image_url != null) {
                     $dealImg = $deal->image_url;
                 }
                 ?>
@@ -184,7 +186,7 @@ $this->title = 'Home';
                                 <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="cupon-num">
-                                <a href="<?php echo $destination_url; ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
+                                <a id="d<?=$deal->deal_id;?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>','<?= $deal->coupon_code; ?>',<?=$deal->deal_id;?>)" href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
                             </div>
                             <div class="cupon-info-text text-center">
                                 <span><?= $str; ?></span>
@@ -234,7 +236,6 @@ $this->title = 'Home';
 
 
 <?php
-
 $this->registerJs("$('body').on('submit', 'form#subscription-form', function (e) {
              var form = $(this);
              var userEmail = $('#newslettersubscriber-email').val();
