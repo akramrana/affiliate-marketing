@@ -188,7 +188,7 @@ $this->title = 'Home';
                             </div>
                             <div class="cupon-num">
                                 <a id="d<?=$deal->deal_id;?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>','<?= $deal->coupon_code; ?>',<?=$deal->deal_id;?>)" href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
-                                <a style="display: none;" target="_new" id="l<?=$deal->deal_id;?>" href="<?php echo $destination_url; ?>">Ak</a>
+                                <a id="link<?=$deal->deal_id;?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                             </div>
                             <div class="cupon-info-text text-center">
                                 <span><?= $str; ?></span>
