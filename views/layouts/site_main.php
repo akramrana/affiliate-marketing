@@ -27,7 +27,7 @@ app\assets\WebsiteAsset::register($this);
             var _csrf = '<?php echo Yii::$app->request->getCsrfToken() ?>';
         </script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
-<!--        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132803749-1"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132803749-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
@@ -36,7 +36,7 @@ app\assets\WebsiteAsset::register($this);
             gtag('js', new Date());
 
             gtag('config', 'UA-132803749-1');
-        </script>-->
+        </script>
     </head>
     <body id="top">
         <?php $this->beginBody() ?>
@@ -223,7 +223,7 @@ app\assets\WebsiteAsset::register($this);
                 </div>
             </div> 
             <div class="footer-copyright text-center">
-                <p>All Rights Reserved 2016 Affiliate - +88 01531 184 270 / 1207 Dhaka. BD</p>
+                <p>All Rights Reserved <?=date('Y');?> OffernDeal - +88 01531 184 270 / 1207 Dhaka. BD</p>
                 <p>Made with <i class="fa fa-heart"></i> in <a href="http://www.codxplore.com/">Developed By Akram Hossain</a></p>
             </div> 
         </footer>
@@ -235,6 +235,24 @@ app\assets\WebsiteAsset::register($this);
                     <span class="battery_item"></span>
                 </div>
                 <div class="text">Loading ...</div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header header-top-bar">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title color-white">Coupon Code</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-center">
+                            <strong  id="modal-coupon-txt"></strong>
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
         <?php
