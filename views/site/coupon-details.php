@@ -98,7 +98,8 @@ if (!empty($model->dealCategories)) {
                                         <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                                     </div>
                                     <div class="cupon-num">
-                                        <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>" target="_new"><?= $coupon; ?></a>
+                                        <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
+                                        <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                                     </div>
                                     <div class="cupon-info-text text-center">
                                         <span><?= $str; ?></span>
@@ -154,7 +155,7 @@ if (!empty($model->dealCategories)) {
                                 <a id="s<?= $model->deal_id; ?>" onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="color-red">
                                     <?= ($model->coupon_code != "") ? "View Coupon" : ""; ?>
                                 </a>
-                                
+                                <a id="slink<?= $model->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                             </p>
                             <span class="clearfix">&nbsp;</span>
                         </div>

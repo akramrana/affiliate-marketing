@@ -63,22 +63,24 @@ $("#hide, #show").click(function (e) {
     }
 });
 var site = {
-    openRemoteUrl:function(url,coupon,did){
-        //console.log(url);
-        //console.log(coupon);
-        window.open(url, '_blank'); 
-        if(coupon==""){
+    openRemoteUrl: function (url, coupon, did) {
+        if (coupon == "") {
             coupon = "Redeem";
+        } else {
+            $("#myModal").modal("show");
+            $("#modal-coupon-txt").html(coupon);
         }
-        $("#d"+did).html(coupon);
+        $("#d" + did).html(coupon);
+        //document.getElementById("link" + did).click();
     },
-    openRemoteUrlSingle:function(url,coupon,did){
-        //console.log(url);
-        //console.log(coupon);
-        window.open(url, '_blank'); 
-        if(coupon==""){
+    openRemoteUrlSingle: function (url, coupon, did) {
+        if (coupon == "") {
             coupon = "Redeem";
+        } else {
+            $("#myModal").modal("show");
+            $("#modal-coupon-txt").html(coupon);
         }
-        $("#s"+did).html(coupon);
+        $("#s" + did).html(coupon);
+        //document.getElementById("slink" + did).click();
     }
 }
