@@ -22,3 +22,10 @@ and open the template in the editor.
 .color-red{
     color: #ff4200
 }
+.color-white{
+    color: #fff;
+    text-align: center;
+}
+.text-center{
+    text-align: center;
+}
