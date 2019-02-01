@@ -133,7 +133,7 @@ if (!empty($model->dealCategories)) {
                                 $str = 'Redeem Offer';
                             }
                             ?>
-                            <a target="_new" href="<?= $destination_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i><?= $str; ?></a>
+                            <a onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i><?= $str; ?></a>
 
                         </div>
                     </div> 
@@ -153,7 +153,7 @@ if (!empty($model->dealCategories)) {
                             <p>
                                 <span>Coupon Code</span>
                                 <a id="s<?= $model->deal_id; ?>" onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="color-red">
-                                    <?= ($model->coupon_code != "") ? "View Coupon" : ""; ?>
+                                    <?= ($model->coupon_code != "") ? "View Coupon" : "Redeem"; ?>
                                 </a>
                                 <a id="slink<?= $model->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                             </p>
