@@ -71,7 +71,7 @@ var site = {
             $("#modal-coupon-txt").html(coupon);
         }
         $("#d" + did).html(coupon);
-        //document.getElementById("link" + did).click();
+        document.getElementById("link" + did).click();
     },
     openRemoteUrlSingle: function (url, coupon, did) {
         if (coupon == "") {
@@ -81,6 +81,6 @@ var site = {
             $("#modal-coupon-txt").html(coupon);
         }
         $("#s" + did).html(coupon);
-        //document.getElementById("slink" + did).click();
+        document.getElementById("slink" + did).click();
     }
 }
