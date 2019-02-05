@@ -114,7 +114,7 @@ class AppHelper {
                 ->where(['is_active' => 1,'is_deleted' => 0])
                 ->having(['>','no_of_deal',0])
                 ->limit($limit)
-                ->orderBy(['store_id' => SORT_DESC])
+                ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
         return $model;
     }
@@ -130,7 +130,7 @@ class AppHelper {
                 ->where(['is_active' => 1,'is_deleted' => 0])
                 ->having(['>','no_of_deal',0])
                 ->limit($limit)
-                ->orderBy(['category_id' => SORT_DESC])
+                ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
         return $model;
     }
