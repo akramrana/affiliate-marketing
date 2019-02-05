@@ -131,7 +131,7 @@ app\assets\WebsiteAsset::register($this);
                         foreach ($creativeAds as $ca) {
                             ?>
                             <div class="item">
-                                <div class="col-lg-12 col-sm-12 mb-30">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-30">
                                     <?php
                                     echo $ca->content;
                                     ?>
@@ -157,7 +157,7 @@ app\assets\WebsiteAsset::register($this);
                         <?php
                         foreach ($creativeDeals as $db) {
                             ?>
-                            <div class="col-md-6 mt-30">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-30">
                                 <?php
                                 echo $db->content;
                                 ?>
@@ -261,7 +261,7 @@ app\assets\WebsiteAsset::register($this);
                 margin:5,
                 nav:true,
                 autoplay:true,
-                items:5
+                items:5,
             })';
         $this->registerJs($js, \yii\web\View::POS_END);
         ?>
