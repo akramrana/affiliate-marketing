@@ -93,8 +93,15 @@ class SiteController extends Controller {
     public function actionCategories() {
         $this->layout = 'site_main';
         $categories = \app\models\Categories::find()
+                ->select(['categories.*','(
+                    SELECT count(deal_categories.deal_category_id)
+                    FROM  deal_categories 
+                    LEFT JOIN deals ON deal_categories.deal_id = deals.deal_id
+                    WHERE deal_categories.category_id = categories.category_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                 ) as no_of_deal'])
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->orderBy(['category_id' => SORT_DESC])
+                ->having(['>','no_of_deal',0])
+                ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
         return $this->render('categories', [
                     'categories' => $categories
@@ -104,8 +111,15 @@ class SiteController extends Controller {
     public function actionStores() {
         $this->layout = 'site_main';
         $stores = \app\models\Stores::find()
+                ->select(['stores.*','(
+                    SELECT count(deal_stores.deal_store_id) 
+                    FROM deal_stores 
+                    LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
+                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                ) as no_of_deal'])
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->orderBy(['store_id' => SORT_DESC])
+                ->having(['>','no_of_deal',0])
+                ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
         return $this->render('stores', [
                     'stores' => $stores
