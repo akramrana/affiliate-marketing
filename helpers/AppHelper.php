@@ -105,7 +105,14 @@ class AppHelper {
     
     static function getStores($limit){
         $model = \app\models\Stores::find()
+                ->select(['stores.*','(
+                    SELECT count(deal_stores.deal_store_id) 
+                    FROM deal_stores 
+                    LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
+                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                ) as no_of_deal'])
                 ->where(['is_active' => 1,'is_deleted' => 0])
+                ->having(['>','no_of_deal',0])
                 ->limit($limit)
                 ->orderBy(['store_id' => SORT_DESC])
                 ->all();
@@ -114,7 +121,14 @@ class AppHelper {
     
     static function getCategories($limit){
         $model = \app\models\Categories::find()
+                ->select(['categories.*','(
+                    SELECT count(deal_categories.deal_category_id)
+                    FROM  deal_categories 
+                    LEFT JOIN deals ON deal_categories.deal_id = deals.deal_id
+                    WHERE deal_categories.category_id = categories.category_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                 ) as no_of_deal'])
                 ->where(['is_active' => 1,'is_deleted' => 0])
+                ->having(['>','no_of_deal',0])
                 ->limit($limit)
                 ->orderBy(['category_id' => SORT_DESC])
                 ->all();
