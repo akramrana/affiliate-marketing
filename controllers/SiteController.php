@@ -78,9 +78,16 @@ class SiteController extends Controller {
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         $stores = \app\models\Stores::find()
+                ->select(['stores.*','(
+                    SELECT count(deal_stores.deal_store_id) 
+                    FROM deal_stores 
+                    LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
+                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                ) as no_of_deal'])
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->having(['>','no_of_deal',0])
+                ->orderBy(['no_of_deal' => SORT_DESC])
                 ->limit(18)
-                ->orderBy(['store_id' => SORT_DESC])
                 ->all();
         return $this->render('index', [
                     'banners' => $banners,
