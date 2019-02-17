@@ -10,7 +10,7 @@ $this->registerCss("a{color:#333}");
 <section class="pdt-70 pdb-100 solitude-bg">
     <div class="container">
         <div class="privacy-content">
-            <h2><?php echo $model->title_en; ?></h2>
+            <h1><?php echo $model->title_en; ?></h1>
             <?php echo html_entity_decode($model->content_en); ?>
             <span class="clearfix"></span>
         </div> 

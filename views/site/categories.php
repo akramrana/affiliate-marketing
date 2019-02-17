@@ -9,6 +9,9 @@ $this->title = 'Categories';
 ?>
 <section class="pdb-100 pdt-70 white-bg">
     <div class="container">
+        <div class="page-title text-center mb-40">
+            <h1><?=$this->title;?></h1>
+        </div>
         <div class="row">
             <?php
             foreach ($categories as $str) {

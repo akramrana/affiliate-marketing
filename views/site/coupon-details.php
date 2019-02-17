@@ -17,10 +17,10 @@ if (!empty($model->dealCategories)) {
         <div class="row">
             <div class="col-md-8 col-md-push-4">
                 <div class="single-product-wrapper">
-                    <div class="single-product-content" style="margin-top: 0px;">
+                    <div class="single-product-content coupon-details-mt">
                         <div class="header-entry">
                             <div class="product-title" itemprop="name">
-                                <h3><?= $model->title ?></h3>
+                                <h1 class="coupon-details-title"><?= $model->title ?></h1>
                             </div>
                         </div> 
                         <div class="single-product-desc">

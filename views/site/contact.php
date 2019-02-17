@@ -12,8 +12,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <section class="pdb-100 pdt-70 white-bg">
     <div class="container">
+        <div class="page-title text-center mb-40">
+            <h1><?=$this->title;?></h1>
+        </div>
         <div class="row">
-            <h1><?= Html::encode($this->title) ?></h1>
 
             <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 

@@ -8,13 +8,16 @@ $this->title = 'Stores';
 ?>
 <section class="pdb-100 pdt-70 white-bg">
     <div class="container">
+        <div class="page-title text-center mb-40">
+            <h1><?=$this->title;?></h1>
+        </div>
         <div class="row">
             <?php
             foreach ($stores as $str) {
                 ?>
                 <div class="col-md-3 col-sm-6 mb-30">
                     <div class="wrapper">
-                        <a href="<?= yii\helpers\Url::to(['site/coupons-deals','id' => $str->store_id,'type' => 's','name' => clean($str->name)]); ?>" class="category-name">
+                        <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name">
                             <img src="<?= $str->store_logo ?>" alt="img" style="max-width: 120px;"/>
                         </a>
                     </div>
