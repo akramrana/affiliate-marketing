@@ -29,40 +29,7 @@ if (!empty($model->dealCategories)) {
                     </div> 
                 </div> 
 
-                <div class="subscribe-section">
-                    <div class="subscribe-section-bg">
-                        <div class="subscribe-header text-center">
-                            <span>SUBSCRIBE US</span>
-                            <h2>Get Amazing Coupons Code & Offers Everyday</h2>
-                        </div> 
-                        <?php
-                        $nsSodel = new app\models\NewsletterSubscriber();
-                        $form = \yii\bootstrap\ActiveForm::begin([
-                                    'id' => 'subscription-form',
-                                    'enableClientScript' => false,
-                                    'action' => \yii\helpers\Url::to(['site/subscribe']),
-                                    'options' => [
-                                        'method' => 'post',
-                                        'class' => 'subscribe-form  subscribe-input'
-                                    ]
-                        ]);
-                        ?>
-                        <div class="clearfix">
-                            <div class="input-field mb-20">
-                                <label class="sr-only" for="email">Email</label>
-                                <?= $form->field($nsSodel, 'email')->textInput(['maxlength' => true, 'placeholder' => Yii::t('app', 'YOUR EMAIL'), 'class' => 'form-control'])->label(false); ?>
-                            </div>
-                            <?= \yii\helpers\Html::submitButton(Yii::t('app', 'Yes! let’s so this'), ['class' => 'btn btn-block btn-primary submit-btn']) ?>
-                            <span class="clearfix"></span>
-                            <div class="input-field mb-20">
-                                <br class="clearfix"/>
-                                <p id="response" class="subscription-success"></p>
-                            </div>
-                        </div>
-                        <?php yii\bootstrap\ActiveForm::end(); ?>
-
-                    </div>
-                </div>
+                
                 <div class="row mt-30">
                     <?php
                     foreach ($related as $deal) {
