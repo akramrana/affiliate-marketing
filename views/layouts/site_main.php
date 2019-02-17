@@ -62,7 +62,7 @@ app\assets\WebsiteAsset::register($this);
                     </a>
                     <ul class="menuzord-menu">
                         <li <?php echo ($method == 'index') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/index']); ?>">Home</a></li>
-                        <li <?php echo ($method == 'categories') ? 'class="active"' : ""; ?>><a href="javascript:void(0)">Categories</a>
+                        <li <?php echo ($method == 'categories') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/categories']); ?>">Categories</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
@@ -86,7 +86,7 @@ app\assets\WebsiteAsset::register($this);
                             </div>
                         </li>
                         <li <?php echo ($method == 'coupons-deals') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Coupons & Deals</a></li>
-                        <li <?php echo ($method == 'stores') ? 'class="active"' : ""; ?>><a href="javascript:void(0)">Stores</a>
+                        <li <?php echo ($method == 'stores') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/stores']); ?>">Stores</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
                                     <div class="col12">
