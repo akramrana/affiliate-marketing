@@ -179,7 +179,7 @@ class SiteController extends Controller {
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['!=', 'deal_id', $model->deal_id])
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
-                ->limit(12)
+                ->limit(9)
                 ->orderBy('RAND()')
                 ->all();
         return $this->render('coupon-details', [
