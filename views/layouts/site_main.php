@@ -119,7 +119,7 @@ app\assets\WebsiteAsset::register($this);
                     <span data-target=".product-reviews" class="scroll-to-target"><i class="fa fa-arrow-down"></i></span>
                 </div>
                 <div class="page-title text-center mb-40">
-                    <h1 class="section-title section-title-width">Popular Deals</h1>
+                    <h2 class="section-title section-title-width">Popular Deals</h1>
                 </div> 
                 <div class="row">
                     <?php
