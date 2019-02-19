@@ -13,8 +13,8 @@ define("WSDL_PROGRAM", "https://api.affili.net/V2.0/PublisherProgram.svc?wsdl");
 
 class AffilinetController extends \yii\web\Controller {
 
-    private $api_customer_id = '854690';
-    private $api_passphrase = '1J31vp0ZPo3ZplTfdAvg';
+    private $api_customer_id = '857276';
+    private $api_passphrase = 'XDy9LnwOls9bH6AqlkZR';
 
     /**
      * {@inheritdoc}
