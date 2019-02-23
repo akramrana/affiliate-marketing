@@ -177,6 +177,7 @@ app\assets\WebsiteAsset::register($this);
                         <li><a target="_new" href="https://twitter.com/Offersanddeals5"><i class="fa fa-twitter"></i></a></li>
                         <li><a target="_new" href="https://www.tumblr.com/blog/offerndeal"><i class="fa fa-tumblr"></i></a></li>
                         <li><a target="_new" href="https://www.reddit.com/user/akramoffersndeal"><i class="fa fa-reddit"></i></a></li>
+                        <li><a target="_new" href="https://www.pinterest.com/akramoffersndeal"><i class="fa fa-pinterest"></i></a></li>
                     </ul>
                 </div>
             </div> 
