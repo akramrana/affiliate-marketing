@@ -146,7 +146,7 @@ class EffiliationController extends \yii\web\Controller {
                             ->where(['=', 'title', $name])
                             ->andWhere(['network_id' => $netWorkModel->network_id])
                             ->one();
-                    
+
                     if (empty($checkDeal)) {
                         $checkDeal = \app\models\Deals::find()
                                 ->where(['coupon_id' => $coupon_id, 'network_id' => $netWorkModel->network_id])
@@ -175,13 +175,15 @@ class EffiliationController extends \yii\web\Controller {
                                 continue;
                             }
                         }
+
                         $categories = \app\models\Categories::find()
                                 ->where(['api_category_id' => $program_id, 'network_id' => $netWorkModel->network_id])
                                 ->all();
 
-                        if (empty($categories)) {
+                        /*if (empty($categories)) {
                             continue;
-                        }
+                        }*/
+
                         // add coupon
                         $minOrderValue = '0.00';
 
@@ -215,13 +217,15 @@ class EffiliationController extends \yii\web\Controller {
                         $deal->extras = "";
                         $deal->save(false);
                         //
-                        foreach ($categories as $cat) {
-                            $dealCategory = new \app\models\DealCategories();
-                            $dealCategory->deal_id = $deal->deal_id;
-                            $dealCategory->category_id = $cat->category_id;
-                            $dealCategory->created_at = date('Y-m-d H:i:s');
-                            if (!$dealCategory->save()) {
-                                die(json_encode($dealCategory->errors));
+                        if (!empty($categories)) {
+                            foreach ($categories as $cat) {
+                                $dealCategory = new \app\models\DealCategories();
+                                $dealCategory->deal_id = $deal->deal_id;
+                                $dealCategory->category_id = $cat->category_id;
+                                $dealCategory->created_at = date('Y-m-d H:i:s');
+                                if (!$dealCategory->save()) {
+                                    die(json_encode($dealCategory->errors));
+                                }
                             }
                         }
                         //
