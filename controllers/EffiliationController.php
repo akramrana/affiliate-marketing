@@ -135,14 +135,18 @@ class EffiliationController extends \yii\web\Controller {
                     $description = $coupon->description;
                     $imageUrl = $coupon->url_logo;
                     $category_name = "";
-                    $created_at = !empty($coupon->date_debut) ? $coupon->date_debut : "";
-                    $valid_from_date = !empty($coupon->date_debut) ? $coupon->date_debut : "";
-                    $valid_to_date = !empty($coupon->date_fin) ? $coupon->date_fin : "";
+                    $date1 = new \DateTime(str_replace("/", "-", $coupon->date_debut));
+                    $date2 = new \DateTime(str_replace("/", "-", $coupon->date_fin));
+                    $created_at = !empty($coupon->date_debut) ? $date1->format('Y-m-d H:i:s') : "";
+                    $valid_from_date = !empty($coupon->date_debut) ? $date1->format('Y-m-d H:i:s') : "";
+                    $valid_to_date = !empty($coupon->date_fin) ? $date2->format('Y-m-d H:i:s') : "";
                     $coupon_code = "";
                     $exclusivite = ($coupon->exclusivite != "Non") ? "1" : "0";
                     $checkDeal = \app\models\Deals::find()
-                            ->where(['LIKE', 'title', $name])
+                            ->where(['=', 'title', $name])
+                            ->andWhere(['network_id' => $netWorkModel->network_id])
                             ->one();
+                    
                     if (empty($checkDeal)) {
                         $checkDeal = \app\models\Deals::find()
                                 ->where(['coupon_id' => $coupon_id, 'network_id' => $netWorkModel->network_id])
@@ -165,14 +169,16 @@ class EffiliationController extends \yii\web\Controller {
                          * end store_id checking
                          */
                         //skip coupon if its expired
+                        //
                         if (!empty($expire_date)) {
                             if (strtotime(date('Y-m-d H:i:s')) > strtotime($expire_date)) {
                                 continue;
                             }
                         }
                         $categories = \app\models\Categories::find()
-                                ->where(['api_category_id' => $program_id])
+                                ->where(['api_category_id' => $program_id, 'network_id' => $netWorkModel->network_id])
                                 ->all();
+
                         if (empty($categories)) {
                             continue;
                         }
