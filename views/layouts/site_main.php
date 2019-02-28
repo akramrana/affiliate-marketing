@@ -5,6 +5,13 @@ use yii\helpers\Html;
 $controller = $this->context->action->controller->id;
 $method = $this->context->action->id;
 app\assets\WebsiteAsset::register($this);
+$keyword = 'Offersndeal.codxplore.com! Free promotions,coupons and voucher!';
+$description = 'Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals.';
+if($method=='coupon-details'){
+    $request = Yii::$app->request->queryParams;
+    $dealModel = \app\models\Deals::findOne($request['id']);
+    $description = $dealModel->title;
+}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -15,11 +22,11 @@ app\assets\WebsiteAsset::register($this);
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="index,follow"/>
         <meta name="googlebot" content="index,follow,snippet"/>
-        <meta name="keywords" content="Offersndeal.codxplore.com! Free promotions,coupons and voucher!" />
+        <meta name="keywords" content="<?=$keyword;?>" />
         <meta name="391ecd4fc836d7f" content="98fd186c82a66386e4f8bef18c881a90" />
-        <meta name="description" content="Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals."/>
+        <meta name="description" content="<?=$description;?>"/>
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?>-Offersndeal Free promotions,coupons and voucher!</title>
+        <title><?= Html::encode($this->title) ?></title>
         <link rel="shortcut icon" href="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/ico/favicon.png">
         <?php $this->head() ?>
         <script type="application/javascript">
