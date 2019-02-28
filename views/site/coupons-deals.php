@@ -56,6 +56,8 @@ $this->title = 'Coupons&Deals';
                                     </div>
                                 </div> 
                                 <div class="cupon-num">
+                                    <small>End Date: <?= date('F j Y', strtotime($deal->end_date)); ?></small>
+                                    <span class="clearfix"></span>
                                     <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
                                     <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                                 </div>

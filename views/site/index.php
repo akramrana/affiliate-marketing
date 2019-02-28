@@ -106,6 +106,7 @@ $this->title = 'Home';
                                 <div class="product-details">
                                     <div class="product-title" itemprop="name">
                                         <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                        
                                     </div>
 
                                     <div class="product-description" itemprop="description">
@@ -116,6 +117,8 @@ $this->title = 'Home';
                                 </div>
 
                                 <div class="cupon-num">
+                                    <small>End Date: <?= date('F j Y', strtotime($deal->end_date)); ?></small>
+                                    <span class="clearfix"></span>
                                     <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)" href="javascript:;" class="btn" data-clipboard-text="<?= $deal->coupon_code; ?>">
                                         <?= $coupon; ?>
                                     </a>
