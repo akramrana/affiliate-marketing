@@ -92,30 +92,48 @@ $this->title = 'Home';
                     $dealImg = $deal->image_url;
                 }
                 ?>
-                <div class="col-md-3 col-sm-6 mb-30">
-                    <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
-                        <div class="product-image">
-                            <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
-                            </a>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-30">
+                    <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="product-image">
+                                    <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
+                                        <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive" alt="logo"/>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="product-details">
+                                    <div class="product-title" itemprop="name">
+                                        <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                    </div>
+
+                                    <div class="product-description" itemprop="description">
+                                        <p>
+                                            <?= $deal->content; ?>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="cupon-num">
+                                    <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)" href="javascript:;" class="btn" data-clipboard-text="<?= $deal->coupon_code; ?>">
+                                        <?= $coupon; ?>
+                                    </a>
+                                    <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
+                                </div>
+
+                                <div class="cupon-info-text">
+                                    <span><?= $str; ?></span>
+                                </div>
+                            </div> 
                         </div>
-                        <div class="product-entry">
-                            <div class="product-title" itemprop="name">
-                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="product-view-btn">
+                                    <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
+                                </div>
                             </div>
-                            <div class="cupon-num">
-                                <a id="d<?=$deal->deal_id;?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>','<?= $deal->coupon_code; ?>',<?=$deal->deal_id;?>)" href="javascript:;" class="btn" data-clipboard-text="<?= $deal->coupon_code; ?>">
-                                    <?= $coupon; ?>
-                                </a>
-                                <a id="link<?=$deal->deal_id;?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
-                            </div>
-                            <div class="cupon-info-text text-center">
-                                <span><?= $str; ?></span>
-                            </div>
-                            <div class="product-view-btn">
-                                <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
-                            </div>
-                        </div> 
+                        </div>
                     </div> 
                 </div> 
                 <?php
@@ -187,8 +205,8 @@ $this->title = 'Home';
                                 <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                             </div>
                             <div class="cupon-num">
-                                <a id="d<?=$deal->deal_id;?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>','<?= $deal->coupon_code; ?>',<?=$deal->deal_id;?>)" href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
-                                <a id="link<?=$deal->deal_id;?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
+                                <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)" href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
+                                <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                             </div>
                             <div class="cupon-info-text text-center">
                                 <span><?= $str; ?></span>

@@ -29,7 +29,7 @@ if (!empty($model->dealCategories)) {
                     </div> 
                 </div> 
 
-                
+
                 <div class="row mt-30">
                     <?php
                     foreach ($related as $deal) {
@@ -53,28 +53,41 @@ if (!empty($model->dealCategories)) {
                             $dealImg = $deal->image_url;
                         }
                         ?>
-                        <div class="col-md-4 col-sm-6 mb-30">
-                            <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
-                                <div class="product-image">
-                                    <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                        <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
-                                    </a>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-30">
+                            <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="product-image">
+                                        <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
+                                            <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive" alt="logo"/>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="product-entry">
-                                    <div class="product-title" itemprop="name">
-                                        <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                    <div class="product-details">
+                                        <div class="product-title" itemprop="name">
+                                            <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                        </div>
+                                        <div class="product-description" itemprop="description">
+                                            <p>
+                                                <?= $deal->content; ?>
+                                            </p>
+                                        </div>
                                     </div>
                                     <div class="cupon-num">
                                         <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
                                         <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
                                     </div>
-                                    <div class="cupon-info-text text-center">
+                                    <div class="cupon-info-text">
                                         <span><?= $str; ?></span>
                                     </div>
-                                    <div class="product-view-btn">
-                                        <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="product-view-btn">
+                                            <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
+                                        </div>
                                     </div>
-                                </div> 
+                                </div>
                             </div> 
                         </div> 
                         <?php
@@ -130,7 +143,7 @@ if (!empty($model->dealCategories)) {
                     <div class="widget populer-product-widget mt-30">
                         <h5>Popular Deals</h5>
                         <?php
-                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(3);
+                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(12);
                         foreach ($creativeAds as $ca) {
                             ?>
                             <div class="populer-product-details" itemscope="" itemtype="http://schema.org/Product">
