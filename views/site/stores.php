@@ -15,10 +15,10 @@ $this->title = 'Stores';
             <?php
             foreach ($stores as $str) {
                 ?>
-                <div class="col-md-3 col-sm-6 mb-30">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mb-30">
                     <div class="wrapper">
                         <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name">
-                            <img src="<?= $str->store_logo ?>" alt="img" style="max-width: 120px;"/>
+                            <img src="<?= $str->store_logo ?>" alt="img" class="img-responsive"/>
                         </a>
                     </div>
                 </div>

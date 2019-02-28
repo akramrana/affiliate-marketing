@@ -55,30 +55,32 @@ if (!empty($model->dealCategories)) {
                         ?>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-30">
                             <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
-                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <div class="product-image">
-                                        <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                            <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive" alt="logo"/>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                                    <div class="product-details">
-                                        <div class="product-title" itemprop="name">
-                                            <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
-                                        </div>
-                                        <div class="product-description" itemprop="description">
-                                            <p>
-                                                <?= $deal->content; ?>
-                                            </p>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                        <div class="product-image">
+                                            <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
+                                                <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive" alt="logo"/>
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="cupon-num">
-                                        <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
-                                        <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
-                                    </div>
-                                    <div class="cupon-info-text">
-                                        <span><?= $str; ?></span>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pad-left-10">
+                                        <div class="product-details">
+                                            <div class="product-title" itemprop="name">
+                                                <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
+                                            </div>
+                                            <div class="product-description" itemprop="description">
+                                                <p>
+                                                    <?= $deal->content; ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="cupon-num">
+                                            <a id="d<?= $deal->deal_id; ?>" onclick="site.openRemoteUrl('<?php echo $destination_url; ?>', '<?= $deal->coupon_code; ?>',<?= $deal->deal_id; ?>)"  href="javascript:;" class="btn" data-clipboard-text="<?= $coupon; ?>"><?= $coupon; ?></a>
+                                            <a id="link<?= $deal->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
+                                        </div>
+                                        <div class="cupon-info-text">
+                                            <span><?= $str; ?></span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">

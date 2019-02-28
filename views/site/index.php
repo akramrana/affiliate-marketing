@@ -102,7 +102,7 @@ $this->title = 'Home';
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pad-left-10">
                                 <div class="product-details">
                                     <div class="product-title" itemprop="name">
                                         <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
@@ -140,7 +140,7 @@ $this->title = 'Home';
             }
             ?>
             <div class="clearfix visible-lg visible-md"></div>
-            <div class="col-md-6 mb-30 clearfix">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-30 clearfix">
                 <div class="widget-subscribe product-subscribe">
                     <div class="subscribe-header text-center mb-50">
                         <span>subscribe us</span>
