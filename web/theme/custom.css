@@ -41,6 +41,19 @@ and open the template in the editor.
 h1.coupon-details-title{
     font-size: 25px;
 }
+.product-title{
+    padding-left: 0px;
+}
+.product-image{
+    margin-top: 10px;
+}
+.product-wrapper{
+    background: #fff;
+}
+.product-details{
+    height: 150px;
+    overflow: hidden;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;
