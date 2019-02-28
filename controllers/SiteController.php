@@ -74,7 +74,7 @@ class SiteController extends Controller {
                 ->where(['is_active' => 1, 'is_deleted' => 0,'featured' => 1])
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->offset(16)
-                ->limit(2)
+                ->limit(1)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         $stores = \app\models\Stores::find()
