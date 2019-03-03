@@ -91,7 +91,7 @@ class AffilinetController extends \yii\web\Controller {
                             );
 
                             $getProgramsQuery = array(
-                                'PartnershipStatus' => array('Active', 'Paused', 'Waiting'),
+                                'PartnershipStatus' => array('Active'),
                                 'ProgramIds' => [$coupon->ProgramId]
                             );
 
@@ -340,7 +340,7 @@ class AffilinetController extends \yii\web\Controller {
             'StartDate' => strtotime("now"),
             'EndDate' => strtotime("now"),
             'VoucherCodeContent' => 'Any',
-            //'ProgramPartnershipStatus' => 'Accepted'
+            'ProgramPartnershipStatus' => 'Accepted'
         );
         $soapRequest = new \SoapClient(WSDL_WS);
         $response = $soapRequest->SearchVoucherCodes(array(
