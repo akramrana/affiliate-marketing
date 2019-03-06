@@ -58,7 +58,7 @@ class CjAffiliationController extends \yii\web\Controller {
         ];
         $k = 0;
         foreach ($promoTypes as $promptype) {
-            $api_url = 'https://link-search.api.cj.com/v2/link-search?website-id=8982498&advertiser-ids=joined&promotion-type=' . $promptype . '&records-per-page=50';
+            $api_url = 'https://link-search.api.cj.com/v2/link-search?website-id=8982498&advertiser-ids=joined&promotion-type=' . $promptype . '&records-per-page=100';
             $headers = array(
                 "Authorization: Bearer 6tnkb4da5hpy4hjz0ktdjxd8q6",
             );
