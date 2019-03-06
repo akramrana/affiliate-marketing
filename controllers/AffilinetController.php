@@ -182,7 +182,7 @@ class AffilinetController extends \yii\web\Controller {
                                     if ($pc->CategoryId != "") {
                                         $allCategories[$pc->CategoryId] = $pc->Name;
                                         if (!empty($pc->SubCategories->ProgramCategory)) {
-                                            if (count($pc->SubCategories->ProgramCategory) < 2) {
+                                            if (is_array($pc->SubCategories->ProgramCategory) && count($pc->SubCategories->ProgramCategory) < 2) {
                                                 $allCategories[$pc->SubCategories->ProgramCategory->CategoryId] = $pc->SubCategories->ProgramCategory->Name;
                                             } else {
                                                 foreach ($pc->SubCategories->ProgramCategory as $spc) {
