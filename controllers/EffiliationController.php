@@ -128,7 +128,7 @@ class EffiliationController extends \yii\web\Controller {
             if (!empty($json->supports)) {
                 foreach ($json->supports as $coupon) {
                     $store_name = $coupon->nomprogramme;
-                    $coupon_id = $coupon->id_lien;
+                    $coupon_id = $coupon->id_compteur;
                     $name = $coupon->nom;
                     $url_redir = $coupon->url_redir;
                     $program_id = $coupon->id_programme;
