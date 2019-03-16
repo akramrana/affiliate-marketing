@@ -90,6 +90,9 @@ class AffilinetController extends \yii\web\Controller {
                                 'CurrentPage' => 1
                             );
 
+                            if(empty($coupon->ProgramId)){
+                                continue;
+                            }
                             $getProgramsQuery = array(
                                 'PartnershipStatus' => array('Active'),
                                 'ProgramIds' => [$coupon->ProgramId]
