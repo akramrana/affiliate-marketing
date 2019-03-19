@@ -51,7 +51,7 @@ if($method=='coupon-details'){
         <section class="header-top-bar hidden-xs">
             <div class="container">
                 <div class="logo">
-                    <a href="<?= yii\helpers\Url::to(['site/index']); ?>"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt=""></a>
+                    <a href="<?= yii\helpers\Url::to(['site/index']); ?>"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt="logo"></a>
                 </div>
                 <!--                <div class="header-top-bar-content">
                                     <span class="text-uppercase">latest post</span>
@@ -120,62 +120,7 @@ if($method=='coupon-details'){
         <?php
         echo $content;
         ?>
-        <section class="pdt-100 pdb-70 product-reviews solitude-bg">
-            <div class="container">
-                <div class="next-section-link white-bg text-center">
-                    <span data-target=".product-reviews" class="scroll-to-target"><i class="fa fa-arrow-down"></i></span>
-                </div>
-                <div class="page-title text-center mb-40">
-                    <h2 class="section-title section-title-width">Popular Deals</h2>
-                </div> 
-                <div class="row">
-                    <?php
-                    $creativeAds = app\helpers\AppHelper::getCreativeAds(12);
-                    $creativeDeals = app\helpers\AppHelper::getDealsBenner(12);
-                    ?>
-                    <div class="owl-carousel owl-theme">
-                        <?php
-                        foreach ($creativeAds as $ca) {
-                            ?>
-                            <div class="item">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-30">
-                                    <?php
-                                    echo $ca->content;
-                                    ?>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                        ?>
-                    </div>
-
-                </div>
-            </div>
-            <div class="container">
-                <div class="page-title text-center">
-                    <h2 class="section-title">Explore More</h2>
-                    <p class="section-sub">
-                        Browse Our Various Deals.Buy Now And Save, 
-                        Discover Brands At Great Prices.Shop Your Style.
-                    </p>
-                </div>
-                <div class="job-menu">
-                    <div class="row">
-                        <?php
-                        foreach ($creativeDeals as $db) {
-                            ?>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 mt-30">
-                                <?php
-                                echo $db->content;
-                                ?>
-                            </div>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </div> 
-            </div>
-        </section>
+        
         <footer class="footer-bar">
             <div class="footer-social-section text-center">
                 <div class="container">

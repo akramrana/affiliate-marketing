@@ -67,8 +67,12 @@ $this->title = 'Home';
 </div>
 
 
-<section class="pdb-40 solitude-bg">
+<section class="pdb-40 pdt-40 solitude-bg">
     <div class="container">
+        <span class="clearfix"></span>
+        <div class="page-title text-center mb-40">
+            <h2 class="section-title section-title-width">Featured Deals</h2>
+        </div>
         <div class="row">
             <?php
             foreach ($top8 as $deal) {
