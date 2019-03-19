@@ -96,10 +96,15 @@ $this->title = 'Home';
                     <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <div class="product-image">
+                                <div class="product-image text-center">
                                     <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
                                         <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive" alt="logo"/>
                                     </a>
+                                    <small>
+                                        <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
+                                            <?= $store->name; ?>
+                                        </a>
+                                    </small>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pad-left-10">
@@ -199,10 +204,15 @@ $this->title = 'Home';
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-30">
                     <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-image">
+                            <div class="product-image text-center">
                                 <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
                                     <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
                                 </a>
+                                <small>
+                                    <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
+                                        <?= $store->name; ?>
+                                    </a>
+                                </small>
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
