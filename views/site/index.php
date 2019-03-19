@@ -93,14 +93,22 @@ $this->title = 'Home';
                 }
                 ?>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-30">
-                    <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
+                    <div class="product-wrapper" itemscope itemtype="http://schema.org/Article">
+                        <meta itemprop="author" content="offerndeal.codxplore.com"/>
+                        <meta itemprop="headline" content="<?= substr($deal->title, 0, 110); ?>"/>
+                        <meta itemprop="image" content="<?= $dealImg; ?>"/>
+                        <meta itemprop="datePublished" content="<?= date('Y-m-d', strtotime($deal->start_date)); ?>"/>
+                        <meta itemprop="dateModified" content="<?= date('Y-m-d', strtotime($deal->last_change_date)); ?>"/>
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                <div class="product-image text-center">
+                                <div class="product-image text-center" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
                                     <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                        <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-thumbnail" alt="logo"/>
+                                        <span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject" >
+                                            <img itemprop="url" src="<?= $dealImg; ?>" class="img-responsive img-thumbnail" alt="logo"/>
+                                        </span>
                                     </a>
                                     <small>
+                                        <meta itemprop="name" content="<?= $store->name; ?>"/>
                                         <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
                                             <?= $store->name; ?>
                                         </a>
@@ -109,13 +117,11 @@ $this->title = 'Home';
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pad-left-10">
                                 <div class="product-details">
-                                    <div class="product-title" itemprop="name">
+                                    <div class="product-title">
                                         <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
-
                                     </div>
-
-                                    <div class="product-description" itemprop="description">
-                                        <p>
+                                    <div class="product-description">
+                                        <p itemprop="description">
                                             <?= $deal->content; ?>
                                         </p>
                                     </div>
@@ -138,7 +144,7 @@ $this->title = 'Home';
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-btn">
-                                    <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
+                                    <a itemprop="mainEntityOfPage" href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
                                 </div>
                             </div>
                         </div>
@@ -202,13 +208,21 @@ $this->title = 'Home';
                 }
                 ?>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-30">
-                    <div class="product-wrapper" itemscope itemtype="http://schema.org/Product">
+                    <div class="product-wrapper" itemscope itemtype="http://schema.org/Article">
+                        <meta itemprop="author" content="offerndeal.codxplore.com"/>
+                        <meta itemprop="headline" content="<?= substr($deal->title, 0, 110); ?>"/>
+                        <meta itemprop="image" content="<?= $dealImg; ?>"/>
+                        <meta itemprop="datePublished" content="<?= date('Y-m-d', strtotime($deal->start_date)); ?>"/>
+                        <meta itemprop="dateModified" content="<?= date('Y-m-d', strtotime($deal->last_change_date)); ?>"/>
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-image text-center">
+                            <div class="product-image text-center" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
                                 <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                    <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
+                                    <span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject" >
+                                        <img itemprop="url" src="<?= $dealImg; ?>" class="img-responsive img-max" alt="logo"/>
+                                    </span>
                                 </a>
                                 <small>
+                                    <meta itemprop="name" content="<?= $store->name; ?>"/>
                                     <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
                                         <?= $store->name; ?>
                                     </a>
@@ -217,11 +231,11 @@ $this->title = 'Home';
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                             <div class="product-details">
-                                <div class="product-title" itemprop="name">
+                                <div class="product-title">
                                     <h5><a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>"><?= $deal->title; ?></a></h5>
                                 </div>
-                                <div class="product-description" itemprop="description">
-                                    <p>
+                                <div class="product-description">
+                                    <p itemprop="description">
                                         <?= $deal->content; ?>
                                     </p>
                                 </div>
@@ -239,7 +253,7 @@ $this->title = 'Home';
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="product-view-btn">
-                                    <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
+                                    <a itemprop="mainEntityOfPage" href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">view details</a>
                                 </div>
                             </div>
                         </div>
