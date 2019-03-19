@@ -16,6 +16,9 @@ if (!empty($model->dealCategories)) {
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-push-4">
+                <?php
+                $creativeDeals = app\helpers\AppHelper::getDealsBenner(1);
+                ?>
                 <div class="single-product-wrapper">
                     <div class="single-product-content coupon-details-mt">
                         <div class="header-entry">
@@ -28,7 +31,19 @@ if (!empty($model->dealCategories)) {
                         </div> 
                     </div> 
                 </div> 
-
+                <div class="row mt-30">
+                    <?php
+                    foreach ($creativeDeals as $db) {
+                        ?>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <?php
+                            echo $db->content;
+                            ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
 
                 <div class="row mt-30">
                     <?php
