@@ -59,11 +59,11 @@ if (!empty($model->dealCategories)) {
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                         <div class="product-image text-center">
                                             <a href="<?= yii\helpers\Url::to(['site/coupon-details', 'id' => $deal->deal_id, 'name' => clean($deal->title)]); ?>">
-                                                <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive" alt="logo"/>
+                                                <img itemprop="image" src="<?= $dealImg; ?>" class="img-responsive img-thumbnail" alt="logo"/>
                                             </a>
                                             <small>
                                                 <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
-                                                    <?= $store->name; ?>
+                                                    <?= $rstore->name; ?>
                                                 </a>
                                             </small>
                                         </div>
