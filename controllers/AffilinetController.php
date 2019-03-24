@@ -90,13 +90,18 @@ class AffilinetController extends \yii\web\Controller {
                                 'CurrentPage' => 1
                             );
 
-                            if(empty($coupon->ProgramId)){
-                                continue;
+                            if (empty($coupon->ProgramId)) {
+                                //continue;
+                                $getProgramsQuery = array(
+                                    'PartnershipStatus' => array('Active'),
+                                );
+                            } else {
+                                $getProgramsQuery = array(
+                                    'PartnershipStatus' => array('Active'),
+                                    'ProgramIds' => [$coupon->ProgramId]
+                                );
                             }
-                            $getProgramsQuery = array(
-                                'PartnershipStatus' => array('Active'),
-                                'ProgramIds' => [$coupon->ProgramId]
-                            );
+
 
                             $soapRequest = new \SoapClient(WSDL_PROGRAM);
                             $categories = $soapRequest->GetProgramCategories($token);
