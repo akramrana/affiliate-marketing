@@ -68,14 +68,14 @@ class SiteController extends Controller {
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->offset(0)
                 ->limit(16)
-                ->orderBy(['deal_id' => SORT_DESC])
+                ->orderBy(['end_date' => SORT_ASC])
                 ->all();
         $top2 = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0,'featured' => 1])
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
                 ->offset(16)
                 ->limit(1)
-                ->orderBy(['deal_id' => SORT_DESC])
+                ->orderBy(['end_date' => SORT_ASC])
                 ->all();
         $stores = \app\models\Stores::find()
                 ->select(['stores.*','(
@@ -141,7 +141,7 @@ class SiteController extends Controller {
                 ->join('LEFT JOIN', 'deal_stores', 'deals.deal_id = deal_stores.deal_id')
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
-                ->orderBy(['deal_id' => SORT_DESC]);
+                ->orderBy(['end_date' => SORT_ASC]);
         if (isset($get['type']) && !empty($get['id'])) {
             if ($get['type'] == 'c') {
                 $query->andWhere(['deal_categories.category_id' => $get['id']]);
