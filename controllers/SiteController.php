@@ -140,8 +140,7 @@ class SiteController extends Controller {
                 ->join('LEFT JOIN', 'deal_categories', 'deals.deal_id = deal_categories.deal_id')
                 ->join('LEFT JOIN', 'deal_stores', 'deals.deal_id = deal_stores.deal_id')
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
-                ->orderBy(['end_date' => SORT_ASC]);
+                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')]);
         if (isset($get['type']) && !empty($get['id'])) {
             if ($get['type'] == 'c') {
                 $query->andWhere(['deal_categories.category_id' => $get['id']]);
@@ -149,7 +148,34 @@ class SiteController extends Controller {
                 $query->andWhere(['deal_stores.store_id' => $get['id']]);
             }
         }
+        if(!empty($get['q'])){
+            $terms = explode(' ', $get['q']);
+            foreach ($terms as $q){
+                $query->andWhere([
+                    'OR',
+                    ['LIKE','deals.title',$q],
+                    ['LIKE','deals.content',$q],
+                ]);
+            }
+        }
+        if(!empty($get['sort_by'])){
+            if($get['sort_by']=='end_date_desc'){
+                $query->orderBy(['end_date' => SORT_DESC]);
+            }
+            else if($get['sort_by']=='end_date_asc'){
+                $query->orderBy(['end_date' => SORT_ASC]);
+            }
+            else if($get['sort_by']=='oldest'){
+                $query->orderBy(['deal_id' => SORT_ASC]);
+            }
+            else if($get['sort_by']=='latest'){
+                $query->orderBy(['deal_id' => SORT_DESC]);
+            }
+        }else{
+            $query->orderBy(['end_date' => SORT_ASC]);
+        }
         $query->groupBy(['deals.deal_id']);
+        //echo $query->createCommand()->rawSql;
         $countQuery = clone $query;
         $pages = new Pagination([
             'totalCount' => $countQuery->count(),

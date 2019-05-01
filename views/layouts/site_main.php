@@ -7,7 +7,7 @@ $method = $this->context->action->id;
 app\assets\WebsiteAsset::register($this);
 $keyword = 'Offersndeal.codxplore.com! Free promotions,coupons and voucher!';
 $description = 'Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals.';
-if($method=='coupon-details'){
+if ($method == 'coupon-details') {
     $request = Yii::$app->request->queryParams;
     $dealModel = \app\models\Deals::findOne($request['id']);
     $description = $dealModel->title;
@@ -22,9 +22,9 @@ if($method=='coupon-details'){
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="index,follow"/>
         <meta name="googlebot" content="index,follow,snippet"/>
-        <meta name="keywords" content="<?=$keyword;?>" />
+        <meta name="keywords" content="<?= $keyword; ?>" />
         <meta name="391ecd4fc836d7f" content="98fd186c82a66386e4f8bef18c881a90" />
-        <meta name="description" content="<?=$description;?>"/>
+        <meta name="description" content="<?= $description; ?>"/>
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <link rel="shortcut icon" href="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/ico/favicon.png">
@@ -53,10 +53,18 @@ if($method=='coupon-details'){
                 <div class="logo">
                     <a href="<?= yii\helpers\Url::to(['site/index']); ?>"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt="logo"></a>
                 </div>
-                <!--                <div class="header-top-bar-content">
-                                    <span class="text-uppercase">latest post</span>
-                                    <h2><a href="blog-single-sidebar-right.html" target="blank">7 Ways To Advertise Your Business For Free</a></h2>
-                                </div>-->
+                <div class="header-top-bar-content">
+                    <span class="text-uppercase">Search</span>
+                    <div class="form-inline">
+                        <?php
+                        $get = Yii::$app->request->queryParams;
+                        ?>
+                        <form method="get" action="<?= yii\helpers\Url::to(['site/coupons-deals'],true); ?>">
+                            <input type="text" name="q" value="<?=!empty($get['q'])?$get['q']:"";?>" class="search form-control"/>
+                            <button type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -120,7 +128,7 @@ if($method=='coupon-details'){
         <?php
         echo $content;
         ?>
-        
+
         <footer class="footer-bar">
             <div class="footer-social-section text-center">
                 <div class="container">
@@ -176,7 +184,7 @@ if($method=='coupon-details'){
                 </div>
             </div> 
             <div class="footer-copyright text-center">
-                <p>All Rights Reserved <?=date('Y');?> OffernDeal - +88 01531 184 270 / 1207 Dhaka. BD</p>
+                <p>All Rights Reserved <?= date('Y'); ?> OffernDeal - +88 01531 184 270 / 1207 Dhaka. BD</p>
                 <p>Made with <i class="fa fa-heart"></i> in <a href="http://www.codxplore.com/">Developed By Akram Hossain</a></p>
             </div> 
         </footer>

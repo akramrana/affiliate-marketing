@@ -65,6 +65,15 @@ h1.coupon-details-title{
 .pagination > li > a{
     color: #777;
 }
+.form-inline .search{
+    padding: 0px 5px 0px 5px;
+    height: 32px;
+}
+.form-inline button{
+    background: #ff4200;
+    color: #fff;
+    border:1px solid #fff;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;
