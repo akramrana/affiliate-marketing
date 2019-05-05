@@ -180,9 +180,8 @@ if (!empty($model->dealCategories)) {
                         </div>
                     </div>
                     <div class="widget populer-product-widget mt-30">
-                        <h5>Popular Deals</h5>
                         <?php
-                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(9);
+                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(1);
                         foreach ($creativeAds as $ca) {
                             ?>
                             <div class="populer-product-details" itemscope="" itemtype="http://schema.org/Product">
