@@ -96,6 +96,7 @@ class RakutenMarketingController extends \yii\web\Controller {
                 if ($cXMLl) {
                     $jsonl = json_encode($cXMLl);
                     $jDatal = json_decode($jsonl, true);
+                    //debugPrint($jDatal);exit;
                     if (!empty($jDatal['link'])) {
                         foreach ($jDatal['link'] as $link) {
                             $ADVERTISER = !empty($link['advertisername']) ? $link['advertisername'] : "";
@@ -173,7 +174,7 @@ class RakutenMarketingController extends \yii\web\Controller {
                                 }
                                 $categoriesArray = [];
                                 if (!empty($link['categories']['category'])) {
-                                    if (sizeof($link['categories']['category']) > 1) {
+                                    if (@sizeof($link['categories']['category']) > 1) {
                                         foreach ($link['categories']['category'] as $categoryName) {
                                             $category = \app\models\Categories::find()
                                                     ->where(['name' => $categoryName])
