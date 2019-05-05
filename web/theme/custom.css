@@ -74,6 +74,9 @@ h1.coupon-details-title{
     color: #fff;
     border:1px solid #fff;
 }
+.category-wrapper .category-name{
+    line-height: normal;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;
