@@ -158,6 +158,7 @@ class SiteController extends Controller {
                 ]);
             }
         }
+        $query->groupBy(['deals.deal_id']);
         if(!empty($get['sort_by'])){
             if($get['sort_by']=='end_date_desc'){
                 $query->orderBy(['end_date' => SORT_DESC]);
@@ -172,9 +173,8 @@ class SiteController extends Controller {
                 $query->orderBy(['deal_id' => SORT_DESC]);
             }
         }else{
-            $query->orderBy(['end_date' => SORT_ASC]);
+            $query->orderBy(['deal_id' => SORT_DESC]);
         }
-        $query->groupBy(['deals.deal_id']);
         //echo $query->createCommand()->rawSql;
         $countQuery = clone $query;
         $pages = new Pagination([
