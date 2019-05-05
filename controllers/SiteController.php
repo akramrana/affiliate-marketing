@@ -62,6 +62,7 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         $banners = \app\models\Banners::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->orderBy(['banner_id' => SORT_DESC])
                 ->all();
         $top8 = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0,'featured' => 1])
