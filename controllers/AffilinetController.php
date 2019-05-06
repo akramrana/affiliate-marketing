@@ -67,7 +67,7 @@ class AffilinetController extends \yii\web\Controller {
                 $programIds = [];
                 $loadedCategories = new \stdClass();
                 $loadedStores = new \stdClass();
-                if (!empty($coupons->VoucherCodeCollection)) {
+                if (!empty($coupons->VoucherCodeCollection) && !empty($coupons->VoucherCodeCollection->VoucherCodeItem)) {
                     foreach ($coupons->VoucherCodeCollection->VoucherCodeItem as $coupon) {
                         if ($coupon->Title != "") {
                             $checkDeal = \app\models\Deals::find()
