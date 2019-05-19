@@ -77,6 +77,12 @@ h1.coupon-details-title{
 .category-wrapper .category-name{
     line-height: normal;
 }
+.product-img{
+    width: 360px;height: 266px;
+}
+.p-title{
+    min-height: 120px;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;
