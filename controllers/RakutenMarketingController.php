@@ -130,6 +130,13 @@ class RakutenMarketingController extends \yii\web\Controller {
                                 if (!empty($checkDeal)) {
                                     continue;
                                 }
+                                $checkDeal1 = \app\models\Deals::find()
+                                        ->where(['coupon_code' => $COUPON_CODE, 'network_id' => $netWorkModel->network_id])
+                                        ->one();
+                                if (!empty($checkDeal)) {
+                                    continue;
+                                }
+                                
                                 $expire_date = empty($PROMOTIONAL_END_DATE) ? date('Y-m-d H:i:s', strtotime('+1 year')) : date('Y-m-d H:i:s', strtotime($PROMOTIONAL_END_DATE));
                                 /**
                                  * start store_id checking
