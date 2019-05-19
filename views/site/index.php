@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = 'Home';
+$this->title = 'Home::Offer and deal';
 ?>
 <div class="container">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -66,12 +66,54 @@ $this->title = 'Home';
     </div>
 </div>
 
+<section class="pdb-40 pdt-40 solitude-bg">
+    <div class="container">
+        <span class="clearfix"></span>
+        <div class="page-title text-center mb-40">
+            <h2 class="section-title section-title-width">Products</h2>
+        </div>
+        <div class="row">
+            <?php
+            if (!empty($products)) {
+                foreach ($products as $product) {
+                    $img = $product->productImages[0]->image_url;
+                    ?>
+                    <div class="col-lg-4 col-sm-6 mb-30">
+                        <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
+                            <div class="product-image">
+                                <a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>">
+                                    <img itemprop="image" src="<?= $img; ?>" class="img-responsive" alt="<?= $product->name; ?>"/>
+                                </a>
+                            </div>
+                            <div class="product-entry">
+                                <div class="product-title p-title" itemprop="name">
+                                    <h5><a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>"><?= $product->name; ?></a></h5>
+                                </div>
+                                <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <span itemprop="priceCurrency" content="<?= $product->currency; ?>"> <?= $product->currency; ?></span> <span itemprop="price" content="<?= number_format($product->price, 2); ?>"><?= number_format($product->price, 2); ?></span> 
+        <!--                                    <del><?= $product->currency; ?> 1500.00</del>-->
+                                    <link itemprop="availability" href="https://schema.org/InStock" />
+                                </div>
+                                <div class="product-view-btn">
+                                    <a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>">view details</a>
+                                </div>
+                            </div> 
+                        </div> 
+                    </div> 
+
+                    <?php
+                }
+            }
+            ?>
+        </div>
+    </div>
+</section>
 
 <section class="pdb-40 pdt-40 solitude-bg">
     <div class="container">
         <span class="clearfix"></span>
         <div class="page-title text-center mb-40">
-            <h2 class="section-title section-title-width">Featured Deals</h2>
+            <h2 class="section-title section-title-width">Coupons</h2>
         </div>
         <div class="row">
             <?php

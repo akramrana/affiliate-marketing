@@ -77,6 +77,7 @@ if ($method == 'coupon-details') {
                     </a>
                     <ul class="menuzord-menu">
                         <li <?php echo ($method == 'index') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/index']); ?>">Home</a></li>
+                        
                         <li <?php echo ($method == 'categories') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/categories']); ?>">Categories</a>
                             <div class="megamenu megamenu-half-width">
                                 <div class="megamenu-row">
@@ -100,6 +101,7 @@ if ($method == 'coupon-details') {
                                 </div>
                             </div>
                         </li>
+                        <li <?php echo ($method == 'products') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/products']); ?>">Products</a></li>
                         <li <?php echo ($method == 'coupons-deals') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/coupons-deals']); ?>">Coupons & Deals</a></li>
                         <li <?php echo ($method == 'stores') ? 'class="active"' : ""; ?>><a href="<?= yii\helpers\Url::to(['site/stores']); ?>">Stores</a>
                             <div class="megamenu megamenu-half-width">

@@ -65,50 +65,58 @@ class SiteController extends Controller {
                 ->orderBy(['banner_id' => SORT_DESC])
                 ->all();
         $top8 = \app\models\Deals::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0,'featured' => 1])
-                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
+                ->where(['is_active' => 1, 'is_deleted' => 0, 'featured' => 1])
+                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
                 ->offset(0)
                 ->limit(16)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         $top2 = \app\models\Deals::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0,'featured' => 1])
-                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
+                ->where(['is_active' => 1, 'is_deleted' => 0, 'featured' => 1])
+                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
                 ->offset(16)
                 ->limit(1)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         $stores = \app\models\Stores::find()
-                ->select(['stores.*','(
+                ->select(['stores.*', '(
                     SELECT count(deal_stores.deal_store_id) 
                     FROM deal_stores 
                     LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
-                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                 ) as no_of_deal'])
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->having(['>','no_of_deal',0])
+                ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->limit(18)
                 ->all();
+        
+        $products = \app\models\Products::find()
+                ->where(['is_active' => 1, 'is_deleted' => 0,'is_featured' => 1])
+                ->limit(12)
+                ->orderBy('RAND()')
+                ->all();
+        
         return $this->render('index', [
                     'banners' => $banners,
                     'top8' => $top8,
                     'top2' => $top2,
                     'stores' => $stores,
+                    'products' => $products,
         ]);
     }
 
     public function actionCategories() {
         $this->layout = 'site_main';
         $categories = \app\models\Categories::find()
-                ->select(['categories.*','(
+                ->select(['categories.*', '(
                     SELECT count(deal_categories.deal_category_id)
                     FROM  deal_categories 
                     LEFT JOIN deals ON deal_categories.deal_id = deals.deal_id
-                    WHERE deal_categories.category_id = categories.category_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                    WHERE deal_categories.category_id = categories.category_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                  ) as no_of_deal'])
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->having(['>','no_of_deal',0])
+                ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
         return $this->render('categories', [
@@ -119,14 +127,14 @@ class SiteController extends Controller {
     public function actionStores() {
         $this->layout = 'site_main';
         $stores = \app\models\Stores::find()
-                ->select(['stores.*','(
+                ->select(['stores.*', '(
                     SELECT count(deal_stores.deal_store_id) 
                     FROM deal_stores 
                     LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
-                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "'.date('Y-m-d').'"
+                    WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                 ) as no_of_deal'])
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->having(['>','no_of_deal',0])
+                ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
         return $this->render('stores', [
@@ -141,7 +149,7 @@ class SiteController extends Controller {
                 ->join('LEFT JOIN', 'deal_categories', 'deals.deal_id = deal_categories.deal_id')
                 ->join('LEFT JOIN', 'deal_stores', 'deals.deal_id = deal_stores.deal_id')
                 ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')]);
+                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')]);
         if (isset($get['type']) && !empty($get['id'])) {
             if ($get['type'] == 'c') {
                 $query->andWhere(['deal_categories.category_id' => $get['id']]);
@@ -149,31 +157,28 @@ class SiteController extends Controller {
                 $query->andWhere(['deal_stores.store_id' => $get['id']]);
             }
         }
-        if(!empty($get['q'])){
+        if (!empty($get['q'])) {
             $terms = explode(' ', $get['q']);
-            foreach ($terms as $q){
+            foreach ($terms as $q) {
                 $query->andWhere([
                     'OR',
-                    ['LIKE','deals.title',$q],
-                    ['LIKE','deals.content',$q],
+                    ['LIKE', 'deals.title', $q],
+                    ['LIKE', 'deals.content', $q],
                 ]);
             }
         }
         $query->groupBy(['deals.deal_id']);
-        if(!empty($get['sort_by'])){
-            if($get['sort_by']=='end_date_desc'){
+        if (!empty($get['sort_by'])) {
+            if ($get['sort_by'] == 'end_date_desc') {
                 $query->orderBy(['end_date' => SORT_DESC]);
-            }
-            else if($get['sort_by']=='end_date_asc'){
+            } else if ($get['sort_by'] == 'end_date_asc') {
                 $query->orderBy(['end_date' => SORT_ASC]);
-            }
-            else if($get['sort_by']=='oldest'){
+            } else if ($get['sort_by'] == 'oldest') {
                 $query->orderBy(['deal_id' => SORT_ASC]);
-            }
-            else if($get['sort_by']=='latest'){
+            } else if ($get['sort_by'] == 'latest') {
                 $query->orderBy(['deal_id' => SORT_DESC]);
             }
-        }else{
+        } else {
             $query->orderBy(['deal_id' => SORT_DESC]);
         }
         //echo $query->createCommand()->rawSql;
@@ -196,7 +201,7 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         $model = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0, 'deal_id' => $get['id']])
-                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
+                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
                 ->one();
         if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
@@ -205,7 +210,7 @@ class SiteController extends Controller {
         $related = \app\models\Deals::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['!=', 'deal_id', $model->deal_id])
-                ->andWhere(['>=','DATE(end_date)',date('Y-m-d')])
+                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
                 ->limit(9)
                 ->orderBy('RAND()')
                 ->all();
@@ -312,11 +317,52 @@ class SiteController extends Controller {
         $this->layout = 'site_main';
         return $this->render('about');
     }
-    
+
     public function actionError() {
         $this->layout = 'site_main';
         $exception = Yii::$app->errorHandler->exception;
         return $this->render('error', ['exception' => $exception]);
+    }
+
+    public function actionProducts() {
+        $get = Yii::$app->request->queryParams;
+        $this->layout = 'site_main';
+        $query = \app\models\Products::find()
+                ->where(['is_active' => 1, 'is_deleted' => 0]);
+        $query->orderBy(['product_id' => SORT_DESC]);
+        $countQuery = clone $query;
+        $pages = new Pagination([
+            'totalCount' => $countQuery->count(),
+            'pageSize' => 24
+        ]);
+        $models = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+        return $this->render('products', [
+                    'models' => $models,
+                    'pages' => $pages,
+        ]);
+    }
+    
+    public function actionProductDetails() {
+        $get = Yii::$app->request->queryParams;
+        $this->layout = 'site_main';
+        $model = \app\models\Products::find()
+                ->where(['is_active' => 1, 'is_deleted' => 0, 'product_id' => $get['id']])
+                ->one();
+        if (empty($model)) {
+            throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+        }
+        $related = \app\models\Products::find()
+                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['!=', 'product_id', $model->product_id])
+                ->limit(8)
+                ->orderBy('RAND()')
+                ->all();
+        return $this->render('product-details', [
+                    'model' => $model,
+                    'related' => $related,
+        ]);
     }
 
 }

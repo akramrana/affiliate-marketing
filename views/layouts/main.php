@@ -49,6 +49,7 @@ AppAsset::register($this);
                     ['label' => 'FAQS', 'url' => ['/faqs/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Banners', 'url' => ['/banner/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Deal', 'url' => ['/deal/index'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Product', 'url' => ['/product/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Creative Ads', 'url' => ['/creative-ad/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Subscriber', 'url' => ['/newsletter-subscriber/index'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Banner Deal', 'url' => ['/deal-banner/index'], 'visible' => !Yii::$app->user->isGuest],
