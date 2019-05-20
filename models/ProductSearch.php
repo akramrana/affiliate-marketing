@@ -18,7 +18,7 @@ class ProductSearch extends Products
     {
         return [
             [['product_id', 'network_id', 'is_stock', 'is_active', 'is_deleted'], 'integer'],
-            [['feed_id', 'name', 'currency', 'buy_url', 'description', 'advertiser_name'], 'safe'],
+            [['feed_id', 'name', 'currency', 'buy_url', 'description', 'advertiser_name','is_featured'], 'safe'],
             [['price', 'retail_price', 'sale_price'], 'number'],
         ];
     }
@@ -67,6 +67,7 @@ class ProductSearch extends Products
             'sale_price' => $this->sale_price,
             'is_stock' => $this->is_stock,
             'is_active' => $this->is_active,
+            'is_featured' => $this->is_featured,
             'is_deleted' => 0,
         ]);
 

@@ -18,10 +18,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <p class="pull pull-left">
         <?= Html::a('Create Products', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    
+
 <!--    <p class="pull pull-right">
-        <?= Html::a('Import TTC Products', ['import-ttc'], ['class' => 'btn btn-info']) ?>
-    </p>-->
+    <?= Html::a('Import TTC Products', ['import-ttc'], ['class' => 'btn btn-info']) ?>
+</p>-->
 
     <span class="clearfix"></span>
     <?=
@@ -31,6 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'product_id',
+            [
+                'label' => 'Image',
+                'value' => function($model) {
+                    $img = $model->productImages[0]->image_url;
+                    return $img;
+                },
+                'format' => ['image', ['width' => '128']],
+            ],
             [
                 'attribute' => 'network_id',
                 'value' => function($model) {
