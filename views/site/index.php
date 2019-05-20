@@ -65,16 +65,17 @@ $this->title = 'Home::Offer and deal';
         </a>
     </div>
 </div>
-
-<section class="pdb-40 pdt-40 solitude-bg">
-    <div class="container">
-        <span class="clearfix"></span>
-        <div class="page-title text-center mb-40">
-            <h2 class="section-title section-title-width">Products</h2>
-        </div>
-        <div class="row">
-            <?php
-            if (!empty($products)) {
+<?php
+if (!empty($products)) {
+    ?>
+    <section class="pdb-40 pdt-40 solitude-bg">
+        <div class="container">
+            <span class="clearfix"></span>
+            <div class="page-title text-center mb-40">
+                <h2 class="section-title section-title-width">Products</h2>
+            </div>
+            <div class="row">
+                <?php
                 foreach ($products as $product) {
                     $img = $product->productImages[0]->image_url;
                     ?>
@@ -103,17 +104,19 @@ $this->title = 'Home::Offer and deal';
 
                     <?php
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    <?php
+}
+?>
 
 <section class="pdb-40 pdt-40 solitude-bg">
     <div class="container">
         <span class="clearfix"></span>
         <div class="page-title text-center mb-40">
-            <h2 class="section-title section-title-width">Coupons</h2>
+            <h2 class="section-title section-title-width">Coupons & Promotion</h2>
         </div>
         <div class="row">
             <?php

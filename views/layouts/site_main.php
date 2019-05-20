@@ -53,7 +53,7 @@ if ($method == 'coupon-details') {
                 <div class="logo">
                     <a href="<?= yii\helpers\Url::to(['site/index']); ?>"><img src="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/logo-top.png" alt="logo"></a>
                 </div>
-                <div class="header-top-bar-content">
+<!--                <div class="header-top-bar-content">
                     <span class="text-uppercase">Search</span>
                     <div class="form-inline">
                         <?php
@@ -64,7 +64,7 @@ if ($method == 'coupon-details') {
                             <button type="submit"><i class="glyphicon glyphicon-search"></i></button>
                         </form>
                     </div>
-                </div>
+                </div>-->
             </div>
         </section>
 

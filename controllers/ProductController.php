@@ -33,7 +33,7 @@ class ProductController extends Controller {
                 'ruleConfig' => [
                     'class' => AccessRule::className(),
                 ],
-                'only' => ['index', 'view', 'create', 'update', 'delete', 'activate','import-json-ttc'],
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'activate', 'import-json-ttc'],
                 'rules' => [
                     [
                         'actions' => ['index', 'view', 'create', 'update', 'delete', 'activate', 'import-json-ttc'],
@@ -125,7 +125,7 @@ class ProductController extends Controller {
         if ($model->load(Yii::$app->request->post())) {
             $request = Yii::$app->request->bodyParams;
             if ($model->save()) {
-                \app\models\ProductCategories::deleteAll('product_id = '.$model->product_id);
+                \app\models\ProductCategories::deleteAll('product_id = ' . $model->product_id);
                 if (!empty($model->categories_id)) {
                     foreach ($model->categories_id as $cid) {
                         $pCategory = new \app\models\ProductCategories();
@@ -134,7 +134,7 @@ class ProductController extends Controller {
                         $pCategory->save();
                     }
                 }
-                \app\models\ProductImages::deleteAll('product_id = '.$model->product_id);
+                \app\models\ProductImages::deleteAll('product_id = ' . $model->product_id);
                 $images = explode('~~', $model->image_url);
                 if (!empty($images)) {
                     foreach ($images as $img) {
@@ -170,7 +170,7 @@ class ProductController extends Controller {
 
         return $this->redirect(['index']);
     }
-    
+
     public function actionActivate($id) {
         $model = $this->findModel($id);
 
@@ -186,7 +186,7 @@ class ProductController extends Controller {
             return json_encode($model->errors);
         }
     }
-    
+
     public function actionFeatured($id) {
         $model = $this->findModel($id);
 
@@ -203,13 +203,69 @@ class ProductController extends Controller {
         }
     }
 
-    public function actionImportJsonTtc($store="")
-    {
-        $feed  = file_get_contents("productfeed.json");
-        $json = json_decode($feed,true);
-        if(!empty($json['products'])){
-            foreach ($json['products'] as $products)
-            {
+    public function actionImportTtc() {
+        $model = new \app\models\ImportProductForm();
+        $model->network_id = 3;
+        $model->import_limit = 50;
+        //
+        $api_customer_id = '182121';
+        $api_pass_phrase = '29cbe2fa70636a22e98cba80ae58f33aa971ea57';
+        $api_site_id = '324798';
+        //
+        if ($model->load(Yii::$app->request->post())) {
+            //debugPrint($model);
+            $client = new \SoapClient('http://ws.tradetracker.com/soap/affiliate?wsdl', array('compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
+            $client->authenticate($api_customer_id, $api_pass_phrase);
+            //
+            $options = array(
+                'campaignCategoryID' => $model->category_id,
+                'limit' => $model->import_limit,
+            );
+            $products = $client->getFeedProducts($api_site_id, $options);
+            foreach ($products as $obj) {
+                $product = new Products();
+                $product->network_id = 3;
+                $product->feed_id = $obj->identifier;
+                $product->name = $obj->name;
+                $product->price = $obj->price;
+                $product->retail_price = $obj->price;
+                $product->sale_price = $obj->price;
+                $product->buy_url = $obj->productURL;
+                $product->description = $obj->description;
+                $addtionalInfo = '';
+                $currency = 'USD';
+                if (!empty($obj->additional)) {
+                    foreach ($obj->additional as $addition) {
+                        $addtionalInfo .= $addition->name . ": " . $addition->value . '<br/>';
+                        if ($addition->name == 'currency') {
+                            $currency = $addition->value;
+                        }
+                    }
+                }
+                $product->currency = $currency;
+                $product->additional_info = $addtionalInfo;
+                $product->is_stock = 1;
+                $product->is_active = 1;
+                $product->save(false);
+                //
+                if (!empty($obj->imageURL)) {
+                    $pCategory = new \app\models\ProductImages();
+                    $pCategory->product_id = $product->product_id;
+                    $pCategory->image_url = $obj->imageURL;
+                    $pCategory->save();
+                }
+            }
+        }
+        return $this->render('import-ttc', [
+                    'model' => $model
+        ]);
+    }
+
+    public function actionImportJsonTtc($store = "") {
+        $feed = file_get_contents("productfeed.json");
+        $json = json_decode($feed, true);
+        if (!empty($json['products'])) {
+            foreach ($json['products'] as $products) {
                 //debugPrint($products);
                 $product = new Products();
                 $product->network_id = 3;
@@ -223,15 +279,15 @@ class ProductController extends Controller {
                 $product->description = $products['description'];
                 $product->advertiser_name = $store;
                 $addtionalInfo = '';
-                $addtionalInfo.= !empty($products['properties']['categoryPath'][0])?'Category: '.$products['properties']['categoryPath'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['condition'][0])?'Condition: '.$products['properties']['condition'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['color'][0])?'Color: '.$products['properties']['color'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['gender'][0])?'Gender: '.$products['properties']['gender'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['availability'][0])?'Availability: '.$products['properties']['availability'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['discount'][0])?'Discount: '.$products['properties']['discount'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['fromPrice'][0])?'Actual Price: '.number_format($products['properties']['fromPrice'][0],2).' '.$products['price']['currency'].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['rating'][0])?'Rating: '.$products['properties']['rating'][0].'<br/>':"";
-                $addtionalInfo.= !empty($products['properties']['validTo'][0])?'Valid To: '.$products['properties']['validTo'][0].'<br/>':"";
+                $addtionalInfo .= !empty($products['properties']['categoryPath'][0]) ? 'Category: ' . $products['properties']['categoryPath'][0] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['condition'][0]) ? 'Condition: ' . $products['properties']['condition'][0] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['color'][0]) ? 'Color: ' . $products['properties']['color'][0] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['gender'][0]) ? 'Gender: ' . $products['properties']['gender'][0] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['availability'][0]) ? 'Availability: ' . $products['properties']['availability'][0] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['discount'][0]) ? 'Discount: ' . $products['properties']['discount'][0] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['fromPrice'][0]) ? 'Actual Price: ' . number_format($products['properties']['fromPrice'][0], 2) . ' ' . $products['price']['currency'] . '<br/>' : "";
+                $addtionalInfo .= !empty($products['properties']['rating'][0]) ? 'Rating: ' . $products['properties']['rating'][0] . '<br/>' : "";
+                //$addtionalInfo.= !empty($products['properties']['validTo'][0])?'Valid To: '.$products['properties']['validTo'][0].'<br/>':"";
                 $product->additional_info = $addtionalInfo;
                 $product->is_stock = 1;
                 $product->is_active = 1;
@@ -249,6 +305,7 @@ class ProductController extends Controller {
         }
         return $this->redirect(['index']);
     }
+
     /**
      * Finds the Products model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

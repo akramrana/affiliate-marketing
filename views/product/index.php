@@ -15,10 +15,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
+    <p class="pull pull-left">
         <?= Html::a('Create Products', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    
+<!--    <p class="pull pull-right">
+        <?= Html::a('Import TTC Products', ['import-ttc'], ['class' => 'btn btn-info']) ?>
+    </p>-->
 
+    <span class="clearfix"></span>
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
