@@ -93,6 +93,7 @@ class SiteController extends Controller {
         
         $products = \app\models\Products::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0,'is_featured' => 1])
+                ->andWhere(['>','price','0'])
                 ->limit(18)
                 ->orderBy('RAND()')
                 ->all();
@@ -328,7 +329,8 @@ class SiteController extends Controller {
         $get = Yii::$app->request->queryParams;
         $this->layout = 'site_main';
         $query = \app\models\Products::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0]);
+                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['>','price','0']);
         $query->orderBy(['product_id' => SORT_DESC]);
         $countQuery = clone $query;
         $pages = new Pagination([
@@ -356,6 +358,7 @@ class SiteController extends Controller {
         $related = \app\models\Products::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['!=', 'product_id', $model->product_id])
+                ->andWhere(['>','price','0'])
                 ->limit(8)
                 ->orderBy('RAND()')
                 ->all();
