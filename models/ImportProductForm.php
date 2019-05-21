@@ -29,7 +29,7 @@ class ImportProductForm extends Model{
     {
         return [
             // username and password are both required
-            [['category_id', 'import_limit'], 'required'],
+            [['store_id', 'import_limit'], 'required'],
         ];
     }
     

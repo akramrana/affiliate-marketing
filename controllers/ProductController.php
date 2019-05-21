@@ -206,23 +206,29 @@ class ProductController extends Controller {
     public function actionImportTtc() {
         $model = new \app\models\ImportProductForm();
         $model->network_id = 3;
-        $model->import_limit = 50;
+        $model->import_limit = 10;
         //
         $api_customer_id = '182121';
         $api_pass_phrase = '29cbe2fa70636a22e98cba80ae58f33aa971ea57';
         $api_site_id = '324798';
         //
         if ($model->load(Yii::$app->request->post())) {
-            //debugPrint($model);
+            $request = Yii::$app->request->bodyParams;
             $client = new \SoapClient('http://ws.tradetracker.com/soap/affiliate?wsdl', array('compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
             $client->authenticate($api_customer_id, $api_pass_phrase);
             //
             $options = array(
-                'campaignCategoryID' => $model->category_id,
-                'limit' => $model->import_limit,
+                'campaignCategoryID' => $request['ImportProductForm']['category_id'],
+                'limit' => $request['ImportProductForm']['import_limit'],
+                'campaignID' => $request['ImportProductForm']['store_id'],
             );
             $products = $client->getFeedProducts($api_site_id, $options);
+            $k = 0;
+            $storeModel = \app\models\Stores::find()
+                    ->where(['api_store_id' => $request['ImportProductForm']['store_id']])
+                    ->one();
             foreach ($products as $obj) {
+                //debugPrint($obj);
                 $product = new Products();
                 $product->network_id = 3;
                 $product->feed_id = $obj->identifier;
@@ -232,6 +238,8 @@ class ProductController extends Controller {
                 $product->sale_price = $obj->price;
                 $product->buy_url = $obj->productURL;
                 $product->description = $obj->description;
+                $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
+                $product->advertiser_name = !empty($storeModel) ? $storeModel->name : "";
                 $addtionalInfo = '';
                 $currency = 'USD';
                 if (!empty($obj->additional)) {
@@ -254,7 +262,11 @@ class ProductController extends Controller {
                     $pCategory->image_url = $obj->imageURL;
                     $pCategory->save();
                 }
+                $k++;
             }
+            exit;
+            Yii::$app->session->setFlash('success', 'Tradetracker: ' . $k . ' product(s) have been imported.');
+            return $this->redirect(['product/import-ttc']);
         }
         return $this->render('import-ttc', [
                     'model' => $model
