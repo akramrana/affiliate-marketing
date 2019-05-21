@@ -55,7 +55,7 @@ $this->title = $model->name;
                             ?>
                             <div class="col-lg-6 col-sm-6 mb-30">
                                 <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
-                                    <div class="product-image">
+                                    <div class="product-image p-img">
                                         <a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>">
                                             <img itemprop="image" src="<?= $img; ?>" class="img-responsive" alt="<?= $product->name; ?>"/>
                                         </a>

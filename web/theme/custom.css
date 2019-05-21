@@ -83,6 +83,11 @@ h1.coupon-details-title{
 .p-title{
     min-height: 120px;
 }
+.p-img{
+    height: 300px;
+    overflow: hidden;
+}
+
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;
