@@ -264,7 +264,6 @@ class ProductController extends Controller {
                 }
                 $k++;
             }
-            exit;
             Yii::$app->session->setFlash('success', 'Tradetracker: ' . $k . ' product(s) have been imported.');
             return $this->redirect(['product/import-ttc']);
         }
