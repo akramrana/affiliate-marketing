@@ -31,19 +31,6 @@ if (!empty($model->dealCategories)) {
                         </div> 
                     </div> 
                 </div> 
-                <div class="row mt-30">
-                    <?php
-                    foreach ($creativeDeals as $db) {
-                        ?>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <?php
-                            echo $db->content;
-                            ?>
-                        </div>
-                        <?php
-                    }
-                    ?>
-                </div>
 
                 <div class="row mt-30">
                     <?php
