@@ -235,6 +235,9 @@ class ProductController extends Controller {
                 if (empty($product)) {
                     $product = new Products();
                 }
+                if ($obj->name == null) {
+                    continue;
+                }
                 $product->network_id = 3;
                 $product->feed_id = $obj->identifier;
                 $product->name = $obj->name;
@@ -344,7 +347,7 @@ class ProductController extends Controller {
                         $jsonl = json_encode($cXMLl);
                         $jDatal = json_decode($jsonl, true);
                         $k = 0;
-                        if (empty($jDatal['item'][0])) {
+                        if (empty($jDatal['item'][0]) && $jDatal['item']['productname'] != "") {
                             $prd = $jDatal['item'];
                             //debugPrint($prd);exit;
                             $product = Products::find()
@@ -353,6 +356,7 @@ class ProductController extends Controller {
                             if (empty($product)) {
                                 $product = new Products();
                             }
+
                             $product->network_id = 5;
                             $product->feed_id = $prd['linkid'];
                             $product->name = $prd['productname'];
@@ -384,43 +388,49 @@ class ProductController extends Controller {
 
                             $k++;
                         } else {
-                            foreach ($jDatal['item'] as $prd) {
-                                $product = Products::find()
-                                        ->where(['feed_id' => $prd['linkid'], 'is_deleted' => 0])
-                                        ->one();
-                                if (empty($product)) {
-                                    $product = new Products();
-                                }
-                                $product->network_id = 5;
-                                $product->feed_id = $prd['linkid'];
-                                $product->name = $prd['productname'];
-                                $product->price = $prd['price'];
-                                $product->retail_price = $prd['price'];
-                                $product->sale_price = $prd['saleprice'];
-                                $product->buy_url = $prd['linkurl'];
-                                $product->description = $prd['description']['long'];
-                                $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
-                                $product->advertiser_name = !empty($storeModel) ? $storeModel->name : "";
-                                $addtionalInfo = '';
-                                $currency = 'USD';
-                                if (!empty($prd['category'])) {
-                                    $addtionalInfo .= "Primary Category: " . $prd['category']['primary'] . '<br/>';
-                                    $addtionalInfo .= "Secondary Category: " . $prd['category']['secondary'] . '<br/>';
-                                }
-                                $product->currency = $currency;
-                                $product->additional_info = $addtionalInfo;
-                                $product->is_stock = 1;
-                                $product->is_active = 1;
-                                $product->save(false);
-                                //
-                                if (!empty($prd['imageurl'])) {
-                                    $pCategory = new \app\models\ProductImages();
-                                    $pCategory->product_id = $product->product_id;
-                                    $pCategory->image_url = $prd['imageurl'];
-                                    $pCategory->save();
-                                }
+                            if (!empty($jDatal['item'])) {
+                                //debugPrint($jDatal['item']);exit;
+                                foreach ($jDatal['item'] as $prd) {
+                                    $product = Products::find()
+                                            ->where(['feed_id' => $prd['linkid'], 'is_deleted' => 0])
+                                            ->one();
+                                    if (empty($product)) {
+                                        $product = new Products();
+                                    }
+                                    if ($prd['productname'] == null) {
+                                        continue;
+                                    }
+                                    $product->network_id = 5;
+                                    $product->feed_id = $prd['linkid'];
+                                    $product->name = $prd['productname'];
+                                    $product->price = $prd['price'];
+                                    $product->retail_price = $prd['price'];
+                                    $product->sale_price = $prd['saleprice'];
+                                    $product->buy_url = $prd['linkurl'];
+                                    $product->description = $prd['description']['long'];
+                                    $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
+                                    $product->advertiser_name = !empty($storeModel) ? $storeModel->name : "";
+                                    $addtionalInfo = '';
+                                    $currency = 'USD';
+                                    if (!empty($prd['category'])) {
+                                        $addtionalInfo .= "Primary Category: " . $prd['category']['primary'] . '<br/>';
+                                        $addtionalInfo .= "Secondary Category: " . $prd['category']['secondary'] . '<br/>';
+                                    }
+                                    $product->currency = $currency;
+                                    $product->additional_info = $addtionalInfo;
+                                    $product->is_stock = 1;
+                                    $product->is_active = 1;
+                                    $product->save(false);
+                                    //
+                                    if (!empty($prd['imageurl'])) {
+                                        $pCategory = new \app\models\ProductImages();
+                                        $pCategory->product_id = $product->product_id;
+                                        $pCategory->image_url = $prd['imageurl'];
+                                        $pCategory->save();
+                                    }
 
-                                $k++;
+                                    $k++;
+                                }
                             }
                         }
                     }
