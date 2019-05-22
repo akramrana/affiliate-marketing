@@ -177,3 +177,6 @@ a{
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.grid-view{
+    overflow: auto;
+}
