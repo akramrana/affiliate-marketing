@@ -51,7 +51,7 @@ $this->title = $model->name;
                     <?php
                     if (!empty($related)) {
                         foreach ($related as $product) {
-                            $img = $product->productImages[0]->image_url;
+                            $img = !empty($product->productImages[0])?$product->productImages[0]->image_url:"";
                             ?>
                             <div class="col-lg-6 col-sm-6 mb-30">
                                 <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">

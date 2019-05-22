@@ -229,7 +229,12 @@ class ProductController extends Controller {
                     ->one();
             foreach ($products as $obj) {
                 //debugPrint($obj);
-                $product = new Products();
+                $product = Products::find()
+                        ->where(['feed_id' => $obj->identifier, 'is_deleted' => 0])
+                        ->one();
+                if (empty($product)) {
+                    $product = new Products();
+                }
                 $product->network_id = 3;
                 $product->feed_id = $obj->identifier;
                 $product->name = $obj->name;
@@ -268,6 +273,163 @@ class ProductController extends Controller {
             return $this->redirect(['product/import-ttc']);
         }
         return $this->render('import-ttc', [
+                    'model' => $model
+        ]);
+    }
+
+    public function actionImportRakuten() {
+        $model = new \app\models\ImportProductForm();
+        $model->network_id = 5;
+        $model->import_limit = 10;
+        if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->bodyParams;
+            $limit = $request['ImportProductForm']['import_limit'];
+            $mid = $request['ImportProductForm']['store_id'];
+
+            $storeModel = \app\models\Stores::find()
+                    ->where(['api_store_id' => $mid])
+                    ->one();
+
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.rakutenmarketing.com/token",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => "grant_type=password&username=akram1991&password=Akram123%24&scope=3628251&client_id=RlotJdtHHAUaOloza3xBSC9W2e8a&client_secret=22_RPM0CzMpRCqX6kMqv9GBOIvAa&undefined=",
+                CURLOPT_HTTPHEADER => array(
+                    "Content-Type: application/x-www-form-urlencoded",
+                    "Token: 69a27596-1458-4511-b791-8ca5b4bdcb18",
+                    "cache-control: no-cache"
+                ),
+            ));
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            curl_close($curl);
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $result = json_decode($response);
+                $curl1 = curl_init();
+                $url = "https://api.rakutenmarketing.com/productsearch/1.0?max=$limit&mid=$mid";
+                //echo $url;
+                curl_setopt_array($curl1, array(
+                    CURLOPT_URL => $url,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "GET",
+                    CURLOPT_POSTFIELDS => "",
+                    CURLOPT_HTTPHEADER => array(
+                        "Authorization: Bearer $result->access_token",
+                        "Token: 5a5b174e-2d5e-4294-a7eb-4b5622b74aa4",
+                        "cache-control: no-cache"
+                    ),
+                ));
+                $response1 = curl_exec($curl1);
+                //debugPrint($response1);
+                $err1 = curl_error($curl1);
+                curl_close($curl1);
+                if ($err) {
+                    echo "cURL Error #:" . $err1;
+                } else {
+                    libxml_use_internal_errors(true);
+                    $cXMLl = simplexml_load_string($response1);
+                    if ($cXMLl) {
+                        $jsonl = json_encode($cXMLl);
+                        $jDatal = json_decode($jsonl, true);
+                        $k = 0;
+                        if (empty($jDatal['item'][0])) {
+                            $prd = $jDatal['item'];
+                            //debugPrint($prd);exit;
+                            $product = Products::find()
+                                    ->where(['feed_id' => $prd['linkid'], 'is_deleted' => 0])
+                                    ->one();
+                            if (empty($product)) {
+                                $product = new Products();
+                            }
+                            $product->network_id = 5;
+                            $product->feed_id = $prd['linkid'];
+                            $product->name = $prd['productname'];
+                            $product->price = $prd['price'];
+                            $product->retail_price = $prd['price'];
+                            $product->sale_price = $prd['saleprice'];
+                            $product->buy_url = $prd['linkurl'];
+                            $product->description = $prd['description']['long'];
+                            $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
+                            $product->advertiser_name = !empty($storeModel) ? $storeModel->name : "";
+                            $addtionalInfo = '';
+                            $currency = 'USD';
+                            if (!empty($prd['category'])) {
+                                $addtionalInfo .= !empty($prd['category']['primary']) ? "Primary Category: " . $prd['category']['primary'] . '<br/>' : "";
+                                $addtionalInfo .= !empty($prd['category']['secondary']) ? "Secondary Category: " . $prd['category']['secondary'] . '<br/>' : "";
+                            }
+                            $product->currency = $currency;
+                            $product->additional_info = $addtionalInfo;
+                            $product->is_stock = 1;
+                            $product->is_active = 1;
+                            $product->save(false);
+                            //
+                            if (!empty($prd['imageurl'])) {
+                                $pCategory = new \app\models\ProductImages();
+                                $pCategory->product_id = $product->product_id;
+                                $pCategory->image_url = $prd['imageurl'];
+                                $pCategory->save();
+                            }
+
+                            $k++;
+                        } else {
+                            foreach ($jDatal['item'] as $prd) {
+                                $product = Products::find()
+                                        ->where(['feed_id' => $prd['linkid'], 'is_deleted' => 0])
+                                        ->one();
+                                if (empty($product)) {
+                                    $product = new Products();
+                                }
+                                $product->network_id = 5;
+                                $product->feed_id = $prd['linkid'];
+                                $product->name = $prd['productname'];
+                                $product->price = $prd['price'];
+                                $product->retail_price = $prd['price'];
+                                $product->sale_price = $prd['saleprice'];
+                                $product->buy_url = $prd['linkurl'];
+                                $product->description = $prd['description']['long'];
+                                $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
+                                $product->advertiser_name = !empty($storeModel) ? $storeModel->name : "";
+                                $addtionalInfo = '';
+                                $currency = 'USD';
+                                if (!empty($prd['category'])) {
+                                    $addtionalInfo .= "Primary Category: " . $prd['category']['primary'] . '<br/>';
+                                    $addtionalInfo .= "Secondary Category: " . $prd['category']['secondary'] . '<br/>';
+                                }
+                                $product->currency = $currency;
+                                $product->additional_info = $addtionalInfo;
+                                $product->is_stock = 1;
+                                $product->is_active = 1;
+                                $product->save(false);
+                                //
+                                if (!empty($prd['imageurl'])) {
+                                    $pCategory = new \app\models\ProductImages();
+                                    $pCategory->product_id = $product->product_id;
+                                    $pCategory->image_url = $prd['imageurl'];
+                                    $pCategory->save();
+                                }
+
+                                $k++;
+                            }
+                        }
+                    }
+                }
+            }
+            Yii::$app->session->setFlash('success', 'Rakuten: ' . $k . ' product(s) have been imported.');
+            return $this->redirect(['product/import-rakuten']);
+        }
+        return $this->render('import-rakuten', [
                     'model' => $model
         ]);
     }

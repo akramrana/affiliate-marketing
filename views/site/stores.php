@@ -12,24 +12,7 @@ $this->title = 'Stores';
             <h1><?= $this->title; ?></h1>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <?php
-                $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(1);
-                foreach ($creativeAds as $ca) {
-                    ?>
-                    <div class="populer-product-details" itemscope="" itemtype="http://schema.org/Product">
-                        <div class="product-image">
-                            <?php
-                            echo $ca->content;
-                            ?>
-                        </div>
-                    </div> 
-                    <span class="clearfix">&nbsp;</span>
-                    <?php
-                }
-                ?>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <?php
                 $i = 0;
                 foreach ($stores as $str) {

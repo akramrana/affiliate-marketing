@@ -9,7 +9,7 @@ $this->title = 'Products';
 <section class="pdt-100 pdb-70 solitude-bg">
     <div class="container">
         <div class="page-title text-center mb-40">
-            <h2>Products</h2>
+            <h2>Discounted Products</h2>
         </div> 
         <div class="row">
             <?php

@@ -72,12 +72,12 @@ if (!empty($products)) {
         <div class="container">
             <span class="clearfix"></span>
             <div class="page-title text-center mb-40">
-                <h2 class="section-title section-title-width">Products</h2>
+                <h2 class="section-title section-title-width">Discounted Products</h2>
             </div>
             <div class="row">
                 <?php
                 foreach ($products as $product) {
-                    $img = $product->productImages[0]->image_url;
+                    $img = !empty($product->productImages[0])?$product->productImages[0]->image_url:"";
                     ?>
                     <div class="col-lg-4 col-sm-6 mb-30">
                         <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">

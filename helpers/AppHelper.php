@@ -183,6 +183,14 @@ class AppHelper {
         $list = \yii\helpers\ArrayHelper::map($model, 'api_store_id', 'name');
         return $list;
     }
+    
+    static function getCategoryByNetworkV2($network_id) {
+        $model = \app\models\Categories::find()
+                ->where(['is_deleted' => 0, 'network_id' => $network_id])
+                ->all();
+        $list = \yii\helpers\ArrayHelper::map($model, 'api_category_id', 'name');
+        return $list;
+    }
 
     static function getCategoryByNetwork($network_id) {
         $categories = array(

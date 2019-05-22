@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p class="pull pull-right">
         <?= Html::a('Import TTC Products', ['import-ttc'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Import Rakuten Products', ['import-rakuten'], ['class' => 'btn btn-info']) ?>
     </p>
 
     <span class="clearfix"></span>
