@@ -499,10 +499,6 @@ class ProductController extends Controller {
             $limit = $request['ImportProductForm']['import_limit'];
             $mid = $request['ImportProductForm']['store_id'];
 
-            $storeModel = \app\models\Stores::find()
-                    ->where(['api_store_id' => $mid])
-                    ->one();
-
             $ch = curl_init();
             $url = "https://apiv2.effiliation.com/apiv2/productfeeds.json?key=yofUp0hyBjdFid85AJUxXdgocgy7FpuU&filter=mines&lg=en";
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -517,6 +513,9 @@ class ProductController extends Controller {
                 $i = 0;
                 $k = 0;
                 foreach ($json['feeds'] as $feed) {
+                    $storeModel = \app\models\Stores::find()
+                            ->where(['api_store_id' => $feed['id_affilieur'],'is_deleted' => 0,'network_id' => 4])
+                            ->one();
                     $i++;
                     try {
                         $response = @file_get_contents($feed['code']);
@@ -556,13 +555,13 @@ class ProductController extends Controller {
                                 $product->additional_info = $addtionalInfo;
                                 $product->is_stock = 1;
                                 $product->is_active = 1;
+                                $product->store_id = !empty($storeModel)?$storeModel->store_id:"";
                                 $product->save(false);
                                 if (!empty($p->url_image)) {
                                     $pCategory = new \app\models\ProductImages();
                                     $pCategory->product_id = $product->product_id;
                                     $pCategory->image_url = $p->url_image;
-                                    if(!$pCategory->save(false))
-                                    {
+                                    if (!$pCategory->save(false)) {
                                         die(json_encode($pCategory->errors));
                                     }
                                 }

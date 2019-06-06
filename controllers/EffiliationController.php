@@ -60,12 +60,12 @@ class EffiliationController extends \yii\web\Controller {
             if (!empty($json->programs)) {
                 foreach ($json->programs as $store) {
                     $storeModel = \app\models\Stores::find()
-                            ->where(['api_store_id' => $store->id_programme, 'network_id' => $netWorkModel->network_id])
+                            ->where(['api_store_id' => $store->id_affilieur, 'network_id' => $netWorkModel->network_id])
                             ->one();
                     if (empty($storeModel)) {
                         $storeModel = new \app\models\Stores();
                     }
-                    $storeModel->api_store_id = $store->id_programme;
+                    $storeModel->api_store_id = $store->id_affilieur;
                     $storeModel->name = $store->nom;
                     $storeModel->store_url = $store->url;
                     $storeModel->description = $store->description;
@@ -85,7 +85,7 @@ class EffiliationController extends \yii\web\Controller {
                                     ->one();
                             if (empty($category)) {
                                 $category = new \app\models\Categories();
-                                $category->api_category_id = $store->id_programme;
+                                $category->api_category_id = $store->id_affilieur;
                                 $category->name = $val;
                                 $category->created_at = date('Y-m-d H:i:s');
                                 $category->updated_at = date('Y-m-d H:i:s');
@@ -131,7 +131,7 @@ class EffiliationController extends \yii\web\Controller {
                     $coupon_id = $coupon->id_compteur;
                     $name = $coupon->nom;
                     $url_redir = $coupon->url_redir;
-                    $program_id = $coupon->id_programme;
+                    $program_id = $coupon->id_affilieur;
                     $description = $coupon->description;
                     $imageUrl = $coupon->url_logo;
                     $category_name = "";
