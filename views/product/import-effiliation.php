@@ -20,19 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
         
-        <?=
-        $form->field($model, 'store_id')->dropDownList(app\helpers\AppHelper::getStoreByNetwork(4), [
-            'prompt' => 'Please Select',
-            'class' => 'select2 form-control'
-        ])
-        ?>
         
-        <?=
-        $form->field($model, 'category_id')->dropDownList(app\helpers\AppHelper::getCategoryByNetworkV2(4), [
-            'prompt' => 'Please Select',
-            'class' => 'select2 form-control'
-        ])
-        ?>
         
         <?=
         $form->field($model, 'import_limit')->textInput();

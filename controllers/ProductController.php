@@ -493,6 +493,7 @@ class ProductController extends Controller {
         $model = new \app\models\ImportProductForm();
         $model->network_id = 5;
         $model->import_limit = 10;
+        $model->store_id = 1;
         if ($model->load(Yii::$app->request->post())) {
             $request = Yii::$app->request->bodyParams;
             $limit = $request['ImportProductForm']['import_limit'];
