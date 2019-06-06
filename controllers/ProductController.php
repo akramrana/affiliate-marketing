@@ -82,7 +82,7 @@ class ProductController extends Controller {
         $model = new Products();
         if ($model->load(Yii::$app->request->post())) {
             $request = Yii::$app->request->bodyParams;
-            //debugPrint($request);exit;
+//debugPrint($request);exit;
             if ($model->save()) {
                 if (!empty($model->categories_id)) {
                     foreach ($model->categories_id as $cid) {
@@ -207,16 +207,16 @@ class ProductController extends Controller {
         $model = new \app\models\ImportProductForm();
         $model->network_id = 3;
         $model->import_limit = 10;
-        //
+//
         $api_customer_id = '182121';
         $api_pass_phrase = '29cbe2fa70636a22e98cba80ae58f33aa971ea57';
         $api_site_id = '324798';
-        //
+//
         if ($model->load(Yii::$app->request->post())) {
             $request = Yii::$app->request->bodyParams;
             $client = new \SoapClient('http://ws.tradetracker.com/soap/affiliate?wsdl', array('compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
             $client->authenticate($api_customer_id, $api_pass_phrase);
-            //
+//
             $options = array(
                 'campaignCategoryID' => $request['ImportProductForm']['category_id'],
                 'limit' => $request['ImportProductForm']['import_limit'],
@@ -228,7 +228,7 @@ class ProductController extends Controller {
                     ->where(['api_store_id' => $request['ImportProductForm']['store_id']])
                     ->one();
             foreach ($products as $obj) {
-                //debugPrint($obj);
+//debugPrint($obj);
                 $product = Products::find()
                         ->where(['feed_id' => $obj->identifier, 'is_deleted' => 0])
                         ->one();
@@ -263,7 +263,7 @@ class ProductController extends Controller {
                 $product->is_stock = 1;
                 $product->is_active = 1;
                 $product->save(false);
-                //
+//
                 if (!empty($obj->imageURL)) {
                     $pCategory = new \app\models\ProductImages();
                     $pCategory->product_id = $product->product_id;
@@ -318,7 +318,7 @@ class ProductController extends Controller {
                 $result = json_decode($response);
                 $curl1 = curl_init();
                 $url = "https://api.rakutenmarketing.com/productsearch/1.0?max=$limit&mid=$mid";
-                //echo $url;
+//echo $url;
                 curl_setopt_array($curl1, array(
                     CURLOPT_URL => $url,
                     CURLOPT_RETURNTRANSFER => true,
@@ -335,7 +335,7 @@ class ProductController extends Controller {
                     ),
                 ));
                 $response1 = curl_exec($curl1);
-                //debugPrint($response1);
+//debugPrint($response1);
                 $err1 = curl_error($curl1);
                 curl_close($curl1);
                 if ($err) {
@@ -349,7 +349,7 @@ class ProductController extends Controller {
                         $k = 0;
                         if (empty($jDatal['item'][0]) && $jDatal['item']['productname'] != "") {
                             $prd = $jDatal['item'];
-                            //debugPrint($prd);exit;
+//debugPrint($prd);exit;
                             $product = Products::find()
                                     ->where(['feed_id' => $prd['linkid'], 'is_deleted' => 0])
                                     ->one();
@@ -378,7 +378,7 @@ class ProductController extends Controller {
                             $product->is_stock = 1;
                             $product->is_active = 1;
                             $product->save(false);
-                            //
+//
                             if (!empty($prd['imageurl'])) {
                                 $pCategory = new \app\models\ProductImages();
                                 $pCategory->product_id = $product->product_id;
@@ -389,7 +389,7 @@ class ProductController extends Controller {
                             $k++;
                         } else {
                             if (!empty($jDatal['item'])) {
-                                //debugPrint($jDatal['item']);exit;
+//debugPrint($jDatal['item']);exit;
                                 foreach ($jDatal['item'] as $prd) {
                                     $product = Products::find()
                                             ->where(['feed_id' => $prd['linkid'], 'is_deleted' => 0])
@@ -421,7 +421,7 @@ class ProductController extends Controller {
                                     $product->is_stock = 1;
                                     $product->is_active = 1;
                                     $product->save(false);
-                                    //
+//
                                     if (!empty($prd['imageurl'])) {
                                         $pCategory = new \app\models\ProductImages();
                                         $pCategory->product_id = $product->product_id;
@@ -449,7 +449,7 @@ class ProductController extends Controller {
         $json = json_decode($feed, true);
         if (!empty($json['products'])) {
             foreach ($json['products'] as $products) {
-                //debugPrint($products);
+//debugPrint($products);
                 $product = new Products();
                 $product->network_id = 3;
                 $product->feed_id = $products['ID'];
@@ -470,12 +470,12 @@ class ProductController extends Controller {
                 $addtionalInfo .= !empty($products['properties']['discount'][0]) ? 'Discount: ' . $products['properties']['discount'][0] . '<br/>' : "";
                 $addtionalInfo .= !empty($products['properties']['fromPrice'][0]) ? 'Actual Price: ' . number_format($products['properties']['fromPrice'][0], 2) . ' ' . $products['price']['currency'] . '<br/>' : "";
                 $addtionalInfo .= !empty($products['properties']['rating'][0]) ? 'Rating: ' . $products['properties']['rating'][0] . '<br/>' : "";
-                //$addtionalInfo.= !empty($products['properties']['validTo'][0])?'Valid To: '.$products['properties']['validTo'][0].'<br/>':"";
+//$addtionalInfo.= !empty($products['properties']['validTo'][0])?'Valid To: '.$products['properties']['validTo'][0].'<br/>':"";
                 $product->additional_info = $addtionalInfo;
                 $product->is_stock = 1;
                 $product->is_active = 1;
                 $product->save(false);
-                //
+//
                 if (!empty($products['images'])) {
                     foreach ($products['images'] as $img) {
                         $pCategory = new \app\models\ProductImages();
@@ -487,6 +487,137 @@ class ProductController extends Controller {
             }
         }
         return $this->redirect(['index']);
+    }
+
+    public function actionImportEffiliation() {
+        $model = new \app\models\ImportProductForm();
+        $model->network_id = 5;
+        $model->import_limit = 10;
+        if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->bodyParams;
+            $limit = $request['ImportProductForm']['import_limit'];
+            $mid = $request['ImportProductForm']['store_id'];
+
+            $storeModel = \app\models\Stores::find()
+                    ->where(['api_store_id' => $mid])
+                    ->one();
+
+            $ch = curl_init();
+            $url = "https://apiv2.effiliation.com/apiv2/productfeeds.json?key=yofUp0hyBjdFid85AJUxXdgocgy7FpuU&filter=mines&lg=en";
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
+            $result = curl_exec($ch);
+            curl_close($ch);
+            $json = json_decode($result, true);
+            //debugPrint($json['feeds']);
+            if (!empty($json['feeds'])) {
+                $i = 0;
+                $k = 0;
+                foreach ($json['feeds'] as $feed) {
+                    $i++;
+                    try {
+                        $response = @file_get_contents($feed['code']);
+                        $content = @simplexml_load_string($response, null, LIBXML_NOCDATA);
+                        $j = 0;
+                        if (!empty($content->product)) {
+                            foreach ($content->product as $p) {
+                                if (empty($p->url_image)) {
+                                    continue;
+                                }
+                                $product = Products::find()
+                                        ->where(['feed_id' => $p->ean, 'is_deleted' => 0])
+                                        ->one();
+                                if (empty($product)) {
+                                    $product = new Products();
+                                }
+                                $product->network_id = 4;
+                                $product->feed_id = $p->ean;
+                                $product->name = $p->name;
+                                $product->price = $p->price;
+                                $product->retail_price = $p->price;
+                                $product->sale_price = $p->price;
+                                $product->currency = 'EUR';
+                                $product->buy_url = $p->url_product;
+                                $product->description = $p->description;
+                                $product->advertiser_name = $p->brand;
+                                $addtionalInfo = '';
+                                $addtionalInfo .= !empty($p->size) ? 'Size: ' . $p->size . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->used) ? 'Condition: ' . $p->used . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->delivery_time) ? 'Delivery Time: ' . $p->delivery_time . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->shipping_cost) ? 'Shipping Cost: ' . $p->shipping_cost . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->extras->geschlecht) ? 'Gender: ' . $p->extras->geschlecht . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->extras->farbe) ? 'Color: ' . $p->extras->farbe . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->extras->altersgruppe) ? 'Age Group: ' . $p->extras->altersgruppe . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->extras->produkttyp) ? 'Product Type: ' . $p->extras->produkttyp . '<br/>' : "";
+                                $addtionalInfo .= !empty($p->availability) ? 'Availability: ' . $p->availability . '<br/>' : "";
+                                $product->additional_info = $addtionalInfo;
+                                $product->is_stock = 1;
+                                $product->is_active = 1;
+                                $product->save(false);
+                                if (!empty($p->url_image)) {
+                                    $pCategory = new \app\models\ProductImages();
+                                    $pCategory->product_id = $product->product_id;
+                                    $pCategory->image_url = $p->url_image;
+                                    if(!$pCategory->save(false))
+                                    {
+                                        die(json_encode($pCategory->errors));
+                                    }
+                                }
+                                $k++;
+                                $j++;
+                                if ($j == $limit) {
+                                    break 1;
+                                }
+                            }
+                        }
+                    } catch (Exception $e) {
+                        
+                    }
+                }
+            }
+            Yii::$app->session->setFlash('success', 'Effiliation: ' . $k . ' product(s) have been imported.');
+            return $this->redirect(['product/import-effiliation']);
+        }
+
+        return $this->render('import-effiliation', [
+                    'model' => $model
+        ]);
+    }
+
+    function parse_xml($xml_str) {
+        $items = array();
+        $xml_doc = new \SimpleXMLElement($xml_str);
+        foreach ($xml_doc->item as $item) {
+            $items [] = $item->name;
+        }
+        return $items;
+    }
+
+    function get_xml_from_url($url) {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+        $xmlstr = curl_exec($ch);
+        curl_close($ch);
+
+        return $xmlstr;
+    }
+
+    public function actionTest() {
+        for ($i = 0; $i <= 10; $i++) {
+            echo "i=$i";
+            for ($j = 0; $j <= 10; $j++) {
+                echo "j=$j <br/>";
+                if ($j == 2) {
+                    break 1;
+                }
+            }
+        }
     }
 
     /**
