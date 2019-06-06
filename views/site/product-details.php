@@ -9,7 +9,25 @@ $this->title = $model->name;
 <section class="pdb-100 pdt-70 solitude-bg">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-push-4">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="tt-sidebar">
+                    <div class="widget item-price-widget text-center">
+                        <div class="price-ammount" itemprop="offers" itemtype="http://schema.org/Offer">
+                            <h3><?= number_format($model->price, 2); ?> <?= $model->currency; ?></h3>
+                        </div>
+                        <div class="item-from-buy">
+                            <a target="_new" href="<?= $model->buy_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-amazon"></i>Buy via <?= $model->advertiser_name; ?></a>
+                        </div>
+                    </div> 
+                    <div class="widget product-overview mt-30">
+                        <h5>Overview & Specs</h5>
+                        <div class="product-over-view-details">
+                            <?= $model->additional_info; ?>
+                        </div>
+                    </div>  
+                </div> 
+            </div> 
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <div class="single-product-wrapper">
                     <div class="single-product-gallery">
                         <div id="project-slider" class="carousel slide gallery-thumb" data-ride="carousel">
@@ -82,41 +100,7 @@ $this->title = $model->name;
                     ?>
                 </div>
             </div> 
-            <div class="col-md-4 col-md-pull-8">
-                <div class="tt-sidebar">
-                    <div class="widget item-price-widget text-center">
-                        <div class="price-ammount" itemprop="offers" itemtype="http://schema.org/Offer">
-                            <h3><?= number_format($model->price, 2); ?> <?= $model->currency; ?></h3>
-                        </div>
-                        <div class="item-from-buy">
-                            <a target="_new" href="<?= $model->buy_url; ?>" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-amazon"></i>Buy via <?= $model->advertiser_name; ?></a>
-                        </div>
-                    </div> 
-                    <div class="widget product-overview mt-30">
-                        <h5>Overview & Specs</h5>
-                        <div class="product-over-view-details">
-                            <?= $model->additional_info; ?>
-                        </div>
-                    </div> 
-                    <div class="widget populer-product-widget mt-30">
-                        <?php
-                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(1);
-                        foreach ($creativeAds as $ca) {
-                            ?>
-                            <div class="populer-product-details" itemscope="" itemtype="http://schema.org/Product">
-                                <div class="product-image">
-                                    <?php
-                                    echo $ca->content;
-                                    ?>
-                                </div>
-                            </div> 
-                            <span class="clearfix">&nbsp;</span>
-                            <?php
-                        }
-                        ?>
-                    </div> 
-                </div> 
-            </div> 
+            
         </div> 
     </div>
 </section>

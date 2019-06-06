@@ -94,7 +94,7 @@ class SiteController extends Controller {
         $products = \app\models\Products::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0,'is_featured' => 1])
                 ->andWhere(['>','price','0'])
-                ->limit(18)
+                ->limit(20)
                 ->orderBy('RAND()')
                 ->all();
         

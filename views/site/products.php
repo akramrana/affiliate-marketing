@@ -17,7 +17,7 @@ $this->title = 'Products';
                 foreach ($models as $product) {
                     $img = $product->productImages[0]->image_url;
                     ?>
-                    <div class="col-lg-4 col-sm-6 mb-30">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12  mb-30">
                         <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
                             <div class="product-image p-img">
                                 <a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>">

@@ -15,7 +15,60 @@ if (!empty($model->dealCategories)) {
 <section class="pdb-100 pdt-70 solitude-bg">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-push-4">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="tt-sidebar">
+                    <div class="widget item-price-widget text-center">
+                        <div class="item-from-buy">
+                            <?php
+                            if ($model->integration_code != "") {
+                                $arr = explode('>', $model->integration_code);
+                                $arr1 = explode('"', $arr[0]);
+                                $destination_url = $arr1[1];
+                            } else {
+                                $destination_url = $model->destination_url;
+                            }
+                            if ($model->coupon_code != "") {
+                                $str = 'Redeem Offer';
+                            } else {
+                                $str = 'Redeem Offer';
+                            }
+                            ?>
+                            <a onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i><?= $str; ?></a>
+
+                        </div>
+                    </div> 
+                    <div class="widget product-overview mt-30">
+                        <h5>Overview</h5>
+                        <div class="product-over-view-details">
+                            <p>
+                                <span>Store</span>
+                                <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
+                                    <img src="<?= isset($store->store_logo) ? $store->store_logo : "" ?>" alt="<?= isset($store) ? $store->name : "" ?>" class="max-img-width"/>
+                                </a>
+                            </p>
+                            <span class="clearfix">&nbsp;</span>
+                            <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p><span class="clearfix">&nbsp;</span>
+                            <?php
+                            if ($model->customer_restriction != "") {
+                                ?>
+                                <p><span>Compatibility</span><?= $model->customer_restriction; ?></p><span class="clearfix">&nbsp;</span>
+                                <?php
+                            }
+                            ?>
+                            <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p><span class="clearfix">&nbsp;</span>
+                            <p>
+                                <span>Coupon Code</span>
+                                <a id="s<?= $model->deal_id; ?>" onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="color-red">
+                                    <?= ($model->coupon_code != "") ? "View Coupon" : "Redeem"; ?>
+                                </a>
+                                <a id="slink<?= $model->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
+                            </p>
+                            <span class="clearfix">&nbsp;</span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                 <?php
                 $creativeDeals = app\helpers\AppHelper::getDealsBenner(1);
                 ?>
@@ -115,76 +168,7 @@ if (!empty($model->dealCategories)) {
                     ?>
                 </div>
             </div> 
-            <div class="col-md-4 col-md-pull-8">
-                <div class="tt-sidebar">
-                    <div class="widget item-price-widget text-center">
-                        <div class="item-from-buy">
-                            <?php
-                            if ($model->integration_code != "") {
-                                $arr = explode('>', $model->integration_code);
-                                $arr1 = explode('"', $arr[0]);
-                                $destination_url = $arr1[1];
-                            } else {
-                                $destination_url = $model->destination_url;
-                            }
-                            if ($model->coupon_code != "") {
-                                $str = 'Redeem Offer';
-                            } else {
-                                $str = 'Redeem Offer';
-                            }
-                            ?>
-                            <a onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="btn btn-primary btn-lg buy-from-amazon"><i class="fa fa-asterisk"></i><?= $str; ?></a>
-
-                        </div>
-                    </div> 
-                    <div class="widget product-overview mt-30">
-                        <h5>Overview</h5>
-                        <div class="product-over-view-details">
-                            <p>
-                                <span>Store</span>
-                                <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
-                                    <img src="<?= isset($store->store_logo) ? $store->store_logo : "" ?>" alt="<?= isset($store) ? $store->name : "" ?>" class="max-img-width"/>
-                                </a>
-                            </p>
-                            <span class="clearfix">&nbsp;</span>
-                            <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p><span class="clearfix">&nbsp;</span>
-                            <?php
-                            if ($model->customer_restriction != "") {
-                                ?>
-                                <p><span>Compatibility</span><?= $model->customer_restriction; ?></p><span class="clearfix">&nbsp;</span>
-                                <?php
-                            }
-                            ?>
-                            <p><span>End Date</span><?= date('F j Y', strtotime($model->end_date)); ?></p><span class="clearfix">&nbsp;</span>
-                            <p>
-                                <span>Coupon Code</span>
-                                <a id="s<?= $model->deal_id; ?>" onclick="site.openRemoteUrlSingle('<?php echo $destination_url; ?>', '<?= $model->coupon_code; ?>',<?= $model->deal_id; ?>)"  href="javascript:;" class="color-red">
-                                    <?= ($model->coupon_code != "") ? "View Coupon" : "Redeem"; ?>
-                                </a>
-                                <a id="slink<?= $model->deal_id; ?>" href="<?php echo $destination_url; ?>" target="_blank"></a>
-                            </p>
-                            <span class="clearfix">&nbsp;</span>
-                        </div>
-                    </div>
-                    <div class="widget populer-product-widget mt-30">
-                        <?php
-                        $creativeAds = app\helpers\AppHelper::getRandomCreativeAds(1);
-                        foreach ($creativeAds as $ca) {
-                            ?>
-                            <div class="populer-product-details" itemscope="" itemtype="http://schema.org/Product">
-                                <div class="product-image">
-                                    <?php
-                                    echo $ca->content;
-                                    ?>
-                                </div>
-                            </div> 
-                            <span class="clearfix">&nbsp;</span>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </div> 
-            </div> 
+             
         </div> 
     </div>
 </section>
