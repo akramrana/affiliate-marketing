@@ -248,6 +248,7 @@ class AppHelper {
                 ])
                 ->where('advertiser_name!=""')
                 ->andWhere(['is_active' => 1, 'is_deleted' => 0])
+                ->andWhere(['>','price','0'])
                 ->having(['>','num_product',0])
                 ->groupBy('advertiser_name')
                 ->orderBy(['advertiser_name' => SORT_ASC])
