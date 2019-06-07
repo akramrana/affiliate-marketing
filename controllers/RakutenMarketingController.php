@@ -133,7 +133,7 @@ class RakutenMarketingController extends \yii\web\Controller {
                                 $checkDeal1 = \app\models\Deals::find()
                                         ->where(['coupon_code' => $COUPON_CODE, 'network_id' => $netWorkModel->network_id])
                                         ->one();
-                                if (!empty($checkDeal)) {
+                                if (!empty($checkDeal1)) {
                                     continue;
                                 }
                                 

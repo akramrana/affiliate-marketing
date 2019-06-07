@@ -71,7 +71,7 @@ class EffiliationController extends \yii\web\Controller {
                     $storeModel->description = $store->description;
                     $storeModel->store_logo = $store->urllo;
                     $storeModel->network_id = $netWorkModel->network_id;
-                    $storeModel->is_active = 0;
+                    $storeModel->is_active = 1;
                     $storeModel->is_deleted = 0;
                     if ($storeModel->save()) {
                         $k++;
