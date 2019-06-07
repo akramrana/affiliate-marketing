@@ -90,7 +90,10 @@ h1.coupon-details-title{
 ul.filter-store{
     margin: 0px 0px 0px 2px;
     padding: 0px;
-    height: 400px;
+    height: 395px;
+    overflow: hidden;
+}
+ul.filter-store:hover{
     overflow: auto;
 }
 ul.filter-store li{
@@ -99,7 +102,9 @@ ul.filter-store li{
 .btn-search{
     margin: 15px;
 }
-
+.form-control{
+    height: auto;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;

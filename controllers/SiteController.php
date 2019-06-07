@@ -168,6 +168,9 @@ class SiteController extends Controller {
                 ]);
             }
         }
+        if (!empty($get['store'])) {
+            $query->andWhere(['deal_stores.store_id' => $get['store']]);
+        }
         $query->groupBy(['deals.deal_id']);
         if (!empty($get['sort_by'])) {
             if ($get['sort_by'] == 'end_date_desc') {
