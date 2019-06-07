@@ -331,7 +331,11 @@ class SiteController extends Controller {
         $query = \app\models\Products::find()
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['>','price','0']);
+        if(!empty($get['store'])){
+            $query->andFilterWhere(['LIKE','advertiser_name',$get['store']]);
+        }
         $query->orderBy(['product_id' => SORT_DESC]);
+        //echo $query->createCommand()->rawSql;
         $countQuery = clone $query;
         $pages = new Pagination([
             'totalCount' => $countQuery->count(),

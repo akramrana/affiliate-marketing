@@ -238,4 +238,20 @@ class AppHelper {
         return $categories;
     }
 
+    static function getStoreWithProductCount()
+    {
+        $model = \app\models\Products::find()
+                ->select([
+                    'advertiser_name',
+                    'COUNT(products.product_id) AS num_product',
+                    'store_id'
+                ])
+                ->where('advertiser_name!=""')
+                ->having(['>','num_product',0])
+                ->groupBy('advertiser_name')
+                ->orderBy(['advertiser_name' => SORT_ASC])
+                ->asArray()
+                ->all();
+        return $model;
+    }
 }
