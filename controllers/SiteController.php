@@ -332,7 +332,7 @@ class SiteController extends Controller {
                 ->where(['is_active' => 1, 'is_deleted' => 0])
                 ->andWhere(['>','price','0']);
         if(!empty($get['store'])){
-            $query->andFilterWhere(['LIKE','advertiser_name',$get['store']]);
+            $query->andWhere(['LIKE','advertiser_name',$get['store']]);
         }
         $query->orderBy(['product_id' => SORT_DESC]);
         //echo $query->createCommand()->rawSql;
