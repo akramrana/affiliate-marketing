@@ -19,7 +19,7 @@ $params = Yii::$app->request->queryParams;
                     <div class="panel">
                         <form method="get" action="<?= \yii\helpers\Url::to(['site/products'], true); ?>">
                             <div class="panel-heading">
-                                Filter
+                                <b>Filter by store</b>
                             </div>
                             <hr/>
                             <div class="panel-body">
