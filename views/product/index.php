@@ -20,9 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <p class="pull pull-right">
-        <?= Html::a('Import TTC Products', ['import-ttc'], ['class' => 'btn btn-info']) ?>
-        <?= Html::a('Import Rakuten Products', ['import-rakuten'], ['class' => 'btn btn-info']) ?>
-        <?= Html::a('Import Effiliation', ['import-effiliation'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Import TTC', ['import-ttc'], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Import Rakuten', ['import-rakuten'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Import Effiliation', ['import-effiliation'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('Import Cj', ['import-cj'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <span class="clearfix"></span>

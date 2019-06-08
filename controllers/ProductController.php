@@ -514,7 +514,7 @@ class ProductController extends Controller {
                 $k = 0;
                 foreach ($json['feeds'] as $feed) {
                     $storeModel = \app\models\Stores::find()
-                            ->where(['api_store_id' => $feed['id_affilieur'],'is_deleted' => 0,'network_id' => 4])
+                            ->where(['api_store_id' => $feed['id_affilieur'], 'is_deleted' => 0, 'network_id' => 4])
                             ->one();
                     $i++;
                     try {
@@ -555,7 +555,7 @@ class ProductController extends Controller {
                                 $product->additional_info = $addtionalInfo;
                                 $product->is_stock = 1;
                                 $product->is_active = 1;
-                                $product->store_id = !empty($storeModel)?$storeModel->store_id:"";
+                                $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
                                 $product->save(false);
                                 if (!empty($p->url_image)) {
                                     $pCategory = new \app\models\ProductImages();
@@ -618,6 +618,104 @@ class ProductController extends Controller {
                 }
             }
         }
+    }
+
+    public function actionImportCj() {
+        $model = new \app\models\ImportProductForm();
+        $model->network_id = 5;
+        $model->import_limit = 10;
+        if ($model->load(Yii::$app->request->post())) {
+            $request = Yii::$app->request->bodyParams;
+            $limit = $request['ImportProductForm']['import_limit'];
+            $mid = $request['ImportProductForm']['store_id'];
+
+            $storeModel = \app\models\Stores::find()
+                    ->where(['api_store_id' => $mid])
+                    ->one();
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://product-search.api.cj.com/v2/product-search?website-id=8982498&advertiser-ids=$mid&page-number=1&records-per-page=$limit",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_POSTFIELDS => "",
+                CURLOPT_HTTPHEADER => array(
+                    "Authorization: Bearer 6tnkb4da5hpy4hjz0ktdjxd8q6",
+                    "Postman-Token: bf593bbc-d847-411a-a51d-cecfc0d5275c",
+                    "cache-control: no-cache"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                echo "cURL Error #:" . $err;
+            } else {
+                $k = 0;
+                libxml_use_internal_errors(true);
+                $cXML = simplexml_load_string($response);
+                if ($cXML) {
+                    $json = json_encode($cXML);
+                    $jData = json_decode($json, true);
+                    //debugPrint($jData);
+                    if (!empty($jData['products']['product'])) {
+                        foreach ($jData['products']['product'] as $p) {
+                            $product = Products::find()
+                                    ->where(['feed_id' => $p['sku'], 'is_deleted' => 0])
+                                    ->one();
+                            if (empty($product)) {
+                                $product = new Products();
+                            }
+                            $product->network_id = 2;
+                            $product->feed_id = $p['sku'];
+                            $product->name = $p['name'];
+                            $product->price = $p['price'];
+                            $product->retail_price = $p['retail-price'];
+                            $product->sale_price = $p['sale-price'];
+                            $product->currency = $p['currency'];
+                            $product->buy_url = $p['buy-url'];
+                            $product->description = $p['description'];
+                            $product->advertiser_name = $p['manufacturer-name'];
+                            $addtionalInfo = '';
+                            $addtionalInfo .= ($p['sku'] != "") ? 'Sku: ' . $p['sku'] . '<br/>' : "";
+                            $addtionalInfo .= ($p['upc'] != "") ? 'Upc: ' . $p['upc'] . '<br/>' : "";
+                            $addtionalInfo .= ($p['in-stock'] == 'true') ? 'Availability: ' . $p['in-stock'] . '<br/>' : "";
+                            $product->additional_info = $addtionalInfo;
+                            $product->is_stock = 1;
+                            $product->is_active = 1;
+                            $product->store_id = !empty($storeModel) ? $storeModel->store_id : "";
+                            $product->image_url = $p['image-url'];
+                            $product->categories_id = 1;
+                            if ($product->save()) {
+                                if (!empty($p['image-url'])) {
+                                    $pCategory = new \app\models\ProductImages();
+                                    $pCategory->product_id = $product->product_id;
+                                    $pCategory->image_url = $p['image-url'];
+                                    if (!$pCategory->save(false)) {
+                                        die(json_encode($pCategory->errors));
+                                    }
+                                }
+                                $k++;
+                            }else{
+                                die(json_encode($product->errors));
+                            }
+                        }
+                    }
+                }
+            }
+            Yii::$app->session->setFlash('success', 'Cj: ' . $k . ' product(s) have been imported.');
+            return $this->redirect(['product/import-cj']);
+        }
+        return $this->render('import-cj', [
+                    'model' => $model
+        ]);
     }
 
     /**
