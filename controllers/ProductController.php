@@ -677,12 +677,12 @@ class ProductController extends Controller {
                             $product->feed_id = $p['sku'];
                             $product->name = $p['name'];
                             $product->price = $p['price'];
-                            $product->retail_price = $p['retail-price'];
-                            $product->sale_price = $p['sale-price'];
+                            $product->retail_price = empty($p['retail-price'])?$p['price']:$p['retail-price'];
+                            $product->sale_price = empty($p['sale-price'])?$p['price']:$p['sale-price'];
                             $product->currency = $p['currency'];
                             $product->buy_url = $p['buy-url'];
                             $product->description = $p['description'];
-                            $product->advertiser_name = $p['manufacturer-name'];
+                            $product->advertiser_name = $p['advertiser-name'];
                             $addtionalInfo = '';
                             $addtionalInfo .= ($p['sku'] != "") ? 'Sku: ' . $p['sku'] . '<br/>' : "";
                             $addtionalInfo .= ($p['upc'] != "") ? 'Upc: ' . $p['upc'] . '<br/>' : "";
