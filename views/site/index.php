@@ -282,10 +282,14 @@ if (!empty($products)) {
             <div class="row">
                 <?php
                 foreach ($products as $product) {
-                    $img = !empty($product->productImages[0])?$product->productImages[0]->image_url:"";
+                    $img = !empty($product->productImages[0]) ? $product->productImages[0]->image_url : "";
                     ?>
                     <div class="col-lg-3 col-md-3 col-sm-6 mb-30">
                         <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
+                            <meta itemprop="brand" content="<?= $product->advertiser_name; ?>"/>
+                            <meta itemprop="description" content="<?= $product->description; ?>" />
+                            <meta itemprop="productID" content="<?= $product->product_id; ?>" />
+                            <meta itemprop="sku" content="<?= $product->feed_id; ?>" />
                             <div class="product-image p-img">
                                 <a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>">
                                     <img itemprop="image" src="<?= $img; ?>" class="img-responsive" alt="<?= $product->name; ?>"/>
