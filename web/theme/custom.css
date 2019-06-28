@@ -91,7 +91,7 @@ ul.filter-store{
     margin: 0px 0px 0px 2px;
     padding: 0px;
     height: 395px;
-    overflow: hidden;
+    overflow: auto;
 }
 ul.filter-store:hover{
     overflow: auto;
