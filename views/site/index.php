@@ -111,12 +111,6 @@ $this->title = 'Home::Offer and deal';
                                             <img itemprop="url" src="<?= $dealImg; ?>" class="img-responsive img-thumbnail" alt="logo"/>
                                         </span>
                                     </a>
-                                    <small>
-                                        <meta itemprop="name" content="<?= $store->name; ?>"/>
-                                        <a class="color-red" target="_new" href="<?php echo $destination_url; ?>">
-                                            <?= $store->name; ?>
-                                        </a>
-                                    </small>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 pad-left-10">
