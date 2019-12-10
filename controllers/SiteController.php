@@ -65,15 +65,19 @@ class SiteController extends Controller {
                 ->orderBy(['banner_id' => SORT_DESC])
                 ->all();
         $top8 = \app\models\Deals::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0, 'featured' => 1])
-                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
+                ->join('left join','networks','deals.network_id = networks.network_id')
+                ->where(['deals.is_active' => 1, 'deals.is_deleted' => 0, 'deals.featured' => 1])
+                ->andWhere(['>=', 'DATE(deals.end_date)', date('Y-m-d')])
+                ->andWhere(['networks.is_active' => 1])
                 ->offset(0)
                 ->limit(16)
                 ->orderBy(['deal_id' => SORT_DESC])
                 ->all();
         $top2 = \app\models\Deals::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0, 'featured' => 1])
-                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
+                ->join('left join','networks','deals.network_id = networks.network_id')
+                ->where(['deals.is_active' => 1, 'deals.is_deleted' => 0, 'deals.featured' => 1])
+                ->andWhere(['>=', 'DATE(deals.end_date)', date('Y-m-d')])
+                ->andWhere(['networks.is_active' => 1])
                 ->offset(16)
                 ->limit(1)
                 ->orderBy(['deal_id' => SORT_DESC])
@@ -85,15 +89,19 @@ class SiteController extends Controller {
                     LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
                     WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                 ) as no_of_deal'])
-                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->join('left join','networks','stores.network_id = networks.network_id')
+                ->where(['stores.is_active' => 1, 'stores.is_deleted' => 0])
+                ->andWhere(['networks.is_active' => 1])
                 ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->limit(18)
                 ->all();
         
         $products = \app\models\Products::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0,'is_featured' => 1])
-                ->andWhere(['>','price','0'])
+                ->join('left join','networks','products.network_id = networks.network_id')
+                ->where(['products.is_active' => 1, 'products.is_deleted' => 0,'products.is_featured' => 1])
+                ->andWhere(['>','products.price','0'])
+                ->andWhere(['networks.is_active' => 1])
                 ->limit(20)
                 ->orderBy('RAND()')
                 ->all();
@@ -116,7 +124,9 @@ class SiteController extends Controller {
                     LEFT JOIN deals ON deal_categories.deal_id = deals.deal_id
                     WHERE deal_categories.category_id = categories.category_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                  ) as no_of_deal'])
-                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->join('left join','networks','categories.network_id = networks.network_id')
+                ->where(['categories.is_active' => 1, 'categories.is_deleted' => 0])
+                ->andWhere(['networks.is_active' => 1])
                 ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
@@ -134,7 +144,9 @@ class SiteController extends Controller {
                     LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
                     WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                 ) as no_of_deal'])
-                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->join('left join','networks','stores.network_id = networks.network_id')
+                ->where(['stores.is_active' => 1, 'stores.is_deleted' => 0])
+                ->andWhere(['networks.is_active' => 1])
                 ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
@@ -149,8 +161,10 @@ class SiteController extends Controller {
         $query = \app\models\Deals::find()
                 ->join('LEFT JOIN', 'deal_categories', 'deals.deal_id = deal_categories.deal_id')
                 ->join('LEFT JOIN', 'deal_stores', 'deals.deal_id = deal_stores.deal_id')
-                ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')]);
+                ->join('left join','networks','deals.network_id = networks.network_id')
+                ->where(['deals.is_active' => 1, 'deals.is_deleted' => 0])
+                ->andWhere(['>=', 'DATE(deals.end_date)', date('Y-m-d')])
+                ->andWhere(['networks.is_active' => 1]);
         if (isset($get['type']) && !empty($get['id'])) {
             if ($get['type'] == 'c') {
                 $query->andWhere(['deal_categories.category_id' => $get['id']]);
@@ -204,17 +218,25 @@ class SiteController extends Controller {
         $get = Yii::$app->request->queryParams;
         $this->layout = 'site_main';
         $model = \app\models\Deals::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0, 'deal_id' => $get['id']])
-                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
+                ->join('left join','networks','deals.network_id = networks.network_id')
+                ->where(['deals.is_active' => 1, 'deals.is_deleted' => 0, 'deals.deal_id' => $get['id']])
+                ->andWhere(['>=', 'DATE(deals.end_date)', date('Y-m-d')])
+                ->andWhere(['networks.is_active' => 1])
                 ->one();
         if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
         }
-        $store = \app\models\Stores::find()->where(['api_store_id' => $model->program_id])->one();
+        $store = \app\models\Stores::find()
+                ->join('left join','networks','stores.network_id = networks.network_id')
+                ->where(['api_store_id' => $model->program_id])
+                ->andWhere(['networks.is_active' => 1])
+                ->one();
         $related = \app\models\Deals::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['!=', 'deal_id', $model->deal_id])
-                ->andWhere(['>=', 'DATE(end_date)', date('Y-m-d')])
+                ->join('left join','networks','deals.network_id = networks.network_id')
+                ->where(['deals.is_active' => 1, 'deals.is_deleted' => 0])
+                ->andWhere(['!=', 'deals.deal_id', $model->deal_id])
+                ->andWhere(['>=', 'DATE(deals.end_date)', date('Y-m-d')])
+                ->andWhere(['networks.is_active' => 1])
                 ->limit(9)
                 ->orderBy('RAND()')
                 ->all();
@@ -332,8 +354,10 @@ class SiteController extends Controller {
         $get = Yii::$app->request->queryParams;
         $this->layout = 'site_main';
         $query = \app\models\Products::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['>','price','0']);
+                ->join('left join','networks','products.network_id = networks.network_id')
+                ->where(['products.is_active' => 1, 'products.is_deleted' => 0])
+                ->andWhere(['networks.is_active' => 1])
+                ->andWhere(['>','products.price','0']);
         if(!empty($get['store'])){
             $query->andWhere(['LIKE','advertiser_name',$get['store']]);
         }
@@ -357,15 +381,19 @@ class SiteController extends Controller {
         $get = Yii::$app->request->queryParams;
         $this->layout = 'site_main';
         $model = \app\models\Products::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0, 'product_id' => $get['id']])
+                ->join('left join','networks','products.network_id = networks.network_id')
+                ->where(['products.is_active' => 1, 'products.is_deleted' => 0, 'products.product_id' => $get['id']])
+                ->andWhere(['networks.is_active' => 1])
                 ->one();
         if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
         }
         $related = \app\models\Products::find()
-                ->where(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['!=', 'product_id', $model->product_id])
-                ->andWhere(['>','price','0'])
+                ->join('left join','networks','products.network_id = networks.network_id')
+                ->where(['products.is_active' => 1, 'products.is_deleted' => 0])
+                ->andWhere(['!=', 'products.product_id', $model->product_id])
+                ->andWhere(['>','products.price','0'])
+                ->andWhere(['networks.is_active' => 1])
                 ->limit(8)
                 ->orderBy('RAND()')
                 ->all();
