@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $controller = $this->context->action->controller->id;
 $method = $this->context->action->id;
 app\assets\WebsiteAsset::register($this);
-$keyword = 'Offersndeal.codxplore.com! Free promotions,coupons and voucher!';
+$keyword = 'Offers, Deal, Promotions, Coupons, Voucher';
 $description = 'Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals.';
 if ($method == 'coupon-details') {
     $request = Yii::$app->request->queryParams;
