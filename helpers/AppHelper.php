@@ -110,7 +110,9 @@ class AppHelper {
                     LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
                     WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                 ) as no_of_deal'])
-                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->join('left join','networks','stores.network_id = networks.network_id')
+                ->where(['stores.is_active' => 1, 'stores.is_deleted' => 0])
+                ->andWhere(['networks.is_active' => 1])
                 ->having(['>', 'no_of_deal', 0])
                 ->limit($limit)
                 ->orderBy(['no_of_deal' => SORT_DESC])
@@ -126,8 +128,10 @@ class AppHelper {
                     LEFT JOIN deals ON deal_categories.deal_id = deals.deal_id
                     WHERE deal_categories.category_id = categories.category_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                  ) as no_of_deal'])
-                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->join('left join','networks','categories.network_id = networks.network_id')
+                ->where(['categories.is_active' => 1, 'categories.is_deleted' => 0])
                 ->having(['>', 'no_of_deal', 0])
+                ->andWhere(['networks.is_active' => 1])
                 ->limit($limit)
                 ->orderBy(['no_of_deal' => SORT_DESC])
                 ->all();
@@ -246,9 +250,11 @@ class AppHelper {
                     'COUNT(products.product_id) AS num_product',
                     'store_id'
                 ])
-                ->where('advertiser_name!=""')
-                ->andWhere(['is_active' => 1, 'is_deleted' => 0])
-                ->andWhere(['>','price','0'])
+                ->join('left join','networks','products.network_id = networks.network_id')
+                ->where('products.advertiser_name!=""')
+                ->andWhere(['products.is_active' => 1, 'products.is_deleted' => 0])
+                ->andWhere(['>','products.price','0'])
+                ->andWhere(['>','products.price','0'])
                 ->having(['>','num_product',0])
                 ->groupBy('advertiser_name')
                 ->orderBy(['advertiser_name' => SORT_ASC])
@@ -266,7 +272,9 @@ class AppHelper {
                     LEFT JOIN deals ON deal_stores.deal_id = deals.deal_id
                     WHERE deal_stores.store_id = stores.store_id AND deals.is_active = 1 AND deals.is_deleted = 0 AND DATE(deals.end_date) >= "' . date('Y-m-d') . '"
                 ) as no_of_deal'])
-                ->where(['is_active' => 1, 'is_deleted' => 0])
+                ->join('left join','networks','stores.network_id = networks.network_id')
+                ->where(['stores.is_active' => 1, 'stores.is_deleted' => 0])
+                ->andWhere(['networks.is_active' => 1])
                 ->having(['>', 'no_of_deal', 0])
                 ->orderBy(['name' => SORT_ASC])
                 ->asArray()
