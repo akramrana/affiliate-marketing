@@ -38,6 +38,7 @@ class Stores extends \yii\db\ActiveRecord
         return [
             [['network_id', 'is_active', 'is_deleted'], 'integer'],
             [['description'], 'string'],
+            [['api_store_id'],'safe'],
             [['name', 'network_id'], 'required'],
             [['store_url', 'store_logo'], 'string', 'max' => 255],
             [['network_id'], 'exist', 'skipOnError' => true, 'targetClass' => Networks::className(), 'targetAttribute' => ['network_id' => 'network_id']],
