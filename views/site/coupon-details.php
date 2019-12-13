@@ -47,7 +47,8 @@ if (!empty($model->dealCategories)) {
                                 </a>
                             </p>
                             <span class="clearfix">&nbsp;</span>
-                            <p><span>Categories</span><?php echo implode(',', $categoriesName); ?></p><span class="clearfix">&nbsp;</span>
+                            <p><span>Categories</span>
+                                <br/><?php echo implode('<br/>', $categoriesName); ?></p><span class="clearfix">&nbsp;</span>
                             <?php
                             if ($model->customer_restriction != "") {
                                 ?>
@@ -80,6 +81,15 @@ if (!empty($model->dealCategories)) {
                             </div>
                         </div> 
                         <div class="single-product-desc">
+                            <?php
+                            if ($model->image_url != null) {
+                                ?>
+                                <div class="center-block" align="center">
+                                    <img  src="<?= $model->image_url; ?>"/>
+                                </div>
+                                <?php
+                            }
+                            ?>
                             <p><?= $model->content; ?></p>
                         </div> 
                     </div> 
@@ -162,7 +172,7 @@ if (!empty($model->dealCategories)) {
                     ?>
                 </div>
             </div> 
-             
+
         </div> 
     </div>
 </section>
