@@ -103,7 +103,7 @@ class SiteController extends Controller {
                 ->andWhere(['>','products.price','0'])
                 ->andWhere(['networks.is_active' => 1])
                 ->limit(20)
-                ->orderBy('RAND()')
+                ->orderBy('product_id DESC')
                 ->all();
         
         return $this->render('index', [
