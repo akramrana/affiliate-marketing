@@ -50,7 +50,7 @@ $get = Yii::$app->request->queryParams;
                     <div class="panel">
                         <form method="get" action="<?= \yii\helpers\Url::to(['site/coupons-deals'], true); ?>">
                             <div class="panel-heading">
-                                <b>Filter by store</b>
+                                <b>Filter</b>
                             </div>
                             <hr/>
                             <div class="panel-body">
@@ -59,27 +59,26 @@ $get = Yii::$app->request->queryParams;
                                 //debugPrint($get['store']);
                                 if (!empty($stores)) {
                                     ?>
-                                    <ul class="filter-store">
+                                    <select name="store" class="form-control">
+                                        <option value="">Filter by store</option>
                                         <?php
                                         foreach ($stores as $str) {
                                             ?>
-                                            <li><input 
-                                                <?php
-                                                if (!empty($get['store'])) {
-                                                    if ($get['store'] == $str['store_id']) {
-                                                        echo 'checked = "checked"';
-                                                    }
+                                            <option <?php
+                                            if (!empty($get['store'])) {
+                                                if ($get['store'] == $str['store_id']) {
+                                                    echo 'selected = "selected"';
                                                 }
-                                                if (!empty($get['id'])) {
-                                                    if ($get['id'] == $str['store_id']) {
-                                                        echo 'checked = "checked"';
-                                                    }
-                                                }
-                                                ?> type="radio" name="store" value="<?php echo $str['store_id']; ?>"/> <?php echo $str['name']; ?>(<?php echo $str['no_of_deal']; ?>)</li>
-                                                <?php
                                             }
-                                            ?>
-                                    </ul>
+                                            if (!empty($get['id'])) {
+                                                if ($get['id'] == $str['store_id']) {
+                                                    echo 'selected = "selected"';
+                                                }
+                                            } ?> value="<?php echo $str['store_id']; ?>"><?php echo $str['name']; ?>(<?php echo $str['no_of_deal']; ?>)</option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
                                     <?php
                                 }
                                 ?>

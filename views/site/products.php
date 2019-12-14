@@ -19,7 +19,7 @@ $params = Yii::$app->request->queryParams;
                     <div class="panel">
                         <form method="get" action="<?= \yii\helpers\Url::to(['site/products'], true); ?>">
                             <div class="panel-heading">
-                                <b>Filter by store</b>
+                                <b>Filter</b>
                             </div>
                             <hr/>
                             <div class="panel-body">
@@ -28,26 +28,25 @@ $params = Yii::$app->request->queryParams;
                                 //debugPrint($stores);
                                 if (!empty($stores)) {
                                     ?>
-                                    <ul class="filter-store">
+                                    <select name="store" class="form-control">
+                                        <option value="">Filter by store</option>
                                         <?php
                                         foreach ($stores as $str) {
                                             ?>
-                                            <li><input 
-                                                <?php if (!empty($params['store'])) {
-                                                    if($params['store'] == $str['advertiser_name']){
-                                                        echo 'checked = "checked"';
-                                                    }
+                                            <option <?php
+                                            if (!empty($params['store'])) {
+                                                if ($params['store'] == $str['advertiser_name']) {
+                                                    echo 'selected = "selected"';
                                                 }
-                                                ?> type="radio" name="store" value="<?php echo $str['advertiser_name']; ?>"/> <?php echo $str['advertiser_name']; ?>(<?php echo $str['num_product']; ?>)</li>
+                                            }
+                                            ?> value="<?php echo $str['advertiser_name']; ?>"><?php echo $str['advertiser_name']; ?>(<?php echo $str['num_product']; ?>)</option>
                                                 <?php
                                             }
                                             ?>
-                                    </ul>
+                                    </select>
                                     <?php
                                 }
                                 ?>
-
-
                             </div>
                             <hr/>
                             <input class="btn btn-sm btn-primary btn-search" type="submit" name="search" value="Search"/>
@@ -62,10 +61,10 @@ $params = Yii::$app->request->queryParams;
                             ?>
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <div class="product-wrapper text-center" itemscope itemtype="http://schema.org/Product">
-                                    <meta itemprop="brand" content="<?=$product->advertiser_name;?>"/>
-                                    <meta itemprop="description" content="<?=$product->description;?>" />
-                                    <meta itemprop="productID" content="<?=$product->product_id;?>" />
-                                    <meta itemprop="sku" content="<?=$product->feed_id;?>" />
+                                    <meta itemprop="brand" content="<?= $product->advertiser_name; ?>"/>
+                                    <meta itemprop="description" content="<?= $product->description; ?>" />
+                                    <meta itemprop="productID" content="<?= $product->product_id; ?>" />
+                                    <meta itemprop="sku" content="<?= $product->feed_id; ?>" />
                                     <div class="product-image p-img">
                                         <a href="<?= yii\helpers\Url::to(['site/product-details', 'id' => $product->product_id, 'name' => clean($product->name)]); ?>">
                                             <img itemprop="image" src="<?= $img; ?>" class="img-responsive" alt="<?= $product->name; ?>"/>
