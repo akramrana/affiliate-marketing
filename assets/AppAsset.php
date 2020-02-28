@@ -15,15 +15,16 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
+define('time', microtime());
 class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/site.css?t='.time,
     ];
     public $js = [
-        'js/app.js'
+        'js/app.js?t='.time
     ];
     public $depends = [
         'yii\web\YiiAsset',
