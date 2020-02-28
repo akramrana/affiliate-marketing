@@ -265,6 +265,7 @@ $this->title = 'Home::Offer and deal';
 </section>
 
 <?php
+$products = [];
 if (!empty($products)) {
     ?>
     <section class="pdb-40 pdt-40 solitude-bg">

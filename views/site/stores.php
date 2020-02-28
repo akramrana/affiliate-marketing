@@ -18,17 +18,18 @@ $this->title = 'Stores';
                 foreach ($stores as $str) {
                     $i++;
                     ?>
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 mb-30">
-                        <div class="wrapper">
+                    <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12 mb-30">
+                        <div class="wrapper" style="background: <?= $str->store_logo ?>">
                             <a href="<?= yii\helpers\Url::to(['site/coupons-deals', 'id' => $str->store_id, 'type' => 's', 'name' => clean($str->name)]); ?>" class="category-name">
-                                <img src="<?= $str->store_logo ?>" alt="img" class="img-responsive img-thumbnail"/>
+                                <img src="<?= $str->store_logo ?>" alt="img" class="img-thumbnail store-img"/>
                             </a>
                         </div>
                     </div>
                     <?php
-                    if ($i % 4 == 0) {
+                    if ($i % 6 == 0) {
                         ?>
                         <span class="clearfix"></span>
+                        <hr style="margin-bottom: 35px;"/>
                         <?php
                     }
                 }

@@ -105,6 +105,11 @@ ul.filter-store li{
 .form-control{
     height: auto;
 }
+.store-img{
+    border: 1px solid #ccc;
+    max-height: 100px;
+    max-width: 170px;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;
@@ -152,7 +157,7 @@ ul.filter-store li{
 }
 
 @media (min-width: 980px) {
-   .job-menu img{
+    .job-menu img{
         max-width: 100%;
         height: 70px;
     }
