@@ -110,6 +110,9 @@ ul.filter-store li{
     max-height: 100px;
     max-width: 170px;
 }
+.cupon-num{
+    margin-top: 0px;
+}
 @media (max-width: 360px) {
     .job-menu img{
         max-width: 100%;

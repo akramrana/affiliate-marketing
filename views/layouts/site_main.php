@@ -47,6 +47,17 @@ if ($method == 'coupon-details') {
     </head>
     <body id="top">
         <?php $this->beginBody() ?>
+        
+        <div id="loader-wrapper" class="loader-on">
+            <div id="loader">
+                <div class="battery">
+                    <span class="battery_item"></span>
+                    <span class="battery_item"></span>
+                    <span class="battery_item"></span>
+                </div>
+                <div class="text">Loading ...</div>
+            </div>
+        </div>
 
         <section class="header-top-bar hidden-xs">
             <div class="container">
@@ -190,16 +201,6 @@ if ($method == 'coupon-details') {
                 <p>Made with <i class="fa fa-heart"></i> in <a href="http://www.codxplore.com/">Developed By Akram Hossain</a></p>
             </div> 
         </footer>
-        <div id="loader-wrapper" class="loader-on">
-            <div id="loader">
-                <div class="battery">
-                    <span class="battery_item"></span>
-                    <span class="battery_item"></span>
-                    <span class="battery_item"></span>
-                </div>
-                <div class="text">Loading ...</div>
-            </div>
-        </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">

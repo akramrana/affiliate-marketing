@@ -114,7 +114,7 @@ $get = Yii::$app->request->queryParams;
                                 $dealImg = $deal->image_url;
                             }
                             ?>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mb-30">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-30">
                                 <div class="product-wrapper" itemscope itemtype="http://schema.org/Article">
                                     <meta itemprop="author" content="offerndeal.codxplore.com"/>
                                     <meta itemprop="headline" content="<?= substr($deal->title, 0, 110); ?>"/>
