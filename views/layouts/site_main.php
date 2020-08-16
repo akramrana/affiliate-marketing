@@ -7,10 +7,14 @@ $method = $this->context->action->id;
 app\assets\WebsiteAsset::register($this);
 $keyword = 'Offers, Deal, Promotions, Coupons, Voucher';
 $description = 'Offernsdeal.codxplore.com is a free website providing its user to free promotions,coupons and voucher to save money while shopping from online store or portals.';
+$title = "Offers, Deal, Promotions, Coupons, Voucher";
+$url = Yii::$app->urlManager->createAbsoluteUrl(Yii::$app->request->url,true);
 if ($method == 'coupon-details') {
     $request = Yii::$app->request->queryParams;
     $dealModel = \app\models\Deals::findOne($request['id']);
-    $description = $dealModel->title;
+    $description = $model->content;
+    $title = $dealModel->title;
+    $url = yii\helpers\Url::to(['site/coupon-details', 'id' => $dealModel->deal_id, 'name' => clean($dealModel->title)],true);
 }
 ?>
 <?php $this->beginPage() ?>
@@ -24,7 +28,12 @@ if ($method == 'coupon-details') {
         <meta name="googlebot" content="index,follow,snippet"/>
         <meta name="keywords" content="<?= $keyword; ?>" />
         <meta name="391ecd4fc836d7f" content="98fd186c82a66386e4f8bef18c881a90" />
-        <meta name="description" content="<?= $description; ?>"/>
+        <meta name="description" content="<?=$title;?>"/>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="<?=$title;?>" />
+        <meta property="og:description" content="<?=$description;?>" />
+        <meta property="og:url" content="<?=$url;?>" />
+        <meta property="og:image" content="http://www.offerndeal.codxplore.com/theme/assets/img/logo-top.png" />
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <link rel="shortcut icon" href="<?php echo \yii\helpers\BaseUrl::home(); ?>theme/assets/img/ico/favicon.png">
