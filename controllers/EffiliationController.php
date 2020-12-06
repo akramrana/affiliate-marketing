@@ -128,7 +128,7 @@ class EffiliationController extends \yii\web\Controller {
             if (!empty($json->supports)) {
                 foreach ($json->supports as $coupon) {
                     $store_name = $coupon->nomprogramme;
-                    $coupon_id = $coupon->id_compteur;
+                    $coupon_id = ($coupon->id_compteur)?$coupon->id_compteur:time();
                     $name = $coupon->nom;
                     $url_redir = $coupon->url_redir;
                     $program_id = $coupon->id_affilieur;
@@ -240,6 +240,9 @@ class EffiliationController extends \yii\web\Controller {
                     }
                 }
                 Yii::$app->session->setFlash('success', 'Effiliation: ' . $k . ' coupons have been imported.');
+                return $this->redirect(['deal/index']);
+            }else{
+                Yii::$app->session->setFlash('success', 'Effiliation: 0 coupons have been imported.');
                 return $this->redirect(['deal/index']);
             }
         }
